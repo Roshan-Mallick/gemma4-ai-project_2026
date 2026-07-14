@@ -140,14 +140,19 @@ This project is licensed under the MIT License.
 
 ##  Authors
 
-**Roshan Mallick** |
-**Om Srivastava**  |
-**Aditya Mishra**  
+## Authors
 
-GitHub: https://github.com/Roshan-Mallick\n
-GitHub: https://github.com/Om-Srivastava-6\n
+**Roshan Mallick**
+
+GitHub: https://github.com/Roshan-Mallick
+
+**Om Srivastava**
+
+GitHub: https://github.com/Om-Srivastava-6
+
+**Aditya Mishra**
+
 GitHub: https://github.com/AdityaMishra2007-codes
-
 ---
 
 ## ⭐ Support
