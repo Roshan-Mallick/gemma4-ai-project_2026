@@ -144,8 +144,8 @@ This project is licensed under the MIT License.
 **Om Srivastava**  |
 **Aditya Mishra**  
 
-GitHub: https://github.com/Roshan-Mallick
-GitHub: https://github.com/Om-Srivastava-6
+GitHub: https://github.com/Roshan-Mallick\n
+GitHub: https://github.com/Om-Srivastava-6\n
 GitHub: https://github.com/AdityaMishra2007-codes
 
 ---
