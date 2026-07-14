@@ -141,6 +141,8 @@ This project is licensed under the MIT License.
 ##  Author
 
 **Roshan Mallick**
+**Om Srivastava**
+**Aditya Mishra**
 
 GitHub: https://github.com/Roshan-Mallick
 
