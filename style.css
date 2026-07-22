@@ -13,6 +13,7 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     line-height: 1.6;
     color: var(--dark);
+    padding-top: 60px;
 }
 
 /* Navbar */
@@ -180,3 +181,110 @@ body {
         text-align: center;
     }
 }
+    .footer{
+        background-color: white;
+        width: 100%;
+        margin-top: 25rem;
+        padding: 3rem 4rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 2rem;
+    }
+    .footer .image img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+}
+
+    .box-container{
+        display: flex;
+        justify-content: flex-end;
+        align-items: stretch;
+        gap: 1rem;
+    }
+
+    i{
+        color: #225be3;
+    }
+
+    #arr1{
+        font-size: 0.8rem;
+    }
+
+     #arr2{
+        font-size: 0.8rem;
+    }
+
+     #arr3{
+        font-size: 0.8rem;
+    }
+
+     #arr4{
+        font-size: 0.8rem;
+    }
+
+     #arr5{
+        font-size: 0.8rem;
+    }
+
+    .box{
+        background-color: white;
+        border: 2px solid rgba(128, 128, 128, 0.318);
+        border-radius: 10px;
+        height: auto;
+        width: 12rem;
+        padding: 1.5rem;
+        box-shadow: 0 8px 20px rgba(16,24,40,0.04);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: small;
+        text-align: center;
+    }
+
+    .box i {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .box .message {
+        font-size: 0.85rem;
+        color: #6b7280;
+        line-height: 1.4;
+    }
+
+    .box .learn-more {
+        color: #225be3;
+        cursor: pointer;
+    }
+
+    .box .learn-more:hover {
+        text-decoration: underline;
+    }
+
+    @media (max-width: 900px) {
+        .footer {
+            padding: 2rem;
+            gap: 1.25rem;
+        }
+
+        .footer .image{
+            flex: 0 0 100%;
+            max-width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        .box-container{
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .box{
+            height: 12rem;
+            width: 12rem;
+            flex: 0 0 12rem;
+        }
+    }
