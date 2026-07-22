@@ -58,7 +58,7 @@ body {
 
 .nav-title {
     font-size: 1.5rem;
-    color: #3b31f3;
+    color: #225be3;
 }
 
 .nav-login-button {
@@ -72,7 +72,7 @@ body {
 
 .nav-signup-button {
     padding: 8px 16px;
-    background-color: #3b31f3;
+    background-color: #225be3;
     color: white;
     border: 1px solid #445bd1;
     border-radius: 4px;
