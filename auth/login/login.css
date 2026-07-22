@@ -38,6 +38,317 @@ body {
     flex-direction: column;
     justify-content: center;
     max-width: 50%;
+    overflow-y: auto;
+}
+
+/* ========================================
+   Form Content
+   ======================================== */
+
+.form-content {
+    max-width: 420px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+/* Brand */
+.form-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-logo {
+    height: 36px;
+    width: 36px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.form-brand-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #225be3;
+    letter-spacing: -0.01em;
+}
+
+/* Header */
+.form-header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-title {
+    font-size: 36px;
+    font-weight: 800;
+    color: #0F172A;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+}
+
+.form-subtitle {
+    font-size: 15px;
+    font-weight: 400;
+    color: #64748B;
+    line-height: 1.5;
+}
+
+/* Social Buttons */
+.social-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.social-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 50px;
+    padding: 0 16px;
+    background: #ffffff;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #334155;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.social-btn:hover {
+    border-color: #CBD5E1;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    transform: translateY(-1px);
+}
+
+.social-btn:active {
+    transform: translateY(0);
+}
+
+/* Divider */
+.form-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.divider-line {
+    flex: 1;
+    height: 1px;
+    background-color: #E2E8F0;
+}
+
+.divider-text {
+    font-size: 13px;
+    font-weight: 500;
+    color: #94A3B8;
+    white-space: nowrap;
+}
+
+/* Form */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Input Group */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.input-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #334155;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: 16px;
+    pointer-events: none;
+    flex-shrink: 0;
+}
+
+.form-input {
+    width: 100%;
+    height: 52px;
+    padding: 0 16px 0 48px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    color: #0F172A;
+    background: #ffffff;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-input::placeholder {
+    color: #94A3B8;
+}
+
+.form-input:focus {
+    border-color: #2563EB;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Password Toggle */
+.password-toggle {
+    position: absolute;
+    right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.password-toggle:hover {
+    background-color: #F1F5F9;
+}
+
+/* Options Row */
+.form-options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    position: relative;
+}
+
+.checkbox-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.checkbox-custom {
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid #CBD5E1;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    flex-shrink: 0;
+}
+
+.checkbox-custom::after {
+    content: '';
+    width: 10px;
+    height: 6px;
+    border-left: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
+    transform: rotate(-45deg) scale(0);
+    transition: transform 0.15s ease;
+    margin-top: -2px;
+}
+
+.checkbox-input:checked + .checkbox-custom {
+    background-color: #2563EB;
+    border-color: #2563EB;
+}
+
+.checkbox-input:checked + .checkbox-custom::after {
+    transform: rotate(-45deg) scale(1);
+}
+
+.checkbox-input:focus-visible + .checkbox-custom {
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+.checkbox-text {
+    font-size: 14px;
+    font-weight: 400;
+    color: #475569;
+}
+
+.forgot-link {
+    font-size: 14px;
+    font-weight: 500;
+    color: #2563EB;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.forgot-link:hover {
+    color: #1D4ED8;
+    text-decoration: underline;
+}
+
+/* Login Button */
+.login-btn {
+    width: 100%;
+    height: 54px;
+    background: linear-gradient(135deg, #2563EB, #1D4ED8);
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease, transform 0.2s ease, background 0.2s ease;
+}
+
+.login-btn:hover {
+    background: linear-gradient(135deg, #1D4ED8, #1E40AF);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
+    transform: translateY(-1px);
+}
+
+.login-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+}
+
+/* Footer */
+.form-footer {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    color: #64748B;
+}
+
+.signup-link {
+    font-weight: 600;
+    color: #2563EB;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.signup-link:hover {
+    color: #1D4ED8;
+    text-decoration: underline;
 }
 
 /* Right: Branding Panel */
@@ -59,6 +370,9 @@ body {
     .auth-brand-panel {
         max-width: 40%;
     }
+    .form-title {
+        font-size: 30px;
+    }
 }
 
 /* Responsive: Mobile */
@@ -74,6 +388,15 @@ body {
     .auth-brand-panel {
         max-width: 100%;
         min-height: 420px;
+    }
+    .form-title {
+        font-size: 28px;
+    }
+    .social-buttons {
+        flex-direction: column;
+    }
+    .social-btn {
+        width: 100%;
     }
 }
 
