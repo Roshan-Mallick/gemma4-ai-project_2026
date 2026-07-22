@@ -17,7 +17,8 @@ body {
 
 /* Navbar */
 .navbar {
-    background: #e3f6f5;
+    background: #bbeae8;
+    border-bottom: 0.5px solid #ccc;
     position: fixed;
     width: 100%;
     top: 0;
@@ -25,23 +26,49 @@ body {
     height: 60px;
 }
 
-.nav-container {
-    max-width: 1200px;
-    padding-left: 10px;
-    padding-right: 20px;
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.nav-left {
     display: flex;
     align-items: center;
-    height: 100%;
+    gap: 2px;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: auto;
 }
 
 .nav-logo {
     height: 70px;
-    left: 20px;
 }
 
 .nav-title {
- 
     font-size: 1.5rem;
-    color:#445bd1;
+    color: #445bd1;
+}
 
+.nav-login-button {
+    padding: 8px 16px;
+    background-color: #fdfeff;
+    color: rgb(0, 0, 0);
+    border: 1px solid #445bd1;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.nav-signup-button {
+    padding: 8px 16px;
+    background-color: #445bd1;
+    color: white;
+    border: 1px solid #445bd1;
+    border-radius: 4px;
+    cursor: pointer;
 }
