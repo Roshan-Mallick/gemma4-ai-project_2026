@@ -17,8 +17,7 @@ body {
 
 /* Navbar */
 .navbar {
-    background: #bbeae8;
-    border-bottom: 0.5px solid #ccc;
+    background: none;
     position: fixed;
     width: 100%;
     top: 0;
