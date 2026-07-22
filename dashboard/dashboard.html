@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SafeHire AI — Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+<aside class="sidebar">
+
+  <div class="sidebar-logo">
+    <img src="../assets/logo.png" alt="SafeHire AI Logo" class="logo-img">
+    <div class="logo-text">
+      <div class="logo-title">SafeHire AI</div>
+      <div class="logo-subtitle">AI Job Scam Detection</div>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a href="#" class="nav-item active"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></a>
+    <a href="#" class="nav-item"><i data-lucide="search"></i><span>New Investigation</span></a>
+    <a href="#" class="nav-item"><i data-lucide="history"></i><span>Investigation History</span></a>
+    <a href="#" class="nav-item"><i data-lucide="file-text"></i><span>Reports</span></a>
+    <a href="#" class="nav-item"><i data-lucide="bar-chart-2"></i><span>Analytics</span></a>
+    <a href="#" class="nav-item"><i data-lucide="building-2"></i><span>Companies</span></a>
+    <a href="#" class="nav-item"><i data-lucide="user"></i><span>Recruiters</span></a>
+    <a href="#" class="nav-item"><i data-lucide="globe"></i><span>Domain Intelligence</span></a>
+    <a href="#" class="nav-item"><i data-lucide="mail-check"></i><span>Email Verification</span></a>
+    <a href="#" class="nav-item">
+      <i data-lucide="sparkles"></i><span>AI Assistant</span>
+      <span class="badge-beta">Beta</span>
+    </a>
+  </nav>
+
+  <nav class="sidebar-nav sidebar-nav-bottom">
+    <a href="#" class="nav-item"><i data-lucide="settings"></i><span>Settings</span></a>
+    <a href="#" class="nav-item"><i data-lucide="help-circle"></i><span>Help Center</span></a>
+  </nav>
+
+  <div class="premium-card">
+    <div class="premium-icon"><i data-lucide="shield"></i></div>
+    <div class="premium-title">You're on Free Tier</div>
+    <div class="premium-desc">Free tier includes 5 analyses per month. Upgrade to Premium for more.</div>
+    <button class="btn-manage-plan">Upgrade to Premium <i data-lucide="chevron-right"></i></button>
+  </div>
+
+</aside>
+
+<script src="dashboard.js"></script>
+</body>
+</html>
