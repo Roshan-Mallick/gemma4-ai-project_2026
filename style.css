@@ -356,3 +356,90 @@ body {
     .all{
         margin-top: 1%;
     }
+    .see-how-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  min-height: 40px;
+  padding:  5px;
+  border: 1.5px solid #4361ee;
+  border-radius: 16px;
+  margin-left: 15px;
+
+  background: #ffffff;
+  color: #2344f3;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+    }
+    .trust-features {
+  display: flex;
+  align-items: flex-start;
+  gap: 36px;
+  margin-top: 42px;
+  margin-left: 50px;
+}
+
+.trust-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  min-width: 145px;
+}
+
+.trust-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 19px;
+  height: 19px;
+  flex-shrink: 0;
+  margin-top: 2px;
+
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.trust-icon.green {
+  color: #12b981;
+}
+
+.trust-icon.blue {
+  color: #3158f5;
+}
+
+.trust-icon.dark {
+  color: #17223b;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.trust-card h4 {
+  margin: 0 0 7px;
+  color: #10182d;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.trust-card p {
+  margin: 0;
+  color: #59657a;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+/* Makes the cards stack neatly on mobile */
+@media (max-width: 650px) {
+  .trust-features {
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 30px;
+  }
+}

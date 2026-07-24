@@ -1,11 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solutions - SafeHire AI</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Solutions — SafeHire | AI Job Scam Detection</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../style.css" />
+<link rel="stylesheet" href="solutions.css" />
 </head>
 <body>
-    
+
+<nav class="navbar">
+  <div class="nav-left">
+    <img src="../assets/logo.png" alt="SafeHire AI Logo" class="nav-logo">
+    <h1 class="nav-title">SafeHire AI</h1>
+  </div>
+  <div class="nav-links" id="navLinks">
+    <a href="features.html">Features</a>
+    <a href="hiw.html">How It Works</a>
+    <a href="solutions.html" class="active">Solutions</a>
+    <a href="resources.html">Resources</a>
+    <a href="about.html">About</a>
+  </div>
+  <div class="nav-right">
+    <button class="nav-login-button" onclick="window.location.href='../auth/login/login.html'">Login</button>
+    <button class="nav-signup-button" onclick="window.location.href='../auth/signup/signup.html'">Sign Up</button>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Toggle navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ============ HERO ============ -->
+  <section class="sol-hero">
+    <div class="sol-hero__inner">
+      <p class="eyebrow">Solutions</p>
+      <h1>One scanner.<br/>Four ways it stands watch.</h1>
+      <p class="sol-hero__lede">
+        SafeHire runs the same OCR → entity extraction → cross-check → AI analysis pipeline
+        behind every plan — tuned differently depending on who's holding the shield.
+        Pick where you sit.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ AUDIENCE SWITCHER ============ -->
+  <section class="switcher" aria-label="Choose your solution">
+    <div class="switcher__inner">
+      <div class="switcher__tabs" role="tablist" aria-label="Solutions by audience">
+        <button class="tab is-active" role="tab" aria-selected="true" data-target="seekers">
+          <span class="tab__icon" data-icon="seekers"></span> Job Seekers
+        </button>
+        <button class="tab" role="tab" aria-selected="false" data-target="campus">
+          <span class="tab__icon" data-icon="campus"></span> Universities &amp; Career Centers
+        </button>
+        <button class="tab" role="tab" aria-selected="false" data-target="hr">
+          <span class="tab__icon" data-icon="hr"></span> Recruiters &amp; HR Teams
+        </button>
+        <button class="tab" role="tab" aria-selected="false" data-target="enterprise">
+          <span class="tab__icon" data-icon="enterprise"></span> Enterprise &amp; Platforms
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PANELS ============ -->
+  <section class="panels">
+    <div class="panels__inner">
+
+      <!-- Panel 1: Job Seekers -->
+      <article class="panel is-active" id="panel-seekers" role="tabpanel">
+        <div class="panel__copy">
+          <p class="eyebrow eyebrow--muted">01 · For individuals</p>
+          <h2>Know before you apply, not after you've lost your deposit.</h2>
+          <p class="panel__desc">
+            Paste a job post, forward the recruiter's email, or drop a screenshot from LinkedIn.
+            SafeHire checks the company, the domain, and the person on the other end of the chat —
+            in the time it takes you to read this sentence.
+          </p>
+          <ul class="feature-list">
+            <li><strong>Instant red flags.</strong> Upfront payment requests, fake equipment fees, and "urgent hire" pressure tactics get called out by name.</li>
+            <li><strong>Recruiter lookup.</strong> Cross-checks the person's LinkedIn history against the company they claim to represent.</li>
+            <li><strong>Plain-English report.</strong> A risk score plus the exact evidence behind it — no security jargon.</li>
+          </ul>
+          <a class="link-arrow" href="#">Start a free investigation →</a>
+        </div>
+        <div class="panel__visual" data-visual="seekers"></div>
+      </article>
+
+      <!-- Panel 2: Universities -->
+      <article class="panel" id="panel-campus" role="tabpanel" hidden>
+        <div class="panel__copy">
+          <p class="eyebrow eyebrow--muted">02 · For career services</p>
+          <h2>Protect an entire graduating class from one shared inbox.</h2>
+          <p class="panel__desc">
+            Career centers forward dozens of suspicious postings a week from students who don't yet
+            know what a scam looks like. SafeHire screens submissions in bulk and flags patterns
+            targeting your campus specifically.
+          </p>
+          <ul class="feature-list">
+            <li><strong>Bulk screening queue.</strong> Students submit postings through a shared portal; staff review a ranked risk queue instead of one-off emails.</li>
+            <li><strong>Campus alerts.</strong> When the same fake recruiter targets multiple students, everyone gets notified — not just the one who reported it.</li>
+            <li><strong>Onboarding-ready reports.</strong> Exportable evidence packets for student conduct or local law-enforcement referrals.</li>
+          </ul>
+          <a class="link-arrow" href="#">Talk to campus solutions →</a>
+        </div>
+        <div class="panel__visual" data-visual="campus"></div>
+      </article>
+
+      <!-- Panel 3: HR Teams -->
+      <article class="panel" id="panel-hr" role="tabpanel" hidden>
+        <div class="panel__copy">
+          <p class="eyebrow eyebrow--muted">03 · For talent teams</p>
+          <h2>Defend your employer brand from impersonators.</h2>
+          <p class="panel__desc">
+            Scammers pose as your recruiters to run advance-fee schemes — then applicants blame your
+            company. SafeHire monitors for impersonation and gives your team a fast way to verify
+            "is this really us?"
+          </p>
+          <ul class="feature-list">
+            <li><strong>Brand impersonation monitor.</strong> Tracks lookalike domains and cloned job posts using your company name.</li>
+            <li><strong>Verified recruiter badge.</strong> A shareable link candidates can check to confirm a recruiter is genuinely on your team.</li>
+            <li><strong>Applicant trust page.</strong> A public "report a fake posting" form that routes straight to your security team.</li>
+          </ul>
+          <a class="link-arrow" href="#">See HR protection plans →</a>
+        </div>
+        <div class="panel__visual" data-visual="hr"></div>
+      </article>
+
+      <!-- Panel 4: Enterprise -->
+      <article class="panel" id="panel-enterprise" role="tabpanel" hidden>
+        <div class="panel__copy">
+          <p class="eyebrow eyebrow--muted">04 · For platforms</p>
+          <h2>Screen postings before they ever go live.</h2>
+          <p class="panel__desc">
+            Job boards and hiring platforms can call the SafeHire API directly in their posting
+            pipeline — catching scam listings pre-publish instead of relying on user reports
+            after the damage is done.
+          </p>
+          <ul class="feature-list">
+            <li><strong>REST API &amp; webhooks.</strong> Score a posting at submission time and hold it for review above your risk threshold.</li>
+            <li><strong>Bulk domain intelligence.</strong> WHOIS, SSL, and DNS checks run at platform scale, not one listing at a time.</li>
+            <li><strong>Dashboard for trust &amp; safety.</strong> Analytics on scam volume, source patterns, and takedown turnaround.</li>
+          </ul>
+          <a class="link-arrow" href="#">Read the API docs →</a>
+        </div>
+        <div class="panel__visual" data-visual="enterprise"></div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ PIPELINE STRIP (shared across solutions) ============ -->
+  <section class="pipeline">
+    <div class="pipeline__inner">
+      <p class="eyebrow eyebrow--muted">Under every solution, the same pipeline</p>
+      <div class="pipeline__steps">
+        <div class="pstep"><span class="pstep__n">1</span><div><strong>OCR</strong><small>Extracting text</small></div></div>
+        <div class="pstep__rule"></div>
+        <div class="pstep"><span class="pstep__n">2</span><div><strong>Entity Extraction</strong><small>Finding key details</small></div></div>
+        <div class="pstep__rule"></div>
+        <div class="pstep"><span class="pstep__n">3</span><div><strong>Cross-checks</strong><small>Domain, email, recruiter</small></div></div>
+        <div class="pstep__rule"></div>
+        <div class="pstep"><span class="pstep__n">4</span><div><strong>Gemma 4 Analysis</strong><small>Generating report</small></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CLOSING CTA ============ -->
+  <section class="cta-band">
+    <div class="cta-band__inner">
+      <h2>Not sure which fits? We'll ask two questions and route you.</h2>
+      <div class="cta-band__actions">
+        <a class="btn btn--primary btn--lg" href="#">Start Investigation</a>
+        <a class="btn btn--ghost btn--lg" href="#">Compare all plans</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <span>© 2026 SafeHire. Built for the Build with Gemma Hackathon.</span>
+    <span class="footer__badge">Powered by Gemma 4</span>
+  </div>
+</footer>
+
+<script src="../script.js" defer></script>
+<script src="solutions.js"></script>
 </body>
 </html>
