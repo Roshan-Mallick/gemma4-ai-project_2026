@@ -1,161 +1,247 @@
-# Gemma 4 AI Project 2026
+# SafeHire AI
 
-Official repository for the **Build with Gemma Hackathon 2026**.
+### AI-Powered Job Scam Detection Platform Built with Gemma 4
 
-This project aims to build an AI-powered application using **Gemma 4** to solve real-world problems with modern AI technologies.
+**Selected Theme:** Protecting People Online
 
----
-
-##  Project Overview
-
-This repository contains the source code, documentation, and resources for the Gemma 4 AI Project.
-
-### Goals
-
-- Build a practical AI application using Gemma 4
-- Solve a real-world problem
-- Learn modern AI development workflows
-- Deploy a production-ready application
+**Build with Gemma Hackathon 2026**
 
 ---
 
-##  Features
+## What Problem We Are Solving
 
-- AI-powered responses using Gemma 4
-- Clean and modular architecture
-- Easy local development
-- Open-source and beginner friendly
-- Ready for deployment
+Job scams cost victims over $300 million annually in the US alone. Scammers impersonate legitimate companies, create fake job listings, and exploit job seekers who are desperate for work. Traditional spam filters focus on email content but miss the deeper technical signals: unregistered domains, missing DNS records, invalid SSL certificates, and disposable email addresses. Job seekers have no reliable way to verify whether a posting is legitimate before sharing sensitive personal and financial information.
+
+**SafeHire AI** solves this by combining deep technical investigation with Gemma 4's reasoning capabilities to produce an evidence-based risk verdict for any job posting — in seconds.
 
 ---
 
-##  Tech Stack
+## Solution Overview
 
-- Gemma 4
-- Python
-- FastAPI / Flask *(TBD)*
-- HTML, CSS, JavaScript
-- Git & GitHub
-- GitHub Codespaces
+A user pastes a job posting text or uploads a screenshot. The system:
+
+1. Runs OCR (Tesseract) to extract text from images
+2. Extracts entities (company name, email, phone, domain, salary, etc.) using **Gemma 4 + regex fallback**
+3. Performs 12 technical checks (WHOIS, DNS MX/SPF/DMARC, SSL, HTTP headers, email validation, phone validation)
+4. Analyzes content for scam indicators (unrealistic salary, urgency pressure, PII requests)
+5. Asks **Gemma 4** to reason over all evidence as a cybersecurity analyst
+6. Computes a combined risk score (35% technical + 30% content + 35% reasoning)
+7. Returns a verdict: **SAFE**, **SUSPICIOUS**, or **SCAM**
+
+All progress streams live to the browser via Server-Sent Events.
 
 ---
 
-##  Project Structure
+## Project Architecture
 
-```text
-gemma4-ai-project_2026/
-│
-├── app/
-├── backend/
-├── frontend/
-├── docs/
-├── assets/
-├── requirements.txt
-├── README.md
-└── .gitignore
+```
+┌─────────────┐    ┌──────────────────────────────────────┐
+│  Frontend    │───▶│           FastAPI Backend              │
+│  (Vanilla JS)│   │                                       │
+│  SSE Stream  │◀───│  OCR → Entities → Investigation →     │
+└─────────────┘    │  Content Analysis → Gemma 4 Reasoning  │
+                   └──────────────────────────────────────┘
+                                        │
+                                        ▼
+                                  ┌──────────┐
+                                  │ OpenRouter│
+                                  │ (Gemma 4)│
+                                  └──────────┘
 ```
 
-*(Project structure will evolve as development progresses.)*
+- **Backend:** Python 3.10+, FastAPI, Uvicorn
+- **Frontend:** Vanilla HTML, CSS, JavaScript (zero frameworks)
+- **LLM:** Gemma 4 31B via OpenRouter, with LM Studio local fallback
+- **External APIs:** Abstract API for email/phone validation
+- **OCR:** Tesseract via pytesseract
 
 ---
 
-## ⚡ Getting Started
+## Gemma 4 Integration
 
-### 1. Clone the repository
+Gemma 4 is the core intelligence powering every stage of the pipeline:
+
+**Entity Extraction:** Gemma 4 parses unstructured OCR text to extract company names, recruiter names, emails, phone numbers, salaries, job titles, and domains. A regex fallback handles cases where the LLM is unavailable.
+
+**Content Analysis:** Gemma 4 evaluates the posting against 10 content risk factors — salary realism, email legitimacy, grammar quality, urgency/pressure language, payment requests, interview process validity, contact quality, company verification, timeline realism, and internal consistency.
+
+**Cybersecurity Reasoning:** The system presents all 12 technical investigation results and content analysis findings to Gemma 4 with a cybersecurity analyst persona prompt. The model produces a structured JSON response with a risk score, verdict, red flags list, green flags list, and a detailed explanation — all grounded in the technical evidence.
+
+**Domain Discovery:** When no website is found in the job posting, Gemma 4 attempts to infer the company's domain from the company name, enabling automated investigation even for postings that only provide an email address.
+
+> **Why Gemma 4 matters here:** Unlike rule-based systems, Gemma 4 understands context, nuance, and sarcasm in job postings. It can identify that "Congratulations! You have been selected" without any interview process is a red flag, or that requesting bank details via email is abnormal. The 31B parameter model provides the reasoning depth needed to weigh contradictory signals.
+
+---
+
+## How It Works (Pipeline)
+
+```
+Upload (text paste or image)
+        |
+        v
+   OCR Extraction (Tesseract)
+        |
+        v
+   Entity Extraction (Gemma 4 LLM + regex)
+        |
+        v
+   Technical Investigation
+   ├── WHOIS / RDAP
+   ├── DNS (A, MX, TXT, SPF, DMARC)
+   ├── SSL Certificate
+   ├── HTTP Headers & Status
+   ├── robots.txt / sitemap.xml
+   ├── Email Domain Validation (Abstract API)
+   ├── Phone Validation (Abstract API)
+   └── Live Website Verification
+        |
+        v
+   Content Analysis (Gemma 4 LLM)
+        |
+        v
+   AI Reasoning (Gemma 4 — cybersecurity analyst persona)
+        |
+        v
+   Combined Risk Score
+   ├── Technical Risk   (35%)
+   ├── Content Risk     (30%)
+   └── Reasoning Risk   (35%)
+        |
+        v
+   Verdict: SAFE / SUSPICIOUS / SCAM
+```
+
+---
+
+## 12 Technical Checks
+
+| # | Check | Weight |
+|---|-------|--------|
+| 1 | Domain Registered | High |
+| 2 | Website Reachable | Medium |
+| 3 | HTTPS Enabled | High |
+| 4 | SSL Certificate Valid | High |
+| 5 | MX Record | Medium |
+| 6 | SPF Record | Medium |
+| 7 | DMARC Record | Medium |
+| 8 | Email Domain Match | High |
+| 9 | Disposable Email | High |
+| 10 | Free Email Provider | Low |
+| 11 | Live Website Verification | Medium |
+| 12 | Phone Valid | Medium |
+
+---
+
+## Challenges Faced
+
+**SSE Streaming Debugging:** Progress events were not reaching the browser because synchronous blocking calls (OCR, LLM HTTP requests, DNS lookups) were starving the uvicorn event loop. The fix required wrapping every blocking call in `asyncio.to_thread()` and adding `await asyncio.sleep()` after every yield to flush the socket buffer. This was the hardest bug to diagnose.
+
+**Entity Extraction Accuracy:** Early versions struggled with malformed job postings — missing separators, inconsistent formatting, non-standard email formats. We added a regex-based fallback that runs in parallel with Gemma 4 extraction and merges results.
+
+**Multi-Stage Risk Scoring:** Balancing technical vs. content vs. reasoning signals required careful weight tuning. A domain with valid WHOIS but scam content should still score high risk. The 35/30/35 split was determined through iterative testing.
+
+**API Key Management:** Multiple API keys (OpenRouter, Abstract API) needed secure management. We implemented a full `.env`-based configuration layer with startup validation — no secrets in source code or frontend.
+
+---
+
+## Quick Start
 
 ```bash
+# 1. Clone
 git clone https://github.com/Roshan-Mallick/gemma4-ai-project_2026.git
-```
-
-### 2. Open the project
-
-```bash
 cd gemma4-ai-project_2026
+
+# 2. Install Tesseract
+sudo apt-get install tesseract-ocr    # Linux
+# brew install tesseract              # macOS
+
+# 3. Setup
+python3 -m venv venv && source venv/bin/activate
+pip install -r backend/requirements.txt
+cp .env.example .env   # fill in your keys
+
+# 4. Run
+python run.py
+# Open http://localhost:8000/dashboard
 ```
 
-### 3. Install dependencies
+---
 
-```bash
-pip install -r requirements.txt
+## Project Structure
+
+```
+gemma4-ai-project_2026/
+├── backend/
+│   ├── main.py              # FastAPI app, SSE streaming endpoint
+│   ├── config.py             # Environment variable loader
+│   ├── llm_client.py         # OpenRouter / LM Studio LLM client
+│   ├── ocr.py                # Tesseract OCR wrapper
+│   ├── entities.py           # Entity extraction (Gemma 4 + regex)
+│   ├── investigation.py      # Technical checks (WHOIS, DNS, SSL, etc.)
+│   ├── analysis.py           # Content analysis via Gemma 4
+│   ├── reasoning.py          # AI reasoning prompt + parser
+│   ├── abstract_api.py       # Abstract API client (email/phone/IP)
+│   ├── models.py             # Pydantic data models
+│   └── requirements.txt      # Python dependencies
+├── dashboard/
+│   ├── dashboard.html        # Dashboard UI
+│   ├── dashboard.js          # SSE streaming, result rendering
+│   └── dashboard.css         # Styling
+├── assets/                   # Landing page assets
+├── index.html                # Landing page
+├── run.py                    # Entry point
+├── .env.example              # Environment variable template
+├── README.md
+└── extra/
+    ├── kaagle wroteup.txt    # Kaggle writeup
+    ├── setup_guide.txt       # Setup instructions
+    └── resources.txt         # All libraries/APIs used
 ```
 
-### 4. Run the project
+---
 
-```bash
-python main.py
-```
+## API Endpoints
 
-> Commands may change as the project develops.
+| Method | Path | Description |
+|--------|------|-------------|
+| POST | `/api/analyze` | Analyze a job posting (returns JSON) |
+| POST | `/api/analyze-stream` | Analyze with SSE streaming progress events |
+| GET | `/api/health` | Health check + LLM status |
+| GET | `/dashboard` | Dashboard UI |
+| GET | `/` | Landing page |
 
 ---
 
-##  Development Environment
+## Environment Variables Reference
 
-This project supports:
-
-- Local Development
-- GitHub Codespaces
-
-To use Codespaces:
-
-1. Open the repository.
-2. Click **Code → Codespaces**.
-3. Create a new Codespace.
-4. Start coding instantly.
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `OPENROUTER_API_KEY` | Yes | OpenRouter API key |
+| `OPENROUTER_MODEL` | No | Default: `google/gemma-4-31b-it` |
+| `ABSTRACT_EMAIL_API_KEY` | No | Email validation API key |
+| `ABSTRACT_PHONE_API_KEY` | No | Phone intelligence API key |
+| `ABSTRACT_IP_API_KEY` | No | IP geolocation API key |
 
 ---
 
-##  Roadmap
+## Future Scope
 
-- [ ] Project setup
-- [ ] Architecture design
-- [ ] AI integration
-- [ ] Frontend UI
-- [ ] Backend APIs
-- [ ] Authentication
-- [ ] Database integration
-- [ ] Testing
-- [ ] Deployment
-- [ ] Documentation
+- Browser extension for auto-analyzing job listings on LinkedIn, Indeed, and Glassdoor
+- Batch analysis mode for recruiting agencies
+- Community-sourced scam database for cross-referencing
+- Multi-language support for international job markets
+- Real-time notification system for previously safe postings later flagged as scam
 
 ---
-
-##  Contributing
-
-Contributions are welcome.
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to your branch
-5. Open a Pull Request
-
----
-
-##  License
-
-This project is licensed under the MIT License.
-
----
-
-##  Authors
 
 ## Authors
 
-**Roshan Mallick**
+- **Roshan Mallick** — [GitHub](https://github.com/Roshan-Mallick)
+- **Om Srivastava** — [GitHub](https://github.com/Om-Srivastava-6)
+- **Aditya Mishra** — [GitHub](https://github.com/AdityaMishra2007-codes)
 
-GitHub: https://github.com/Roshan-Mallick
-
-**Om Srivastava**
-
-GitHub: https://github.com/Om-Srivastava-6
-
-**Aditya Mishra**
-
-GitHub: https://github.com/AdityaMishra2007-codes
- 
 ---
 
-## ⭐ Support
+## License
 
-If you find this project useful, consider giving it a ⭐ on GitHub.
+MIT License
