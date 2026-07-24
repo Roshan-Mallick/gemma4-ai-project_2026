@@ -10,9 +10,9 @@ import whois
 import dns.resolver
 import tldextract
 
-from config import FREE_EMAIL_PROVIDERS, DISPOSABLE_EMAIL_PROVIDERS
-from llm_client import call_gemma
-from abstract_api import validate_email, validate_phone, lookup_ip
+from .config import FREE_EMAIL_PROVIDERS, DISPOSABLE_EMAIL_PROVIDERS
+from .llm_client import call_gemma
+from .abstract_api import validate_email, validate_phone
 
 
 def extract_domain(url_or_email):
@@ -592,60 +592,6 @@ def investigate_phone(phone):
     return result
 
 
-def investigate_ip_geolocation(domain):
-    print(f"\n  [IP GEO] domain={domain}")
-    if not domain:
-        print(f"  [IP GEO] UNKNOWN: no domain")
-        return {
-            "status": "UNKNOWN", "risk_delta": 0, "message": "No domain available",
-            "ip_address": None, "city": None, "region": None, "country": None,
-            "is_vpn": None, "isp": None, "abstract_api": None,
-        }
-    try:
-        answers = dns.resolver.resolve(domain, "A")
-        ip_address = str(answers[0])
-    except Exception:
-        print(f"  [IP GEO] UNKNOWN: could not resolve domain to IP")
-        return {
-            "status": "UNKNOWN", "risk_delta": 0, "message": "Could not resolve domain to IP",
-            "ip_address": None, "city": None, "region": None, "country": None,
-            "is_vpn": None, "isp": None, "abstract_api": None,
-        }
-    print(f"  [IP GEO] resolved IP: {ip_address}")
-    abstract_result = lookup_ip(ip_address)
-    risk = 0
-    if abstract_result:
-        if abstract_result.get("is_vpn"):
-            risk += 25
-    risk_score = min(risk, 100)
-    if risk_score == 0:
-        status, risk_delta = "PASS", -2
-    elif risk_score >= 25:
-        status, risk_delta = "FAIL", 8
-    else:
-        status, risk_delta = "UNKNOWN", 0
-    result = {
-        "status": status, "risk_delta": risk_delta,
-        "ip_address": ip_address,
-        "city": abstract_result.get("city") if abstract_result else None,
-        "region": abstract_result.get("region") if abstract_result else None,
-        "country": abstract_result.get("country") if abstract_result else None,
-        "country_code": abstract_result.get("country_code") if abstract_result else None,
-        "continent": abstract_result.get("continent") if abstract_result else None,
-        "latitude": abstract_result.get("latitude") if abstract_result else None,
-        "longitude": abstract_result.get("longitude") if abstract_result else None,
-        "is_vpn": abstract_result.get("is_vpn", False) if abstract_result else None,
-        "isp": abstract_result.get("isp") if abstract_result else None,
-        "connection_type": abstract_result.get("connection_type") if abstract_result else None,
-        "organization": abstract_result.get("organization") if abstract_result else None,
-        "Risk Score": risk_score,
-        "abstract_api": abstract_result,
-    }
-    print(f"  [IP GEO] {status}: ip={ip_address}, city={result['city']}, "
-          f"country={result['country']}, vpn={result['is_vpn']}")
-    return result
-
-
 def investigate_robots_txt(domain):
     result = {
         "status": "UNKNOWN", "risk_delta": 0, "message": "No domain available",
@@ -850,7 +796,6 @@ def run_investigation(entities):
         report["Robots.txt"] = investigate_robots_txt(target_domain)
         report["Sitemap"] = investigate_sitemap(target_domain)
         report["HTTP Headers"] = investigate_http_headers(target_domain)
-        report["IP Geolocation"] = investigate_ip_geolocation(target_domain)
     else:
         print(f"\n  NO DOMAIN FOUND. All domain checks will be UNKNOWN.")
         unknown = {"status": "UNKNOWN", "risk_delta": 0, "message": "No verified domain available"}
@@ -860,7 +805,6 @@ def run_investigation(entities):
         report["Robots.txt"] = {**unknown, "found": False, "size_bytes": 0, "disallow_count": 0, "sitemaps_found": 0, "blocks_all_crawlers": False, "is_default_cms": False, "suspicious_patterns": []}
         report["Sitemap"] = {**unknown, "found": False, "url_count": 0, "last_modified": None, "is_sitemap_index": False, "same_domain_urls": True, "suspicious_patterns": []}
         report["HTTP Headers"] = {**unknown, "status_code": None, "server": None, "security_headers": {}, "redirect_chain": [], "final_url": None}
-        report["IP Geolocation"] = {**unknown, "ip_address": None, "city": None, "region": None, "country": None, "is_vpn": None, "isp": None}
 
     report["Email"] = investigate_email(email)
     report["Phone"] = investigate_phone(phone)
@@ -880,7 +824,7 @@ def run_investigation(entities):
         report["Live_Web_Verification"] = {"reachable": False, "status_code": None}
 
     statuses = []
-    for key in ["Domain", "DNS", "SSL", "Robots.txt", "Sitemap", "HTTP Headers", "Email", "Phone", "IP Geolocation"]:
+    for key in ["Domain", "DNS", "SSL", "Robots.txt", "Sitemap", "HTTP Headers", "Email", "Phone"]:
         item = report.get(key, {})
         statuses.append(item.get("status", "UNKNOWN"))
     unknown_count = statuses.count("UNKNOWN")

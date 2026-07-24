@@ -1,6 +1,6 @@
 import json
 import re
-from llm_client import call_gemma
+from .llm_client import call_gemma
 
 
 def analyze_content(raw_text, entities):

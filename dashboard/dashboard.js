@@ -8,6 +8,13 @@
   'use strict';
 
   // ---------------------------------------------------------------------------
+  // API BASE URL — auto-detect backend port
+  // ---------------------------------------------------------------------------
+  const API_BASE = window.location.port === '5500'
+    ? 'http://127.0.0.1:8000'
+    : window.location.origin;
+
+  // ---------------------------------------------------------------------------
   // DOM REFERENCES
   // ---------------------------------------------------------------------------
   const $ = (sel) => document.querySelector(sel);
@@ -195,7 +202,7 @@
       if (file) formData.append('image', file);
       if (text) formData.append('text', text);
 
-      const resp = await fetch('/api/analyze-stream', { method: 'POST', body: formData });
+      const resp = await fetch(`${API_BASE}/api/analyze-stream`, { method: 'POST', body: formData });
       if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
 
       const reader = resp.body.getReader();
@@ -429,16 +436,10 @@
       spf_record: 'checkSpfRecord',
       dmarc_record: 'checkDmarcRecord',
       email_domain_match: 'checkEmailDomainMatch',
-      email_deliverable: 'checkEmailDeliverable',
-      typosquatting: 'checkTyposquatting',
       disposable_email: 'checkDisposableEmail',
       free_email: 'checkFreeEmail',
       live_verification: 'checkLiveVerification',
       phone_valid: 'checkPhoneValid',
-      phone_voip: 'checkPhoneVoip',
-      phone_abuse: 'checkPhoneAbuse',
-      phone_disposable: 'checkPhoneDisposable',
-      ip_vpn: 'checkIpVpn',
     };
 
     for (const [key, id] of Object.entries(checks)) {
@@ -452,7 +453,7 @@
   }
 
   function formatCheckStatus(key, val) {
-    const inverted = ['typosquatting', 'disposable_email', 'free_email'];
+    const inverted = ['disposable_email', 'free_email'];
 
     if (val == null) return { text: 'N/A', cls: 'warn' };
 
@@ -511,7 +512,6 @@
     const tls = ev.tls || {};
     const emailVal = ev.email_validation || {};
     const phoneIntel = ev.phone_intelligence || {};
-    const ipGeo = ev.ip_geolocation || {};
 
     function evidenceStatusClass(status) {
       if (status === 'PASS') return 'pass';
@@ -572,23 +572,11 @@
     setEl('phoneValid', boolText(phoneIntel.is_valid));
     setEl('phoneLineType', phoneIntel.line_type);
     setEl('phoneLineStatus', phoneIntel.line_status);
-    setEl('phoneVoip', boolText(phoneIntel.is_voip));
     setEl('phoneCarrier', phoneIntel.carrier);
     setEl('phoneCountry', phoneIntel.country);
     setEl('phoneRiskLevel', phoneIntel.risk_level);
-    setEl('phoneDisposable', boolText(phoneIntel.is_disposable));
-    setEl('phoneAbuse', boolText(phoneIntel.is_abuse_detected));
     setEl('phoneBreaches', phoneIntel.total_breaches != null ? String(phoneIntel.total_breaches) : '--');
     setStatus('phoneIntelStatus', phoneIntel.status);
-
-    setEl('ipAddress', ipGeo.ip_address);
-    setEl('ipCity', ipGeo.city);
-    setEl('ipRegion', ipGeo.region);
-    setEl('ipCountry', ipGeo.country);
-    setEl('ipVpn', boolText(ipGeo.is_vpn));
-    setEl('ipIsp', ipGeo.isp);
-    setEl('ipConnType', ipGeo.connection_type);
-    setStatus('ipGeoStatus', ipGeo.status);
   }
 
   // ---------------------------------------------------------------------------
@@ -670,20 +658,28 @@
         spf_record: true,
         dmarc_record: true,
         email_domain_match: true,
-        typosquatting: false,
         disposable_email: false,
         free_email: false,
         live_verification: true,
+        phone_valid: true,
       },
       risk_indicators: {
-        free_email: 'No',
+        domain_registered: 'Pass',
+        https_enabled: 'Pass',
+        ssl_valid: 'Pass',
+        mx_record: 'Pass',
+        spf_record: 'Pass',
+        dmarc_record: 'Pass',
+        email_domain_match: 'Pass',
+        phone_valid: 'Pass',
         disposable_email: 'No',
+        free_email: 'No',
         suspicious_salary: 'No',
-        spf_missing: 'No',
-        dmarc_missing: 'No',
-        https_enabled: 'Yes',
-        ssl_valid: 'Yes',
         domain_age: '27+ years',
+        domain_source: 'website',
+        checks_pass: 12,
+        checks_fail: 0,
+        checks_unknown: 0,
       },
       technical_evidence: {
         whois: {

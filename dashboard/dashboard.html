@@ -385,11 +385,6 @@
             <span class="tech-label">Email Domain Match</span>
             <span class="tech-status" id="checkEmailDomainMatch">--</span>
           </div>
-          <div class="tech-row" data-check="typosquatting">
-            <span class="tech-icon"><i data-lucide="search"></i></span>
-            <span class="tech-label">Typosquatting Check</span>
-            <span class="tech-status" id="checkTyposquatting">--</span>
-          </div>
           <div class="tech-row" data-check="disposable_email">
             <span class="tech-icon"><i data-lucide="trash-2"></i></span>
             <span class="tech-label">Disposable Email</span>
@@ -405,35 +400,10 @@
             <span class="tech-label">Live Website Verification</span>
             <span class="tech-status" id="checkLiveVerification">--</span>
           </div>
-          <div class="tech-row" data-check="email_deliverable">
-            <span class="tech-icon"><i data-lucide="mail-check"></i></span>
-            <span class="tech-label">Email Deliverable</span>
-            <span class="tech-status" id="checkEmailDeliverable">--</span>
-          </div>
           <div class="tech-row" data-check="phone_valid">
             <span class="tech-icon"><i data-lucide="phone"></i></span>
             <span class="tech-label">Phone Valid</span>
             <span class="tech-status" id="checkPhoneValid">--</span>
-          </div>
-          <div class="tech-row" data-check="phone_voip">
-            <span class="tech-icon"><i data-lucide="phone-off"></i></span>
-            <span class="tech-label">Phone VoIP Detected</span>
-            <span class="tech-status" id="checkPhoneVoip">--</span>
-          </div>
-          <div class="tech-row" data-check="phone_abuse">
-            <span class="tech-icon"><i data-lucide="alert-octagon"></i></span>
-            <span class="tech-label">Phone Abuse Detected</span>
-            <span class="tech-status" id="checkPhoneAbuse">--</span>
-          </div>
-          <div class="tech-row" data-check="phone_disposable">
-            <span class="tech-icon"><i data-lucide="trash-2"></i></span>
-            <span class="tech-label">Disposable Phone</span>
-            <span class="tech-status" id="checkPhoneDisposable">--</span>
-          </div>
-          <div class="tech-row" data-check="ip_vpn">
-            <span class="tech-icon"><i data-lucide="shield-alert"></i></span>
-            <span class="tech-label">VPN Detected (IP)</span>
-            <span class="tech-status" id="checkIpVpn">--</span>
           </div>
         </div>
       </div>
@@ -599,10 +569,6 @@
                   <span class="evidence-value" id="phoneLineStatus">--</span>
                 </div>
                 <div class="evidence-row">
-                  <span class="evidence-label">VoIP</span>
-                  <span class="evidence-value" id="phoneVoip">--</span>
-                </div>
-                <div class="evidence-row">
                   <span class="evidence-label">Carrier</span>
                   <span class="evidence-value" id="phoneCarrier">--</span>
                 </div>
@@ -615,55 +581,8 @@
                   <span class="evidence-value" id="phoneRiskLevel">--</span>
                 </div>
                 <div class="evidence-row">
-                  <span class="evidence-label">Disposable</span>
-                  <span class="evidence-value" id="phoneDisposable">--</span>
-                </div>
-                <div class="evidence-row">
-                  <span class="evidence-label">Abuse Detected</span>
-                  <span class="evidence-value" id="phoneAbuse">--</span>
-                </div>
-                <div class="evidence-row">
                   <span class="evidence-label">Breaches</span>
                   <span class="evidence-value" id="phoneBreaches">--</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <button class="accordion-trigger" data-target="ipGeoContent">
-              <span><i data-lucide="map-pin"></i> IP Geolocation</span>
-              <span class="tech-status" id="ipGeoStatus" style="font-size:11px;margin-right:8px;">UNKNOWN</span>
-              <i data-lucide="chevron-down" class="accordion-chevron"></i>
-            </button>
-            <div class="accordion-content" id="ipGeoContent">
-              <div class="evidence-grid">
-                <div class="evidence-row">
-                  <span class="evidence-label">IP Address</span>
-                  <span class="evidence-value" id="ipAddress">--</span>
-                </div>
-                <div class="evidence-row">
-                  <span class="evidence-label">City</span>
-                  <span class="evidence-value" id="ipCity">--</span>
-                </div>
-                <div class="evidence-row">
-                  <span class="evidence-label">Region</span>
-                  <span class="evidence-value" id="ipRegion">--</span>
-                </div>
-                <div class="evidence-row">
-                  <span class="evidence-label">Country</span>
-                  <span class="evidence-value" id="ipCountry">--</span>
-                </div>
-                <div class="evidence-row">
-                  <span class="evidence-label">VPN</span>
-                  <span class="evidence-value" id="ipVpn">--</span>
-                </div>
-                <div class="evidence-row">
-                  <span class="evidence-label">ISP</span>
-                  <span class="evidence-value" id="ipIsp">--</span>
-                </div>
-                <div class="evidence-row">
-                  <span class="evidence-label">Connection Type</span>
-                  <span class="evidence-value" id="ipConnType">--</span>
                 </div>
               </div>
             </div>

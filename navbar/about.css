@@ -100,15 +100,23 @@ ul{ margin:0; padding:0; list-style:none; }
 .story{ padding: 40px 32px 80px; }
 .story__inner{
   max-width: 1120px; margin: 0 auto;
-  display:grid; grid-template-columns: 1.15fr .85fr; gap: 64px; align-items: start;
+  display:grid; grid-template-columns: 1.15fr .85fr; gap: 64px; align-items: flex-end;
 }
 .story__copy h2{ font-size: clamp(24px, 3vw, 30px); font-weight: 700; line-height: 1.25; color: var(--ink); }
 .story__copy p{ margin-top: 18px; font-size: 15.5px; line-height: 1.7; color: var(--ink-soft); }
 .story__copy p:first-of-type{ margin-top: 16px; }
 .story__copy strong{ color: var(--ink); font-weight: 600; }
 
-.story__visual{ position: sticky; top: 96px; }
+.story__visual{
+  position: static;
+  align-self: stretch;
+  display:flex;
+  align-items:flex-end;
+  height:100%;
+}
 .hack-card{
+  width: 100%;
+  max-width: 380px;
   background: linear-gradient(160deg, #f8fbff 0%, #eaf0fe 100%);
   border: 1px solid rgba(34, 91, 227, 0.18);
   border-radius: var(--radius-lg);

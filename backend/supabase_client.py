@@ -1,5 +1,5 @@
 import logging
-from config import SUPABASE_URL, SUPABASE_KEY
+from .config import SUPABASE_URL, SUPABASE_KEY
 
 logger = logging.getLogger(__name__)
 _client = None

@@ -31,27 +31,29 @@ class TechnicalChecks(BaseModel):
     spf_record: bool = False
     dmarc_record: bool = False
     email_domain_match: bool = False
-    typosquatting: bool = False
     disposable_email: bool = False
     free_email: bool = False
     live_verification: bool = False
-    robots_txt_found: bool = False
-    robots_txt_suspicious: bool = False
-    sitemap_found: bool = False
-    sitemap_suspicious: bool = False
+    phone_valid: bool = False
 
 
 class RiskIndicators(BaseModel):
-    free_email: str = "No"
-    disposable_email: str = "No"
-    suspicious_salary: str = "No"
-    spf_missing: str = "No"
-    dmarc_missing: str = "No"
+    domain_registered: str = "No"
     https_enabled: str = "No"
     ssl_valid: str = "No"
+    mx_record: str = "No"
+    spf_record: str = "No"
+    dmarc_record: str = "No"
+    email_domain_match: str = "No"
+    phone_valid: str = "No"
+    disposable_email: str = "No"
+    free_email: str = "No"
+    suspicious_salary: str = "No"
     domain_age: str = "Unknown"
-    robots_txt: str = "Unknown"
-    sitemap: str = "Unknown"
+    domain_source: str = "unknown"
+    checks_pass: int = 0
+    checks_fail: int = 0
+    checks_unknown: int = 0
 
 
 class AnalysisResponse(BaseModel):
