@@ -1,11 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - SafeHire AI</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>About — SafeHire | AI Job Scam Detection</title>
+<link rel="stylesheet" href="../style.css" />
+<link rel="stylesheet" href="about.css" />
 </head>
 <body>
-    
+
+<nav class="navbar">
+  <div class="nav-left">
+    <img src="../assets/logo.png" alt="SafeHire AI Logo" class="nav-logo">
+    <h1 class="nav-title">SafeHire AI</h1>
+  </div>
+  <div class="nav-links" id="navLinks">
+    <a href="features.html">Features</a>
+    <a href="hiw.html">How It Works</a>
+    <a href="solutions.html">Solutions</a>
+    <a href="resources.html">Resources</a>
+    <a href="about.html" class="active">About</a>
+  </div>
+  <div class="nav-right">
+    <button class="nav-login-button" onclick="window.location.href='../auth/login/login.html'">Login</button>
+    <button class="nav-signup-button" onclick="window.location.href='../auth/signup/signup.html'">Sign Up</button>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Toggle navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ============ HERO ============ -->
+  <section class="about-hero">
+    <div class="about-hero__inner">
+      <span class="eyebrow">About SafeHire</span>
+      <h1>Job hunting is stressful enough<br/>without wondering if the offer is real.</h1>
+      <p class="about-hero__lede">
+        SafeHire is an AI investigator that sits between a job seeker and a job posting — reading
+        it the way a skeptical friend with a cybersecurity background would, then telling you
+        exactly what it found and why it matters.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ ORIGIN STORY ============ -->
+  <section class="story">
+    <div class="story__inner">
+      <div class="story__copy">
+        <p class="eyebrow eyebrow--muted">How it started</p>
+        <h2>Built for the Build with Gemma Hackathon 2026.</h2>
+        <p>
+          SafeHire began as a hackathon build with a narrow, practical question: could an
+          open model read a job posting the way a careful human would, and catch the same red
+          flags — fake companies, cloned recruiter profiles, upfront "training fee" requests —
+          before an applicant ever hands over money or personal information?
+        </p>
+        <p>
+          Job scams have gotten harder to spot on sight. Postings borrow real logos, recruiters
+          message from convincing LinkedIn profiles, and pressure tactics ("we need an answer
+          today") are designed to short-circuit exactly the kind of careful check most people
+          don't have time to run. SafeHire runs that check for them, in seconds.
+        </p>
+        <p>
+          Under the hood, <strong>Gemma 4</strong> handles the reasoning layer — reading extracted
+          text, weighing it against known scam patterns, and writing the plain-English explanation
+          behind every risk score — while a supporting pipeline handles OCR, entity extraction,
+          and cross-checks against domain, email, and recruiter data.
+        </p>
+      </div>
+      <div class="story__visual">
+        <div class="hack-card">
+          <div class="hack-card__badge">🏆 Hackathon Build</div>
+          <h3>Build with Gemma<br/>Hackathon 2026</h3>
+          <ul class="hack-card__list">
+            <li><span>Model</span><strong>Gemma 4</strong></li>
+            <li><span>Category</span><strong>Real-World Safety</strong></li>
+            <li><span>Stack</span><strong>Python · FastAPI · Gemma 4</strong></li>
+            <li><span>Status</span><strong>Active Development</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MISSION STATEMENT ============ -->
+  <section class="mission">
+    <div class="mission__inner">
+      <p class="mission__quote">
+        “Nobody should lose money, time, or personal data to a job that was never real
+        in the first place — and nobody should need a security background to find that out.”
+      </p>
+      <p class="mission__label">Our mission</p>
+    </div>
+  </section>
+
+  <!-- ============ VALUES GRID ============ -->
+  <section class="values">
+    <div class="values__inner">
+      <div class="values__head">
+        <h2>What we build around.</h2>
+        <p>Four principles guide every feature, from the OCR step to the final report.</p>
+      </div>
+
+      <div class="values__grid">
+        <article class="value-card">
+          <span class="value-card__icon" data-icon="privacy"></span>
+          <h3>Privacy first</h3>
+          <p>Whatever you paste or upload is used to generate your report and nothing else. Your data is encrypted and never shared or sold.</p>
+        </article>
+
+        <article class="value-card">
+          <span class="value-card__icon" data-icon="explain"></span>
+          <h3>Explainable, not just a score</h3>
+          <p>A number alone isn't a reason to trust or distrust an offer. Every report shows the specific evidence — a flagged domain, a mismatched name — behind the verdict.</p>
+        </article>
+
+        <article class="value-card">
+          <span class="value-card__icon" data-icon="human"></span>
+          <h3>Human in the loop</h3>
+          <p>SafeHire flags risk; it doesn't make the final call for you. The goal is a clearer decision, not a replaced one.</p>
+        </article>
+
+        <article class="value-card">
+          <span class="value-card__icon" data-icon="open"></span>
+          <h3>Built in the open</h3>
+          <p>SafeHire is an open, evolving hackathon project. The architecture, prompts, and detection logic are visible rather than a black box.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CLOSING CTA ============ -->
+  <section class="cta-band">
+    <div class="cta-band__inner">
+      <h2>Got a job posting that feels off?</h2>
+      <p>Paste it in and see what SafeHire finds — it takes less time than reading this page did.</p>
+      <div class="cta-band__actions">
+        <a class="btn btn--primary btn--lg" href="#">Start Investigation</a>
+        <a class="btn btn--ghost btn--lg" href="#">See How It Works</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <span>© 2026 SafeHire. Built for the Build with Gemma Hackathon.</span>
+    <span class="footer__badge">Powered by Gemma 4</span>
+  </div>
+  <section class="about-team">
+  <h2>Meet the Team</h2>
+
+  <p>
+    We are a team of passionate students building SafeHire to help job seekers
+    identify fraudulent job opportunities and apply with confidence.
+  </p>
+
+  <div class="team-members">
+    <div class="team-member">
+      <h3>Roshan Mallick</h3>
+      <p><a href="https://github.com/Roshan-Mallick" target="_blank">GitHub </a>   &   <a href="https://www.linkedin.com/in/roshan-mallick-2b816a2b8" target="_blank">LinkedIn</a></p>
+
+    </div>
+
+    <div class="team-member">
+      <h3>Om Srivastava</h3>
+      <p><a href="https://github.com/Om-Srivastava-6" target="_blank">GitHub </a>   &   <a href="https://www.linkedin.com/in/om-srivastava-6a209429b?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank">LinkedIn</a></p>
+    </div>
+
+    <div class="team-member">
+      <h3>Aditya Mishra</h3>
+      <p><a href="https://github.com/AdityaMishra2007-codes" target="_blank">GitHub </a>   &   <a href="https://www.linkedin.com/in/adityamishra2006/" target="_blank">LinkedIn</a></p>
+    </div>
+  </div>
+</section>
+</footer>
+
+<script src="../script.js" defer></script>
+<script src="about.js"></script>
 </body>
 </html>
