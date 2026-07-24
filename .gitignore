@@ -1,1 +1,13 @@
+.env
+.env.local
+.env.*.local
+__pycache__/
+*.pyc
+*.pyo
 extra/
+node_modules/
+*.egg-info/
+dist/
+build/
+.DS_Store
+output.txt
