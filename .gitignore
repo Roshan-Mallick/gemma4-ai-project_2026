@@ -11,4 +11,3 @@ dist/
 build/
 .DS_Store
 output.txt
-.venv/

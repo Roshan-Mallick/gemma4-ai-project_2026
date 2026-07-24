@@ -11,14 +11,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 
-from config import CORS_ORIGINS
-from ocr import extract_text_from_image
-from entities import extract_entities
-from investigation import run_investigation, extract_domain
-from analysis import analyze_content
-from reasoning import generate_reasoning_report, parse_reasoning
-from llm_client import get_llm_status
-import supabase_client
+from .config import CORS_ORIGINS
+from .ocr import extract_text_from_image
+from .entities import extract_entities
+from .investigation import run_investigation, extract_domain
+from .analysis import analyze_content
+from .reasoning import generate_reasoning_report, parse_reasoning
+from .llm_client import get_llm_status
+from . import supabase_client
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -59,8 +59,6 @@ def _build_technical_checks(investigation, entities):
     domain_res = investigation.get("Domain", {})
     dns_res = investigation.get("DNS", {})
     ssl_res = investigation.get("SSL", {})
-    robots = investigation.get("Robots.txt", {})
-    sitemap = investigation.get("Sitemap", {})
     company = investigation.get("Company", {})
     http_res = investigation.get("HTTP Headers", {})
 
@@ -108,11 +106,6 @@ def _build_technical_checks(investigation, entities):
             return "UNKNOWN"
         return "PASS" if company.get("Email Domain Match", False) else "FAIL"
 
-    def typosquatting_status():
-        if email_res.get("status") == "UNKNOWN":
-            return "UNKNOWN"
-        return "FAIL" if email_res.get("Typosquatting", False) else "PASS"
-
     def disposable_email_status():
         if email_res.get("status") == "UNKNOWN":
             return "UNKNOWN"
@@ -145,7 +138,6 @@ def _build_technical_checks(investigation, entities):
         return "FAIL"
 
     phone_res = investigation.get("Phone", {})
-    ip_res = investigation.get("IP Geolocation", {})
 
     def phone_valid_status():
         if phone_res.get("status") == "UNKNOWN":
@@ -153,37 +145,6 @@ def _build_technical_checks(investigation, entities):
         if phone_res.get("is_valid") is False:
             return "FAIL"
         return "PASS"
-
-    def phone_voip_status():
-        if phone_res.get("status") == "UNKNOWN":
-            return "UNKNOWN"
-        return "FAIL" if phone_res.get("is_voip") else "PASS"
-
-    def phone_abuse_status():
-        if phone_res.get("status") == "UNKNOWN":
-            return "UNKNOWN"
-        return "FAIL" if phone_res.get("is_abuse_detected") else "PASS"
-
-    def phone_disposable_status():
-        if phone_res.get("status") == "UNKNOWN":
-            return "UNKNOWN"
-        return "FAIL" if phone_res.get("is_disposable") else "PASS"
-
-    def ip_vpn_status():
-        if ip_res.get("status") == "UNKNOWN":
-            return "UNKNOWN"
-        return "FAIL" if ip_res.get("is_vpn") else "PASS"
-
-    def email_deliverable_status():
-        abstract = email_res.get("abstract_api")
-        if not abstract:
-            return "UNKNOWN"
-        d = abstract.get("deliverability", "UNKNOWN")
-        if d == "DELIVERABLE":
-            return "PASS"
-        elif d == "UNDELIVERABLE":
-            return "FAIL"
-        return "UNKNOWN"
 
     return {
         "domain_registered": domain_status(),
@@ -194,19 +155,10 @@ def _build_technical_checks(investigation, entities):
         "spf_record": spf_status(),
         "dmarc_record": dmarc_status(),
         "email_domain_match": email_domain_status(),
-        "email_deliverable": email_deliverable_status(),
-        "typosquatting": typosquatting_status(),
         "disposable_email": disposable_email_status(),
         "free_email": free_email_status(),
         "live_verification": live_status(),
-        "http_status_code": http_status(),
-        "robots_txt": robots_status(),
-        "sitemap": sitemap_status(),
         "phone_valid": phone_valid_status(),
-        "phone_voip": phone_voip_status(),
-        "phone_abuse": phone_abuse_status(),
-        "phone_disposable": phone_disposable_status(),
-        "ip_vpn": ip_vpn_status(),
     }
 
 
@@ -232,12 +184,7 @@ def _build_risk_indicators(technical, investigation):
         "spf_record": label_for(technical["spf_record"]),
         "dmarc_record": label_for(technical["dmarc_record"]),
         "email_domain_match": label_for(technical["email_domain_match"]),
-        "email_deliverable": label_for(technical.get("email_deliverable", "UNKNOWN")),
         "phone_valid": label_for(technical.get("phone_valid", "UNKNOWN")),
-        "phone_voip": label_for(technical.get("phone_voip", "UNKNOWN")),
-        "phone_abuse": label_for(technical.get("phone_abuse", "UNKNOWN")),
-        "phone_disposable": label_for(technical.get("phone_disposable", "UNKNOWN")),
-        "ip_vpn": label_for(technical.get("ip_vpn", "UNKNOWN")),
         "suspicious_salary": "Yes" if salary_res.get("Suspicious Salary") else "No",
         "domain_age": domain_res.get("Creation Date", "Unknown") or "Unknown",
         "domain_source": summary.get("domain_source", "unknown"),
@@ -256,7 +203,6 @@ def _build_technical_evidence(investigation):
     http = investigation.get("HTTP Headers", {})
     email_res = investigation.get("Email", {})
     phone_res = investigation.get("Phone", {})
-    ip_res = investigation.get("IP Geolocation", {})
 
     return {
         "whois": {
@@ -308,30 +254,14 @@ def _build_technical_evidence(investigation):
             "is_valid": phone_res.get("is_valid"),
             "line_type": phone_res.get("line_type"),
             "line_status": phone_res.get("line_status"),
-            "is_voip": phone_res.get("is_voip"),
             "carrier": phone_res.get("carrier_name"),
             "country": phone_res.get("country"),
             "country_code": phone_res.get("country_code"),
             "region": phone_res.get("region"),
             "city": phone_res.get("city"),
             "risk_level": phone_res.get("risk_level"),
-            "is_disposable": phone_res.get("is_disposable"),
-            "is_abuse_detected": phone_res.get("is_abuse_detected"),
             "total_breaches": phone_res.get("total_breaches", 0),
             "risk_score": phone_res.get("Risk Score", 0),
-        },
-        "ip_geolocation": {
-            "status": ip_res.get("status", "UNKNOWN"),
-            "ip_address": ip_res.get("ip_address"),
-            "city": ip_res.get("city"),
-            "region": ip_res.get("region"),
-            "country": ip_res.get("country"),
-            "country_code": ip_res.get("country_code"),
-            "continent": ip_res.get("continent"),
-            "is_vpn": ip_res.get("is_vpn"),
-            "isp": ip_res.get("isp"),
-            "connection_type": ip_res.get("connection_type"),
-            "organization": ip_res.get("organization"),
         },
     }
 

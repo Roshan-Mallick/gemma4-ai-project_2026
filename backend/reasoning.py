@@ -1,7 +1,7 @@
 import json
 import re
 import urllib.request
-from llm_client import call_gemma
+from .llm_client import call_gemma
 
 
 def quick_web_check(domain):
@@ -42,7 +42,7 @@ def generate_reasoning_report(entities, investigation_results, content_analysis=
 Domain: status={domain_res.get('status','UNKNOWN')}, registered={domain_res.get('Registered')}, creation_date={domain_res.get('Creation Date','N/A')}, domain_age={domain_res.get('Domain Age','N/A')}
 DNS: status={dns_res.get('status','UNKNOWN')}, A={dns_res.get('A Record',[])}, MX={dns_res.get('MX Record',[])}, SPF={dns_res.get('SPF',False)}, DMARC={dns_res.get('DMARC',False)}
 SSL: status={ssl_res.get('status','UNKNOWN')}, https={ssl_res.get('HTTPS Available',False)}, cert_valid={ssl_res.get('Certificate Valid',False)}, issuer={ssl_res.get('Issuer','N/A')}
-Email: status={email_res.get('status','UNKNOWN')}, free={email_res.get('Free Provider',False)}, disposable={email_res.get('Disposable Provider',False)}, typosquat={email_res.get('Typosquatting',False)}, risk_score={email_res.get('Risk Score','N/A')}
+Email: status={email_res.get('status','UNKNOWN')}, free={email_res.get('Free Provider',False)}, disposable={email_res.get('Disposable Provider',False)}, risk_score={email_res.get('Risk Score','N/A')}
 HTTP: status={http_res.get('status','UNKNOWN')}, status_code={http_res.get('status_code','N/A')}, server={http_res.get('server','N/A')}
 Company: domain_match={company_res.get('Email Domain Match',False)}, website_domain={company_res.get('Website Domain','N/A')}
 Live Web: reachable={web_status.get('reachable',False)}

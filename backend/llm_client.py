@@ -1,7 +1,7 @@
 import time
 import logging
 from openai import OpenAI
-from config import OPENROUTER_API_KEY, OPENROUTER_MODEL
+from .config import OPENROUTER_API_KEY, OPENROUTER_MODEL
 
 logger = logging.getLogger(__name__)
 
