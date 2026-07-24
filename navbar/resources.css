@@ -1,0 +1,199 @@
+.resources-section {
+  padding: 120px 7% 90px;
+  background: linear-gradient(180deg, #f8faff 0%, #f3f7ff 100%);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.resources-heading {
+  max-width: 690px;
+  margin: 0 auto 45px;
+  text-align: center;
+}
+
+.section-tag {
+  display: inline-block;
+  margin-bottom: 12px;
+  padding: 7px 12px;
+  border-radius: 20px;
+  background: #eaf0ff;
+  color: #2858ef;
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.9px;
+}
+
+.resources-heading h2 {
+  margin: 0 0 14px;
+  color: #101a33;
+  font-size: clamp(30px, 4vw, 42px);
+  line-height: 1.2;
+}
+
+.resources-heading h2 span {
+  color: #2d5df5;
+}
+
+.resources-heading p {
+  margin: 0;
+  color: #63708a;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.resources-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  max-width: 1250px;
+  margin: auto;
+}
+
+.resource-card {
+  padding: 25px;
+  background: #ffffff;
+  border: 1px solid #e0e6f2;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(31, 62, 140, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.resource-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 32px rgba(31, 62, 140, 0.13);
+}
+
+.resource-icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 17px;
+  border-radius: 11px;
+  background: #eaf0ff;
+  color: #2d5df5;
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.resource-card h3 {
+  margin: 0 0 8px;
+  color: #101a33;
+  font-size: 18px;
+}
+
+.resource-intro {
+  min-height: 44px;
+  margin: 0 0 18px;
+  color: #69758c;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.resource-list {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.resource-list li {
+  padding-left: 13px;
+  border-left: 2px solid #dce5ff;
+}
+
+.resource-list strong,
+.resource-list span {
+  display: block;
+}
+
+.resource-list strong {
+  margin-bottom: 3px;
+  color: #23304a;
+  font-size: 13px;
+}
+
+.resource-list span {
+  color: #6c7890;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.resource-link {
+  display: inline-block;
+  margin-top: 22px;
+  color: #2d5df5;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.resource-link:hover {
+  color: #193fc6;
+}
+
+.resource-card-wide {
+  grid-column: span 3;
+}
+
+.tool-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.tool-pills a {
+  padding: 8px 13px;
+  border: 1px solid #dce5ff;
+  border-radius: 8px;
+  background: #f7f9ff;
+  color: #2d5df5;
+  font-size: 13px;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.tool-pills a:hover {
+  background: #2d5df5;
+  color: #ffffff;
+}
+
+.acknowledgement {
+  margin: 20px 0 0;
+  color: #69758c;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.acknowledgement strong {
+  color: #34425e;
+}
+
+@media (max-width: 950px) {
+  .resources-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .resource-card-wide {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 620px) {
+  .resources-section {
+    padding: 65px 20px;
+  }
+
+  .resources-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .resource-card-wide {
+    grid-column: span 1;
+  }
+
+  .resource-card {
+    padding: 22px;
+  }
+}
