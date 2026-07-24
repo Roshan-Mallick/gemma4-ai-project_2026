@@ -46,6 +46,12 @@ body {
     justify-self: start;
 }
 
+.nav-left a,
+.nav-left a:hover,
+.nav-left a:visited {
+    text-decoration: none;
+}
+
 .nav-links {
     display: flex;
     align-items: center;

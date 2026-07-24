@@ -1,11 +1,205 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resources - SafeHire AI</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resources — SafeHire | AI Job Scam Detection</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="resources.css" />
 </head>
 <body>
-    
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="../index.html">
+        <img src="../assets/logo.png" alt="SafeHire AI Logo" class="nav-logo" />
+      </a>
+      <a href="../index.html">
+        <h1 class="nav-title">SafeHire AI</h1>
+      </a>
+    </div>
+
+    <div class="nav-links" id="navLinks">
+      <a href="features.html">Features</a>
+      <a href="hiw.html">How It Works</a>
+      <a href="solutions.html">Solutions</a>
+      <a href="resources.html" class="active">Resources</a>
+      <a href="about.html">About</a>
+    </div>
+
+    <div class="nav-right">
+      <button class="nav-signup-button" onclick="window.location.href='../dashboard/dashboard.html'">Dashboard</button>
+      <button class="nav-hamburger" id="navHamburger" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main>
+    <section class="resources-section" id="resources">
+      <div class="resources-heading">
+        <span class="section-tag">SAFEHIRE AI STACK</span>
+        <h2>Resources That Power <span>SafeHire AI.</span></h2>
+        <p>
+          The technologies, security standards, and platforms used to analyse job
+          posts and help job seekers make safer decisions.
+        </p>
+      </div>
+
+      <div class="resources-grid">
+        <article class="resource-card">
+          <div class="resource-icon">✦</div>
+          <h3>AI & Intelligence</h3>
+          <p class="resource-intro">The AI layer that understands and evaluates job-post content.</p>
+
+          <ul class="resource-list">
+            <li>
+              <strong>Google Gemma 4 31B</strong>
+              <span>Extracts entities, analyses content, and provides AI reasoning.</span>
+            </li>
+            <li>
+              <strong>OpenRouter</strong>
+              <span>API gateway used to access the Gemma 4 model.</span>
+            </li>
+            <li>
+              <strong>LM Studio</strong>
+              <span>Optional local LLM server used as a fallback.</span>
+            </li>
+          </ul>
+
+          <a href="https://openrouter.ai/" target="_blank" class="resource-link">Explore AI tools →</a>
+        </article>
+
+        <article class="resource-card">
+          <div class="resource-icon">✓</div>
+          <h3>Validation APIs</h3>
+          <p class="resource-intro">External checks that validate contact and location information.</p>
+
+          <ul class="resource-list">
+            <li>
+              <strong>Abstract Email Validation</strong>
+              <span>Checks deliverability, disposable emails, and provider details.</span>
+            </li>
+            <li>
+              <strong>Abstract Phone Intelligence</strong>
+              <span>Validates phone numbers and detects carriers.</span>
+            </li>
+            <li>
+              <strong>Abstract IP Geolocation</strong>
+              <span>Finds location details connected to an IP address.</span>
+            </li>
+          </ul>
+
+          <a href="https://www.abstractapi.com/" target="_blank" class="resource-link">Explore Abstract API →</a>
+        </article>
+
+        <article class="resource-card">
+          <div class="resource-icon">⌘</div>
+          <h3>Backend & API Tools</h3>
+          <p class="resource-intro">The backend services that process investigations quickly and reliably.</p>
+
+          <ul class="resource-list">
+            <li>
+              <strong>FastAPI & Uvicorn</strong>
+              <span>Build and run the SafeHire backend API.</span>
+            </li>
+            <li>
+              <strong>OpenAI Python SDK</strong>
+              <span>OpenAI-compatible client used with OpenRouter.</span>
+            </li>
+            <li>
+              <strong>Requests & httpx</strong>
+              <span>HTTP clients for external and asynchronous API calls.</span>
+            </li>
+            <li>
+              <strong>Pydantic & python-dateutil</strong>
+              <span>Validate data and manage date/time information.</span>
+            </li>
+            <li>
+              <strong>python-multipart</strong>
+              <span>Handles uploaded files and form data.</span>
+            </li>
+          </ul>
+        </article>
+
+        <article class="resource-card">
+          <div class="resource-icon">⌕</div>
+          <h3>Domain & Image Analysis</h3>
+          <p class="resource-intro">Tools used to inspect screenshots, domains, and company signals.</p>
+
+          <ul class="resource-list">
+            <li>
+              <strong>Tesseract OCR & pytesseract</strong>
+              <span>Extract text from uploaded job-post screenshots.</span>
+            </li>
+            <li>
+              <strong>Pillow</strong>
+              <span>Processes and prepares uploaded images.</span>
+            </li>
+            <li>
+              <strong>python-whois & RDAP</strong>
+              <span>Retrieve domain registration and ownership data.</span>
+            </li>
+            <li>
+              <strong>dnspython & DNS-over-HTTPS</strong>
+              <span>Inspect DNS records through secure DNS queries.</span>
+            </li>
+            <li>
+              <strong>tldextract</strong>
+              <span>Separates subdomains, domains, and top-level domains.</span>
+            </li>
+          </ul>
+        </article>
+
+        <article class="resource-card">
+          <div class="resource-icon">⚙</div>
+          <h3>Frontend & Security Standards</h3>
+          <p class="resource-intro">Standards that create a responsive interface and stronger email checks.</p>
+
+          <ul class="resource-list">
+            <li>
+              <strong>HTML5, CSS3 & Vanilla JavaScript</strong>
+              <span>Responsive interface built without a frontend framework.</span>
+            </li>
+            <li>
+              <strong>Server-Sent Events (SSE)</strong>
+              <span>Streams live investigation progress to the browser.</span>
+            </li>
+            <li>
+              <strong>SPF</strong>
+              <span>Checks which servers are allowed to send a domain's email.</span>
+            </li>
+            <li>
+              <strong>DMARC</strong>
+              <span>Helps verify email authenticity and reporting policies.</span>
+            </li>
+          </ul>
+        </article>
+
+        <article class="resource-card resource-card-wide">
+          <div class="resource-icon">↗</div>
+          <h3>Development & Deployment</h3>
+          <p class="resource-intro">
+            SafeHire AI is versioned, collaborated on, and deployed using modern development tools.
+          </p>
+
+          <div class="tool-pills">
+            <a href="https://git-scm.com/" target="_blank">Git</a>
+            <a href="https://github.com/" target="_blank">GitHub</a>
+            <a href="https://vercel.com/" target="_blank">Vercel</a>
+          </div>
+
+          <p class="acknowledgement">
+            Built for the <strong>Build with Gemma Hackathon 2026</strong>, with
+            thanks to Google DeepMind, OpenRouter, Abstract API, and the
+            Tesseract OCR community.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script src="../script.js" defer></script>
 </body>
 </html>
