@@ -1,0 +1,159 @@
+:root {
+    --bg: #f8fafc;
+    --surface: #ffffff;
+    --text: #111827;
+    --muted: #475569;
+    --primary: #225be3;
+    --norm: #374151;
+    --primary-soft: rgba(34, 91, 227, 0.12);
+}
+
+.nav-links a.active {
+    color: var(--primary);
+}
+
+.nav-links a.inactive {
+    color: var(--norm);
+}
+
+.nav-links a.inactive:hover {
+    color: var(--primary);
+}
+
+#lander{
+    text-decoration: none;
+}
+
+.hiw-page {
+    background: var(--bg);
+    min-height: 100vh;
+    padding: 100px 24px 60px;
+}
+
+.hiw-hero {
+    max-width: 1180px;
+    margin: 0 auto 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+    align-items: center;
+}
+
+.hero-copy .eyebrow {
+    color: var(--primary);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+    font-size: 0.8rem;
+
+}
+
+.section-header .eyebrow {
+    color: var(--primary);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+    font-size: 0.8rem;
+
+}
+
+.hiw-hero h1 {
+    font-size: 3.25rem;
+    margin: 0 0 18px;
+    color: var(--text);
+}
+
+.hero-text {
+    color: var(--muted);
+    line-height: 1.8;
+    max-width: 620px;
+}
+
+.hero-actions { display:flex; gap:14px; margin-top:22px; }
+
+/* Workflow heading (moved from hero) */
+.workflow-heading {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--primary);
+    text-transform: uppercase;
+    max-width: 1180px;
+    margin: 26px auto 20px;
+    text-align: left;
+}
+
+.illustration-card {
+    background: linear-gradient(180deg,#fff,#f7fbff);
+    border: 1px solid rgba(34,91,227,0.08);
+    border-radius: 20px;
+    padding: 22px;
+    box-shadow: 0 24px 80px rgba(15,23,42,0.04);
+}
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 24px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 14px 36px rgba(34, 91, 227, 0.18);
+}
+
+.btn-cta {
+    justify-self: center;
+    padding: 20px 32px;
+    margin: 20px;
+}
+
+.process{
+    font-size: 1.1rem;
+}
+
+.hilite {
+    display:inline-block; padding:8px 12px; border-radius:999px; background:var(--primary-soft); color:var(--primary); font-weight:700; margin-bottom:12px;
+}
+
+.dash { display:flex; gap:12px; align-items:center; }
+.dash-left { display:flex; flex-direction: column; gap:8px; flex:1 }
+.small-card{ background:white; padding:10px 12px; border-radius:10px; border:1px solid rgba(34,91,227,0.06);} 
+.dash-right{ flex:0 0 110px; display:flex; align-items:center; justify-content:center }
+.result.safe{ background:linear-gradient(180deg,#eaf4ff,#fff); color:var(--primary); padding:12px 18px; border-radius:14px; font-weight:700; border:1px solid rgba(34,91,227,0.08)}
+
+.process-section { background:transparent; padding: 5px 0; margin: 10px}
+.process-wrap { display:flex; gap:18px; align-items:flex-start; justify-content:center; max-width:1180px; margin:0 auto; }
+.step { display:flex; align-items:center; gap:12px }
+.step-card { background:white; border:1px solid rgba(15,23,42,0.05); padding:20px 20px 20px 20px; border-radius:18px; width:280px; box-shadow:0 18px 40px rgba(15,23,42,0.04)}
+.step-card .icon{ font-size:1.6rem; margin-bottom:8px }
+.arrow{ font-size:1.6rem; color:var(--muted); }
+
+.why-works { max-width:1180px; margin: 56px auto; }
+.why-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+.why-card{ background:white; padding:22px; border-radius:16px; border:1px solid rgba(34,91,227,0.06); box-shadow:0 12px 30px rgba(15,23,42,0.03); font-weight:700 }
+.why-card p{ font-weight:400; color:var(--muted); margin:8px 0 0 }
+
+.process-summary { max-width:1180px; margin:36px auto; text-align:center }
+.summary { background: linear-gradient(180deg,#fff,#f8fbff); padding: 20px; display: grid; gap: 10px; align-items: stretch; border-radius: 20px; border: 1px solid rgba(34,91,227,0.06); box-shadow: 0 16px 40px rgba(15,23,42,0.05); }
+.compact-workflow { font-family: inherit; width: min(560px, 100%); margin: 0 auto; }
+.workflow-entry { display: grid; gap: 10px; padding: 18px 20px; border-radius: 18px; background: white; border: 1px solid rgba(34,91,227,0.08); text-align: center; justify-items: center; }
+.entry-text { font-size: 1rem; color: var(--text); font-weight: 700; }
+.entry-arrow { color: var(--primary); font-size: 1.4rem; line-height: 1; }
+
+.hiw-cta { max-width:1180px; margin:36px auto }
+.cta-panel{ background:linear-gradient(180deg, rgba(34,91,227,0.08), rgba(255,255,255,0.6)); padding:34px; border-radius:20px; text-align:center; border:1px solid rgba(34,91,227,0.12)}
+
+@media (max-width:980px){ .hiw-hero{ grid-template-columns:1fr } .process-wrap{ flex-direction:column; align-items:center } .why-grid{ grid-template-columns:repeat(2,1fr) } }
+@media (max-width:640px){ .why-grid{ grid-template-columns:1fr } .step-card{ width:100% } }
