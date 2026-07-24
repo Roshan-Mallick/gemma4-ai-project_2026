@@ -49,15 +49,15 @@ All progress streams live to the browser via Server-Sent Events.
 
 ```
 ┌─────────────┐    ┌──────────────────────────────────────┐
-│  Frontend    │───▶│           FastAPI Backend              │
-│  (Vanilla JS)│   │                                       │
-│  SSE Stream  │◀───│  OCR → Entities → Investigation →     │
-└─────────────┘    │  Content Analysis → Gemma 4 Reasoning  │
+│ Frontend    │───▶│           FastAPI Backend            │
+│ (Vanilla JS)│    │                                      │
+│ SSE Stream  │◀───│  OCR → Entities → Investigation →    │
+└─────────────┘    │ Content Analysis → Gemma 4 Reasoning │
                    └──────────────────────────────────────┘
                                         │
                                         ▼
                                   ┌──────────┐
-                                  │ OpenRouter│
+                                  │OpenRouter│
                                   │ (Gemma 4)│
                                   └──────────┘
 ```
