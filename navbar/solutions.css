@@ -15,6 +15,7 @@
   --blue-2:     #1A46B8;
   --blue-light: #4D7CEB;
   --blue-tint:  #EAF0FE;
+  --bg: #f8fafc;
 
   --green:      #16A34A;
   --green-tint: #EAFBF1;
@@ -30,6 +31,12 @@
   --radius-lg: 22px;
   --shadow-card: 0 1px 2px rgba(15,23,42,.04), 0 14px 32px -18px rgba(30,41,84,.18);
   --shadow-btn: 0 8px 20px -8px rgba(79,70,229,.55);
+}
+
+.hiw-page {
+    background: var(--bg);
+    min-height: 100vh;
+    padding: 100px 24px 60px;
 }
 
 *{ box-sizing: border-box; }
