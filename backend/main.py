@@ -18,7 +18,6 @@ from .investigation import run_investigation, extract_domain
 from .analysis import analyze_content
 from .reasoning import generate_reasoning_report, parse_reasoning
 from .llm_client import get_llm_status
-from . import supabase_client
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -410,19 +409,7 @@ async def analyze(
             "skills": ", ".join(entities.get("skills", [])) if isinstance(entities.get("skills"), list) else str(entities.get("skills", "")),
         }
 
-        report_id = supabase_client.save_report({
-            "verdict": verdict,
-            "risk_score": combined_risk,
-            "confidence": confidence,
-            "job_info": job_info,
-            "ai_reasoning": ai_reasoning_parsed,
-            "technical": technical,
-            "risk_indicators": risk_indicators,
-            "technical_evidence": technical_evidence,
-            "content_analysis": content_analysis,
-            "source_type": source_type,
-            "source_filename": source_filename,
-        })
+        report_id = "local-" + str(id(job_info))
 
         response = {
             "verdict": verdict,
@@ -565,19 +552,7 @@ async def analyze_stream(
                 "skills": ", ".join(entities.get("skills", [])) if isinstance(entities.get("skills"), list) else str(entities.get("skills", "")),
             }
 
-            report_id = await asyncio.to_thread(supabase_client.save_report, {
-                "verdict": verdict,
-                "risk_score": combined_risk,
-                "confidence": confidence,
-                "job_info": job_info,
-                "ai_reasoning": ai_reasoning_parsed,
-                "technical": technical,
-                "risk_indicators": risk_indicators,
-                "technical_evidence": technical_evidence,
-                "content_analysis": content_analysis,
-                "source_type": source_type,
-                "source_filename": source_filename,
-            })
+            report_id = "local-" + str(id(job_info))
 
             result = {
                 "verdict": verdict,
@@ -621,24 +596,17 @@ async def analyze_stream(
 
 @app.get("/api/reports")
 async def list_reports(limit: int = 50):
-    reports = supabase_client.list_reports(limit)
-    return {"reports": reports}
+    return {"reports": []}
 
 
 @app.get("/api/reports/{report_id}")
 async def get_report(report_id: str):
-    report = supabase_client.get_report(report_id)
-    if not report:
-        raise HTTPException(status_code=404, detail="Report not found")
-    return report
+    raise HTTPException(status_code=404, detail="Report storage not configured")
 
 
 @app.delete("/api/reports/{report_id}")
 async def delete_report(report_id: str):
-    success = supabase_client.delete_report(report_id)
-    if not success:
-        raise HTTPException(status_code=404, detail="Report not found")
-    return {"deleted": True}
+    raise HTTPException(status_code=404, detail="Report storage not configured")
 
 
 @app.get("/api/health")
