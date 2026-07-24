@@ -7,6 +7,8 @@
 :root {
     --primary: #374151;
     --dark: #1f2937;
+    --norm: #374151;
+    --bg: #f8fafc;
 }
 
 body {
@@ -14,6 +16,12 @@ body {
     line-height: 1.6;
     color: var(--dark);
     padding-top: 60px;
+}
+
+.hiw-page {
+    background: var(--bg);
+    min-height: 100vh;
+    padding: 100px 24px 60px;
 }
 
 /* Navbar */
@@ -102,11 +110,23 @@ body {
 }
 
 .nav-links a.active {
+    color: var(--primary);
+}
+
+.nav-links a.inactive {
+    color: var(--norm);
+}
+
+.nav-links a.inactive:hover {
     color: #225be3;
 }
 
 .nav-links a:hover {
     color: #445bd1;
+}
+
+#lander {
+    text-decoration: none;
 }
 
 /* Hamburger */

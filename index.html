@@ -12,17 +12,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css" integrity="sha512-ApSLB1Pd3/bZN8fWB/RG9YhN/7bd9Hkf3AGaE2mPfebjrxagjuBtx2GcgdqIlJkUzwylBo61r9Xa9NmgBI0swA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <nav class="navbar">
+<nav class="navbar">
         <div class="nav-left">
-            <img src="assets/logo.png" alt="SafeHire AI Logo" class="nav-logo">
-            <h1 class="nav-title">SafeHire AI</h1>
+            <a href="index.html"><img src="assets/logo.png" alt="SafeHire AI Logo" class="nav-logo"></a>
+            <a id="lander" href="index.html"><h1 class="nav-title">SafeHire AI</h1></a>
         </div>
         <div class="nav-links" id="navLinks">
-             <a href="navbar/features.html">Features</a>
-             <a href="navbar/hiw.html">How It Works</a>
-             <a href="navbar/solutions.html">Solutions</a>
-             <a href="navbar/resources.html">Resources</a>
-             <a href="navbar/about.html">About</a>
+             <a href="navbar/features.html" class="inactive">Features</a>
+             <a href="navbar/hiw.html" class="inactive">How It Works</a>
+             <a href="navbar/solutions.html" class="inactive">Solutions</a>
+             <a href="navbar/resources.html" class="inactive">Resources</a>
+             <a href="navbar/about.html" class="inactive">About</a>
         </div>
         <div class="nav-right">
             <button class="nav-signup-button" onclick="window.location.href='dashboard/dashboard.html'">Dashboard</button>
@@ -33,6 +33,7 @@
             </button>
         </div>
     </nav>
+<main class="hiw-page">
     <!-- adi -->
      <div class="all">
      
@@ -96,9 +97,6 @@
                     <div class="message">
                         Verify registrations, CEO, address and online presence.
                     </div>
-                    <div class="learn-more">
-                        Learn More <i id="arr1" class="fa-solid fa-arrow-right"></i>
-                    </div>
             </div>
             
             <div class="box">
@@ -107,19 +105,13 @@
                     <div class="message">
                         WHOIS, DNS, SSL, SPF, DKIM, DMARC & more.
                     </div>
-                    <div class="learn-more">
-                        Learn More <i id="arr1" class="fa-solid fa-arrow-right"></i>
-                    </div>
-
             </div>
+
             <div class="box">
                 <i class="fa-solid fa-envelope"></i>
                 <b>Email Authentication</b>
                     <div class="message">
                         Detect disposable emails and verify authentication records.
-                    </div>
-                    <div class="learn-more">
-                        Learn More <i id="arr1" class="fa-solid fa-arrow-right"></i>
                     </div>
             </div>
 
@@ -129,9 +121,6 @@
                     <div class="message">
                         Checked LinkedIn, public records and social presence.
                     </div>
-                    <div class="learn-more">
-                        Learn More <i id="arr1" class="fa-solid fa-arrow-right"></i>
-                    </div>
             </div>
 
             <div class="box">
@@ -140,13 +129,10 @@
                     <div class="message">
                         Get a detailed report with evidence, risk score and recommendations.
                     </div>
-                    <div class="learn-more">
-                        Learn More <i id="arr1" class="fa-solid fa-arrow-right"></i>
-                    </div>
             </div>
         </div>
     </div>
-
+</main>
     <script src="script.js" defer></script>
 </body>
 </html>
