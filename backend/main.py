@@ -475,10 +475,11 @@ async def analyze_stream(
         try:
             # --- STAGE: Upload / Input ---
             yield emit("progress", {"stage": "uploading", "status": "active"})
+            await asyncio.sleep(0)
 
             if image:
                 file_bytes = await image.read()
-                raw_text = extract_text_from_image(file_bytes)
+                raw_text = await asyncio.to_thread(extract_text_from_image, file_bytes)
                 source_type = "image"
                 source_filename = image.filename
             elif text:
@@ -494,43 +495,56 @@ async def analyze_stream(
                 return
 
             yield emit("progress", {"stage": "uploading", "status": "complete"})
+            await asyncio.sleep(0)
 
             # --- STAGE: OCR (only for images) ---
             if source_type == "image":
                 yield emit("progress", {"stage": "ocr", "status": "active"})
+                await asyncio.sleep(0)
                 print(f"\nSTEP 1 - OCR: {len(raw_text)} chars extracted")
                 yield emit("progress", {"stage": "ocr", "status": "complete"})
+                await asyncio.sleep(0)
             else:
                 yield emit("progress", {"stage": "ocr", "status": "complete"})
+                await asyncio.sleep(0)
 
             # --- STAGE: Entity Extraction ---
             yield emit("progress", {"stage": "entity", "status": "active"})
-            entities = extract_entities(raw_text)
+            await asyncio.sleep(0)
+            entities = await asyncio.to_thread(extract_entities, raw_text)
             yield emit("progress", {"stage": "entity", "status": "complete"})
+            await asyncio.sleep(0)
 
             # --- STAGE: Technical Investigation ---
             yield emit("progress", {"stage": "technical", "status": "active"})
-            investigation = run_investigation(entities)
+            await asyncio.sleep(0)
+            investigation = await asyncio.to_thread(run_investigation, entities)
             yield emit("progress", {"stage": "technical", "status": "complete"})
+            await asyncio.sleep(0)
 
             # --- STAGE: Content Analysis ---
             yield emit("progress", {"stage": "content_analysis", "status": "active"})
-            content_analysis = analyze_content(raw_text, entities)
+            await asyncio.sleep(0)
+            content_analysis = await asyncio.to_thread(analyze_content, raw_text, entities)
             yield emit("progress", {"stage": "content_analysis", "status": "complete"})
+            await asyncio.sleep(0)
 
             # --- STAGE: Gemma AI Reasoning ---
             yield emit("progress", {"stage": "reasoning", "status": "active"})
-            raw_reasoning = generate_reasoning_report(entities, investigation, content_analysis)
-            ai_reasoning_parsed = parse_reasoning(raw_reasoning)
+            await asyncio.sleep(0)
+            raw_reasoning = await asyncio.to_thread(generate_reasoning_report, entities, investigation, content_analysis)
+            ai_reasoning_parsed = await asyncio.to_thread(parse_reasoning, raw_reasoning)
             yield emit("progress", {"stage": "reasoning", "status": "complete"})
+            await asyncio.sleep(0)
 
             # --- STAGE: Generate Report ---
             yield emit("progress", {"stage": "report", "status": "active"})
-            technical = _build_technical_checks(investigation, entities)
-            risk_indicators = _build_risk_indicators(technical, investigation)
-            technical_evidence = _build_technical_evidence(investigation)
+            await asyncio.sleep(0)
+            technical = await asyncio.to_thread(_build_technical_checks, investigation, entities)
+            risk_indicators = await asyncio.to_thread(_build_risk_indicators, technical, investigation)
+            technical_evidence = await asyncio.to_thread(_build_technical_evidence, investigation)
 
-            technical_risk = _compute_technical_risk(investigation)
+            technical_risk = await asyncio.to_thread(_compute_technical_risk, investigation)
             content_risk = content_analysis.get("content_risk_score", 50)
             reasoning_risk = ai_reasoning_parsed.get("risk_score", 50)
             combined_risk = round((technical_risk * 0.35) + (content_risk * 0.30) + (reasoning_risk * 0.35))
@@ -551,7 +565,7 @@ async def analyze_stream(
                 "skills": ", ".join(entities.get("skills", [])) if isinstance(entities.get("skills"), list) else str(entities.get("skills", "")),
             }
 
-            report_id = supabase_client.save_report({
+            report_id = await asyncio.to_thread(supabase_client.save_report, {
                 "verdict": verdict,
                 "risk_score": combined_risk,
                 "confidence": confidence,
@@ -586,6 +600,7 @@ async def analyze_stream(
 
             print(f"\nSTEP 7 - FINAL RESULT: verdict={verdict} score={combined_risk} technical={technical_risk} content={content_risk} reasoning={reasoning_risk}")
             yield emit("progress", {"stage": "report", "status": "complete"})
+            await asyncio.sleep(0)
             yield emit("complete", result)
 
         except Exception as e:
