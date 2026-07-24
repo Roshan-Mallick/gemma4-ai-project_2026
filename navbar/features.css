@@ -11,6 +11,10 @@
     --norm: #374151;
 }
 
+#lander{
+    text-decoration: none;
+}
+
 .nav-links a.active {
     color: var(--primary);
 }
