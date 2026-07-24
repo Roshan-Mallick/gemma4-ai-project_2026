@@ -4,47 +4,52 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SafeHire AI — Dashboard</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css" integrity="sha512-ApSLB1Pd3/bZN8fWB/RG9YhN/7bd9Hkf3AGaE2mPfebjrxagjuBtx2GcgdqIlJkUzwylBo61r9Xa9NmgBI0swA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 <link rel="stylesheet" href="/dashboard/dashboard.css">
 </head>
 <body>
 
-<!-- ============================== TOP NAVBAR ============================== -->
-<nav class="topnav">
-  <div class="topnav-left">
-    <a href="../index.html" class="topnav-brand">
-      <img src="/assets/logo.png" alt="SafeHire AI Logo" class="brand-logo">
-      <span class="brand-text">SafeHire AI</span>
-    </a>
-  </div>
-  <div class="topnav-center">
-    <a href="#" class="topnav-link active">Dashboard</a>
-    <a href="#" class="topnav-link">History</a>
-    <a href="#" class="topnav-link">About</a>
-  </div>
-  <div class="topnav-right">
-    <a href="https://github.com" target="_blank" class="topnav-icon-btn" aria-label="GitHub">
-      <i data-lucide="github"></i>
-    </a>
-    <button class="topnav-icon-btn" id="themeToggle" aria-label="Toggle theme">
-      <i data-lucide="sun" class="theme-icon-light"></i>
-      <i data-lucide="moon" class="theme-icon-dark"></i>
-    </button>
-  </div>
+<!-- ============================== NAVBAR (same as landing page) ============================== -->
+<nav class="navbar">
+    <div class="nav-left">
+        <img src="/assets/logo.png" alt="SafeHire AI Logo" class="nav-logo">
+        <h1 class="nav-title">SafeHire AI</h1>
+    </div>
+    <div class="nav-links" id="navLinks">
+         <a href="/navbar/features.html">Features</a>
+         <a href="/navbar/hiw.html">How It Works</a>
+         <a href="/navbar/solutions.html">Solutions</a>
+         <a href="/navbar/resources.html">Resources</a>
+         <a href="/navbar/about.html">About</a>
+    </div>
+    <div class="nav-right">
+        <button class="nav-signup-button" onclick="window.location.href='/dashboard/dashboard.html'">Dashboard</button>
+        <button class="nav-theme-toggle" id="themeToggle" aria-label="Toggle theme">
+            <i class="fa-solid fa-moon theme-icon-light"></i>
+            <i class="fa-solid fa-sun theme-icon-dark"></i>
+        </button>
+        <button class="nav-hamburger" id="navHamburger" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
 </nav>
 
 <!-- ============================== HERO SECTION ============================== -->
 <section class="hero" id="heroSection">
   <div class="hero-bg-glow"></div>
   <div class="hero-content">
+
     <div class="hero-badge">
       <i data-lucide="sparkles"></i>
       <span>Powered by Gemma 4</span>
     </div>
-    <h1 class="hero-title">AI-Powered Job Scam Detection</h1>
-    <p class="hero-subtitle">Upload a job posting image and let Gemma 4 analyze it using OCR, domain investigation, technical verification, and AI reasoning.</p>
+
+    <h1 class="hero-title">Detect Job Scams<br>With AI</h1>
+    <p class="hero-subtitle">Paste a job posting or upload a screenshot. SafeHire runs OCR, domain investigation, technical verification, and Gemma 4 reasoning to flag scams instantly.</p>
 
     <!-- Upload Card -->
     <div class="upload-card" id="uploadCard">
@@ -52,8 +57,8 @@
         <div class="upload-icon-wrap">
           <i data-lucide="cloud-upload"></i>
         </div>
-        <p class="upload-main-text">Drag & drop a job posting image here</p>
-        <p class="upload-sub-text">or</p>
+        <p class="upload-main-text">Drag & drop a job posting image</p>
+        <p class="upload-sub-text">PNG, JPG, or WEBP</p>
         <label class="upload-browse-btn" for="fileInput">
           <i data-lucide="folder-open"></i>
           Browse Files
@@ -68,7 +73,7 @@
         </button>
       </div>
 
-      <!-- Paste text area (hidden by default) -->
+      <!-- Paste text area -->
       <div class="paste-area" id="pasteArea" style="display:none;">
         <textarea id="pasteInput" placeholder="Paste the job posting text here..." rows="6"></textarea>
         <div class="paste-actions">
@@ -80,7 +85,7 @@
         </div>
       </div>
 
-      <!-- Image preview (hidden by default) -->
+      <!-- Image preview -->
       <div class="upload-preview" id="uploadPreview" style="display:none;">
         <img id="previewImg" src="" alt="Preview">
         <div class="preview-info">
@@ -96,8 +101,12 @@
       </div>
     </div>
 
-    <!-- Processing Pipeline (hidden until analysis starts) -->
+    <!-- Processing Pipeline -->
     <div class="pipeline" id="pipeline" style="display:none;">
+      <div class="pipeline-header">
+        <div class="pipeline-spinner-lg"></div>
+        <span class="pipeline-status-text">Analyzing...</span>
+      </div>
       <div class="pipeline-inner">
         <div class="pipeline-step" data-step="uploading">
           <div class="step-indicator">
@@ -184,13 +193,13 @@
         </div>
       </div>
     </div>
+
   </div>
 </section>
 
 <!-- ============================== RESULTS DASHBOARD ============================== -->
 <section class="results-section" id="resultsSection" style="display:none;">
 
-  <!-- Results Header -->
   <div class="results-header">
     <h2 class="results-title">
       <i data-lucide="clipboard-check"></i>
@@ -202,113 +211,80 @@
     </button>
   </div>
 
-  <!-- 2-Column Results Grid -->
-  <div class="results-grid">
+  <!-- Top Row: Verdict + Job Info -->
+  <div class="results-top-row">
+    <div class="card verdict-card" id="verdictCard">
+      <div class="card-accent-bar"></div>
+      <div class="card-header">
+        <h3><i data-lucide="shield-alert"></i> Final AI Verdict</h3>
+      </div>
+      <div class="verdict-body">
+        <div class="verdict-badge" id="verdictBadge">SAFE</div>
+        <div class="verdict-score">
+          <span class="score-number" id="scoreNumber">18</span>
+          <span class="score-total">/ 100</span>
+        </div>
+        <div class="risk-breakdown" id="riskBreakdown">
+          <div class="risk-component">
+            <span class="risk-component-label">Technical</span>
+            <div class="risk-bar-track"><div class="risk-bar-fill" id="riskBarTechnical" style="width:0%"></div></div>
+            <span class="risk-component-value" id="riskValTechnical">--</span>
+          </div>
+          <div class="risk-component">
+            <span class="risk-component-label">Content</span>
+            <div class="risk-bar-track"><div class="risk-bar-fill" id="riskBarContent" style="width:0%"></div></div>
+            <span class="risk-component-value" id="riskValContent">--</span>
+          </div>
+          <div class="risk-component">
+            <span class="risk-component-label">Reasoning</span>
+            <div class="risk-bar-track"><div class="risk-bar-fill" id="riskBarReasoning" style="width:0%"></div></div>
+            <span class="risk-component-value" id="riskValReasoning">--</span>
+          </div>
+        </div>
+        <div class="verdict-meta">
+          <div class="meta-item">
+            <span class="meta-label">Confidence</span>
+            <span class="meta-value" id="confidenceLevel">High</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Generated</span>
+            <span class="meta-value" id="generatedTime">--</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <!-- ==================== LEFT COLUMN ==================== -->
+    <div class="card" id="jobInfoCard">
+      <div class="card-header">
+        <h3><i data-lucide="briefcase"></i> Extracted Job Information</h3>
+      </div>
+      <div class="job-info-grid" id="jobInfoGrid">
+        <div class="info-row"><span class="info-label">Company</span><span class="info-value" id="infoCompany">--</span></div>
+        <div class="info-row"><span class="info-label">Job Title</span><span class="info-value" id="infoTitle">--</span></div>
+        <div class="info-row"><span class="info-label">Location</span><span class="info-value" id="infoLocation">--</span></div>
+        <div class="info-row"><span class="info-label">Salary</span><span class="info-value" id="infoSalary">--</span></div>
+        <div class="info-row"><span class="info-label">Recruiter</span><span class="info-value" id="infoRecruiter">--</span></div>
+        <div class="info-row"><span class="info-label">Email</span><span class="info-value" id="infoEmail">--</span></div>
+        <div class="info-row"><span class="info-label">Phone</span><span class="info-value" id="infoPhone">--</span></div>
+        <div class="info-row"><span class="info-label">Website</span><span class="info-value" id="infoWebsite">--</span></div>
+        <div class="info-row full-width"><span class="info-label">Required Skills</span><span class="info-value" id="infoSkills">--</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main 2-Column Grid -->
+  <div class="results-grid">
     <div class="results-left">
 
-      <!-- Card 1: Final AI Verdict -->
-      <div class="glass-card verdict-card" id="verdictCard">
-        <div class="card-header">
-          <h3><i data-lucide="shield-alert"></i> Final AI Verdict</h3>
-        </div>
-        <div class="verdict-body">
-          <div class="verdict-badge" id="verdictBadge">SAFE</div>
-          <div class="verdict-score">
-            <span class="score-number" id="scoreNumber">18</span>
-            <span class="score-total">/ 100</span>
-          </div>
-          <div class="risk-breakdown" id="riskBreakdown">
-            <div class="risk-component">
-              <span class="risk-component-label">Technical Investigation</span>
-              <div class="risk-bar-track"><div class="risk-bar-fill" id="riskBarTechnical" style="width:0%"></div></div>
-              <span class="risk-component-value" id="riskValTechnical">--</span>
-            </div>
-            <div class="risk-component">
-              <span class="risk-component-label">Content Analysis</span>
-              <div class="risk-bar-track"><div class="risk-bar-fill" id="riskBarContent" style="width:0%"></div></div>
-              <span class="risk-component-value" id="riskValContent">--</span>
-            </div>
-            <div class="risk-component">
-              <span class="risk-component-label">AI Reasoning</span>
-              <div class="risk-bar-track"><div class="risk-bar-fill" id="riskBarReasoning" style="width:0%"></div></div>
-              <span class="risk-component-value" id="riskValReasoning">--</span>
-            </div>
-          </div>
-          <div class="verdict-meta">
-            <div class="meta-item">
-              <span class="meta-label">Confidence</span>
-              <span class="meta-value" id="confidenceLevel">High</span>
-            </div>
-            <div class="meta-item">
-              <span class="meta-label">Generated</span>
-              <span class="meta-value" id="generatedTime">--</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 2: Extracted Job Information -->
-      <div class="glass-card" id="jobInfoCard">
-        <div class="card-header">
-          <h3><i data-lucide="briefcase"></i> Extracted Job Information</h3>
-        </div>
-        <div class="job-info-grid" id="jobInfoGrid">
-          <div class="info-row">
-            <span class="info-label">Company</span>
-            <span class="info-value" id="infoCompany">--</span>
-          </div>
-          <div class="info-row">
-            <span class="info-label">Job Title</span>
-            <span class="info-value" id="infoTitle">--</span>
-          </div>
-          <div class="info-row">
-            <span class="info-label">Location</span>
-            <span class="info-value" id="infoLocation">--</span>
-          </div>
-          <div class="info-row">
-            <span class="info-label">Salary</span>
-            <span class="info-value" id="infoSalary">--</span>
-          </div>
-          <div class="info-row">
-            <span class="info-label">Recruiter</span>
-            <span class="info-value" id="infoRecruiter">--</span>
-          </div>
-          <div class="info-row">
-            <span class="info-label">Email</span>
-            <span class="info-value" id="infoEmail">--</span>
-          </div>
-          <div class="info-row">
-            <span class="info-label">Phone</span>
-            <span class="info-value" id="infoPhone">--</span>
-          </div>
-          <div class="info-row">
-            <span class="info-label">Website</span>
-            <span class="info-value" id="infoWebsite">--</span>
-          </div>
-          <div class="info-row full-width">
-            <span class="info-label">Required Skills</span>
-            <span class="info-value" id="infoSkills">--</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 3: Gemma 4 AI Reasoning -->
-      <div class="glass-card reasoning-card" id="reasoningCard">
+      <div class="card reasoning-card" id="reasoningCard">
+        <div class="card-accent-bar card-accent-bar--purple"></div>
         <div class="card-header">
           <h3><i data-lucide="brain-circuit"></i> Gemma 4 AI Reasoning</h3>
           <span class="gemma-badge">Gemma 4</span>
         </div>
         <div class="reasoning-body">
-          <div class="reasoning-row">
-            <span class="reasoning-label">Risk Score</span>
-            <span class="reasoning-value" id="reasoningScore">--</span>
-          </div>
-          <div class="reasoning-row">
-            <span class="reasoning-label">Final Verdict</span>
-            <span class="reasoning-value" id="reasoningVerdict">--</span>
-          </div>
+          <div class="reasoning-row"><span class="reasoning-label">Risk Score</span><span class="reasoning-value" id="reasoningScore">--</span></div>
+          <div class="reasoning-row"><span class="reasoning-label">Final Verdict</span><span class="reasoning-value" id="reasoningVerdict">--</span></div>
           <div class="reasoning-section">
             <h4><i data-lucide="flag"></i> Red Flags</h4>
             <ul id="redFlagsList" class="flag-list red-flags"></ul>
@@ -324,268 +300,74 @@
         </div>
       </div>
 
-      <!-- Card 4: Content Analysis -->
-      <div class="glass-card" id="contentAnalysisCard">
+      <div class="card" id="contentAnalysisCard">
         <div class="card-header">
           <h3><i data-lucide="file-search"></i> Content Analysis</h3>
         </div>
         <div id="contentAnalysisBody">
-          <p style="color:var(--text-muted);font-size:13px;">Analyzing...</p>
+          <p class="placeholder-text">Analyzing...</p>
         </div>
       </div>
 
     </div>
 
-    <!-- ==================== RIGHT COLUMN ==================== -->
     <div class="results-right">
 
-      <!-- Card 5: Technical Investigation -->
-      <div class="glass-card" id="technicalCard">
+      <div class="card" id="technicalCard">
         <div class="card-header">
           <h3><i data-lucide="radar"></i> Technical Investigation</h3>
         </div>
         <div class="tech-checks" id="techChecks">
-          <div class="tech-row" data-check="domain_registered">
-            <span class="tech-icon"><i data-lucide="globe"></i></span>
-            <span class="tech-label">Domain Registered</span>
-            <span class="tech-status" id="checkDomainRegistered">--</span>
-          </div>
-          <div class="tech-row" data-check="website_reachable">
-            <span class="tech-icon"><i data-lucide="wifi"></i></span>
-            <span class="tech-label">Website Reachable</span>
-            <span class="tech-status" id="checkWebsiteReachable">--</span>
-          </div>
-          <div class="tech-row" data-check="https_enabled">
-            <span class="tech-icon"><i data-lucide="lock"></i></span>
-            <span class="tech-label">HTTPS Enabled</span>
-            <span class="tech-status" id="checkHttpsEnabled">--</span>
-          </div>
-          <div class="tech-row" data-check="ssl_valid">
-            <span class="tech-icon"><i data-lucide="shield-check"></i></span>
-            <span class="tech-label">SSL Certificate Valid</span>
-            <span class="tech-status" id="checkSslValid">--</span>
-          </div>
-          <div class="tech-row" data-check="mx_record">
-            <span class="tech-icon"><i data-lucide="mail"></i></span>
-            <span class="tech-label">MX Record</span>
-            <span class="tech-status" id="checkMxRecord">--</span>
-          </div>
-          <div class="tech-row" data-check="spf_record">
-            <span class="tech-icon"><i data-lucide="shield"></i></span>
-            <span class="tech-label">SPF Record</span>
-            <span class="tech-status" id="checkSpfRecord">--</span>
-          </div>
-          <div class="tech-row" data-check="dmarc_record">
-            <span class="tech-icon"><i data-lucide="shield-alert"></i></span>
-            <span class="tech-label">DMARC Record</span>
-            <span class="tech-status" id="checkDmarcRecord">--</span>
-          </div>
-          <div class="tech-row" data-check="email_domain_match">
-            <span class="tech-icon"><i data-lucide="at-sign"></i></span>
-            <span class="tech-label">Email Domain Match</span>
-            <span class="tech-status" id="checkEmailDomainMatch">--</span>
-          </div>
-          <div class="tech-row" data-check="disposable_email">
-            <span class="tech-icon"><i data-lucide="trash-2"></i></span>
-            <span class="tech-label">Disposable Email</span>
-            <span class="tech-status" id="checkDisposableEmail">--</span>
-          </div>
-          <div class="tech-row" data-check="free_email">
-            <span class="tech-icon"><i data-lucide="inbox"></i></span>
-            <span class="tech-label">Free Email Provider</span>
-            <span class="tech-status" id="checkFreeEmail">--</span>
-          </div>
-          <div class="tech-row" data-check="live_verification">
-            <span class="tech-icon"><i data-lucide="activity"></i></span>
-            <span class="tech-label">Live Website Verification</span>
-            <span class="tech-status" id="checkLiveVerification">--</span>
-          </div>
-          <div class="tech-row" data-check="phone_valid">
-            <span class="tech-icon"><i data-lucide="phone"></i></span>
-            <span class="tech-label">Phone Valid</span>
-            <span class="tech-status" id="checkPhoneValid">--</span>
-          </div>
+          <div class="tech-row" data-check="domain_registered"><span class="tech-icon"><i data-lucide="globe"></i></span><span class="tech-label">Domain Registered</span><span class="tech-status" id="checkDomainRegistered">--</span></div>
+          <div class="tech-row" data-check="website_reachable"><span class="tech-icon"><i data-lucide="wifi"></i></span><span class="tech-label">Website Reachable</span><span class="tech-status" id="checkWebsiteReachable">--</span></div>
+          <div class="tech-row" data-check="https_enabled"><span class="tech-icon"><i data-lucide="lock"></i></span><span class="tech-label">HTTPS Enabled</span><span class="tech-status" id="checkHttpsEnabled">--</span></div>
+          <div class="tech-row" data-check="ssl_valid"><span class="tech-icon"><i data-lucide="shield-check"></i></span><span class="tech-label">SSL Certificate Valid</span><span class="tech-status" id="checkSslValid">--</span></div>
+          <div class="tech-row" data-check="mx_record"><span class="tech-icon"><i data-lucide="mail"></i></span><span class="tech-label">MX Record</span><span class="tech-status" id="checkMxRecord">--</span></div>
+          <div class="tech-row" data-check="spf_record"><span class="tech-icon"><i data-lucide="shield"></i></span><span class="tech-label">SPF Record</span><span class="tech-status" id="checkSpfRecord">--</span></div>
+          <div class="tech-row" data-check="dmarc_record"><span class="tech-icon"><i data-lucide="shield-alert"></i></span><span class="tech-label">DMARC Record</span><span class="tech-status" id="checkDmarcRecord">--</span></div>
+          <div class="tech-row" data-check="email_domain_match"><span class="tech-icon"><i data-lucide="at-sign"></i></span><span class="tech-label">Email Domain Match</span><span class="tech-status" id="checkEmailDomainMatch">--</span></div>
+          <div class="tech-row" data-check="disposable_email"><span class="tech-icon"><i data-lucide="trash-2"></i></span><span class="tech-label">Disposable Email</span><span class="tech-status" id="checkDisposableEmail">--</span></div>
+          <div class="tech-row" data-check="free_email"><span class="tech-icon"><i data-lucide="inbox"></i></span><span class="tech-label">Free Email Provider</span><span class="tech-status" id="checkFreeEmail">--</span></div>
+          <div class="tech-row" data-check="live_verification"><span class="tech-icon"><i data-lucide="activity"></i></span><span class="tech-label">Live Website Verification</span><span class="tech-status" id="checkLiveVerification">--</span></div>
+          <div class="tech-row" data-check="phone_valid"><span class="tech-icon"><i data-lucide="phone"></i></span><span class="tech-label">Phone Valid</span><span class="tech-status" id="checkPhoneValid">--</span></div>
         </div>
       </div>
 
-      <!-- Card 5: Risk Indicators -->
-      <div class="glass-card" id="riskIndicatorsCard">
+      <div class="card" id="riskIndicatorsCard">
         <div class="card-header">
           <h3><i data-lucide="alert-triangle"></i> Risk Indicators</h3>
         </div>
         <div class="risk-chips" id="riskChips"></div>
       </div>
 
-      <!-- Card 6: Technical Evidence (Accordion) -->
-      <div class="glass-card" id="evidenceCard">
+      <div class="card" id="evidenceCard">
         <div class="card-header">
           <h3><i data-lucide="file-search"></i> Technical Evidence</h3>
         </div>
         <div class="accordion" id="evidenceAccordion">
           <div class="accordion-item">
-            <button class="accordion-trigger" data-target="whoisContent">
-              <span><i data-lucide="clock"></i> WHOIS Information</span>
-              <span class="tech-status" id="whoisStatus" style="font-size:11px;margin-right:8px;">UNKNOWN</span>
-              <i data-lucide="chevron-down" class="accordion-chevron"></i>
-            </button>
-            <div class="accordion-content" id="whoisContent">
-              <div class="evidence-grid">
-                <div class="evidence-row">
-                  <span class="evidence-label">Creation Date</span>
-                  <span class="evidence-value" id="whoisCreated">--</span>
-                </div>
-                <div class="evidence-row">
-                  <span class="evidence-label">Expiry Date</span>
-                  <span class="evidence-value" id="whoisExpiry">--</span>
-                </div>
-                <div class="evidence-row">
-                  <span class="evidence-label">Registrar</span>
-                  <span class="evidence-value" id="whoisRegistrar">--</span>
-                </div>
-              </div>
-            </div>
+            <button class="accordion-trigger" data-target="whoisContent"><span><i data-lucide="clock"></i> WHOIS Information</span><span class="tech-status" id="whoisStatus" style="font-size:11px;margin-right:8px;">UNKNOWN</span><i data-lucide="chevron-down" class="accordion-chevron"></i></button>
+            <div class="accordion-content" id="whoisContent"><div class="evidence-grid"><div class="evidence-row"><span class="evidence-label">Creation Date</span><span class="evidence-value" id="whoisCreated">--</span></div><div class="evidence-row"><span class="evidence-label">Expiry Date</span><span class="evidence-value" id="whoisExpiry">--</span></div><div class="evidence-row"><span class="evidence-label">Registrar</span><span class="evidence-value" id="whoisRegistrar">--</span></div></div></div>
           </div>
           <div class="accordion-item">
-            <button class="accordion-trigger" data-target="dnsContent">
-              <span><i data-lucide="network"></i> DNS Records</span>
-              <span class="tech-status" id="dnsStatus" style="font-size:11px;margin-right:8px;">UNKNOWN</span>
-              <i data-lucide="chevron-down" class="accordion-chevron"></i>
-            </button>
-            <div class="accordion-content" id="dnsContent">
-              <div class="evidence-grid">
-                <div class="evidence-row">
-                  <span class="evidence-label">A Records</span>
-                  <span class="evidence-value mono" id="dnsA">--</span>
-                </div>
-                <div class="evidence-row">
-                  <span class="evidence-label">MX Records</span>
-                  <span class="evidence-value mono" id="dnsMx">--</span>
-                </div>
-                <div class="evidence-row">
-                  <span class="evidence-label">TXT Records</span>
-                  <span class="evidence-value mono" id="dnsTxt">--</span>
-                </div>
-              </div>
-            </div>
+            <button class="accordion-trigger" data-target="dnsContent"><span><i data-lucide="network"></i> DNS Records</span><span class="tech-status" id="dnsStatus" style="font-size:11px;margin-right:8px;">UNKNOWN</span><i data-lucide="chevron-down" class="accordion-chevron"></i></button>
+            <div class="accordion-content" id="dnsContent"><div class="evidence-grid"><div class="evidence-row"><span class="evidence-label">A Records</span><span class="evidence-value mono" id="dnsA">--</span></div><div class="evidence-row"><span class="evidence-label">MX Records</span><span class="evidence-value mono" id="dnsMx">--</span></div><div class="evidence-row"><span class="evidence-label">TXT Records</span><span class="evidence-value mono" id="dnsTxt">--</span></div></div></div>
           </div>
           <div class="accordion-item">
-            <button class="accordion-trigger" data-target="tlsContent">
-              <span><i data-lucide="lock"></i> TLS / SSL Details</span>
-              <span class="tech-status" id="tlsStatus" style="font-size:11px;margin-right:8px;">UNKNOWN</span>
-              <i data-lucide="chevron-down" class="accordion-chevron"></i>
-            </button>
-            <div class="accordion-content" id="tlsContent">
-              <div class="evidence-grid">
-                <div class="evidence-row">
-                  <span class="evidence-label">TLS Version</span>
-                  <span class="evidence-value" id="tlsVersion">--</span>
-                </div>
-                <div class="evidence-row">
-                  <span class="evidence-label">SSL Issuer</span>
-                  <span class="evidence-value" id="tlsIssuer">--</span>
-                </div>
-              </div>
-            </div>
+            <button class="accordion-trigger" data-target="tlsContent"><span><i data-lucide="lock"></i> TLS / SSL Details</span><span class="tech-status" id="tlsStatus" style="font-size:11px;margin-right:8px;">UNKNOWN</span><i data-lucide="chevron-down" class="accordion-chevron"></i></button>
+            <div class="accordion-content" id="tlsContent"><div class="evidence-grid"><div class="evidence-row"><span class="evidence-label">TLS Version</span><span class="evidence-value" id="tlsVersion">--</span></div><div class="evidence-row"><span class="evidence-label">SSL Issuer</span><span class="evidence-value" id="tlsIssuer">--</span></div></div></div>
           </div>
           <div class="accordion-item">
-            <button class="accordion-trigger" data-target="httpContent">
-              <span><i data-lucide="globe"></i> HTTP Status</span>
-              <i data-lucide="chevron-down" class="accordion-chevron"></i>
-            </button>
-            <div class="accordion-content" id="httpContent">
-              <div class="evidence-grid">
-                <div class="evidence-row">
-                  <span class="evidence-label">HTTP Status Code</span>
-                  <span class="evidence-value" id="httpStatus">--</span>
-                </div>
-              </div>
-            </div>
+            <button class="accordion-trigger" data-target="httpContent"><span><i data-lucide="globe"></i> HTTP Status</span><i data-lucide="chevron-down" class="accordion-chevron"></i></button>
+            <div class="accordion-content" id="httpContent"><div class="evidence-grid"><div class="evidence-row"><span class="evidence-label">HTTP Status Code</span><span class="evidence-value" id="httpStatus">--</span></div></div></div>
           </div>
           <div class="accordion-item">
-            <button class="accordion-trigger" data-target="emailValidContent">
-              <span><i data-lucide="mail-check"></i> Email Validation</span>
-              <span class="tech-status" id="emailValidStatus" style="font-size:11px;margin-right:8px;">UNKNOWN</span>
-              <i data-lucide="chevron-down" class="accordion-chevron"></i>
-            </button>
-            <div class="accordion-content" id="emailValidContent">
-              <div class="evidence-grid">
-                <div class="evidence-row">
-                  <span class="evidence-label">Deliverability</span>
-                  <span class="evidence-value" id="emailDeliverability">--</span>
-                </div>
-                <div class="evidence-row">
-                  <span class="evidence-label">Quality Score</span>
-                  <span class="evidence-value" id="emailQualityScore">--</span>
-                </div>
-                <div class="evidence-row">
-                  <span class="evidence-label">SMTP Valid</span>
-                  <span class="evidence-value" id="emailSmtpValid">--</span>
-                </div>
-                <div class="evidence-row">
-                  <span class="evidence-label">MX Found</span>
-                  <span class="evidence-value" id="emailMxFound">--</span>
-                </div>
-                <div class="evidence-row">
-                  <span class="evidence-label">Disposable</span>
-                  <span class="evidence-value" id="emailDisposable">--</span>
-                </div>
-                <div class="evidence-row">
-                  <span class="evidence-label">Free Email</span>
-                  <span class="evidence-value" id="emailFree">--</span>
-                </div>
-                <div class="evidence-row">
-                  <span class="evidence-label">Role Email</span>
-                  <span class="evidence-value" id="emailRole">--</span>
-                </div>
-                <div class="evidence-row">
-                  <span class="evidence-label">Catch-All</span>
-                  <span class="evidence-value" id="emailCatchall">--</span>
-                </div>
-                <div class="evidence-row">
-                  <span class="evidence-label">Autocorrect</span>
-                  <span class="evidence-value" id="emailAutocorrect">--</span>
-                </div>
-              </div>
-            </div>
+            <button class="accordion-trigger" data-target="emailValidContent"><span><i data-lucide="mail-check"></i> Email Validation</span><span class="tech-status" id="emailValidStatus" style="font-size:11px;margin-right:8px;">UNKNOWN</span><i data-lucide="chevron-down" class="accordion-chevron"></i></button>
+            <div class="accordion-content" id="emailValidContent"><div class="evidence-grid"><div class="evidence-row"><span class="evidence-label">Deliverability</span><span class="evidence-value" id="emailDeliverability">--</span></div><div class="evidence-row"><span class="evidence-label">Quality Score</span><span class="evidence-value" id="emailQualityScore">--</span></div><div class="evidence-row"><span class="evidence-label">SMTP Valid</span><span class="evidence-value" id="emailSmtpValid">--</span></div><div class="evidence-row"><span class="evidence-label">MX Found</span><span class="evidence-value" id="emailMxFound">--</span></div><div class="evidence-row"><span class="evidence-label">Disposable</span><span class="evidence-value" id="emailDisposable">--</span></div><div class="evidence-row"><span class="evidence-label">Free Email</span><span class="evidence-value" id="emailFree">--</span></div><div class="evidence-row"><span class="evidence-label">Role Email</span><span class="evidence-value" id="emailRole">--</span></div><div class="evidence-row"><span class="evidence-label">Catch-All</span><span class="evidence-value" id="emailCatchall">--</span></div><div class="evidence-row"><span class="evidence-label">Autocorrect</span><span class="evidence-value" id="emailAutocorrect">--</span></div></div></div>
           </div>
           <div class="accordion-item">
-            <button class="accordion-trigger" data-target="phoneIntelContent">
-              <span><i data-lucide="phone"></i> Phone Intelligence</span>
-              <span class="tech-status" id="phoneIntelStatus" style="font-size:11px;margin-right:8px;">UNKNOWN</span>
-              <i data-lucide="chevron-down" class="accordion-chevron"></i>
-            </button>
-            <div class="accordion-content" id="phoneIntelContent">
-              <div class="evidence-grid">
-                <div class="evidence-row">
-                  <span class="evidence-label">Valid</span>
-                  <span class="evidence-value" id="phoneValid">--</span>
-                </div>
-                <div class="evidence-row">
-                  <span class="evidence-label">Line Type</span>
-                  <span class="evidence-value" id="phoneLineType">--</span>
-                </div>
-                <div class="evidence-row">
-                  <span class="evidence-label">Line Status</span>
-                  <span class="evidence-value" id="phoneLineStatus">--</span>
-                </div>
-                <div class="evidence-row">
-                  <span class="evidence-label">Carrier</span>
-                  <span class="evidence-value" id="phoneCarrier">--</span>
-                </div>
-                <div class="evidence-row">
-                  <span class="evidence-label">Country</span>
-                  <span class="evidence-value" id="phoneCountry">--</span>
-                </div>
-                <div class="evidence-row">
-                  <span class="evidence-label">Risk Level</span>
-                  <span class="evidence-value" id="phoneRiskLevel">--</span>
-                </div>
-                <div class="evidence-row">
-                  <span class="evidence-label">Breaches</span>
-                  <span class="evidence-value" id="phoneBreaches">--</span>
-                </div>
-              </div>
-            </div>
+            <button class="accordion-trigger" data-target="phoneIntelContent"><span><i data-lucide="phone"></i> Phone Intelligence</span><span class="tech-status" id="phoneIntelStatus" style="font-size:11px;margin-right:8px;">UNKNOWN</span><i data-lucide="chevron-down" class="accordion-chevron"></i></button>
+            <div class="accordion-content" id="phoneIntelContent"><div class="evidence-grid"><div class="evidence-row"><span class="evidence-label">Valid</span><span class="evidence-value" id="phoneValid">--</span></div><div class="evidence-row"><span class="evidence-label">Line Type</span><span class="evidence-value" id="phoneLineType">--</span></div><div class="evidence-row"><span class="evidence-label">Line Status</span><span class="evidence-value" id="phoneLineStatus">--</span></div><div class="evidence-row"><span class="evidence-label">Carrier</span><span class="evidence-value" id="phoneCarrier">--</span></div><div class="evidence-row"><span class="evidence-label">Country</span><span class="evidence-value" id="phoneCountry">--</span></div><div class="evidence-row"><span class="evidence-label">Risk Level</span><span class="evidence-value" id="phoneRiskLevel">--</span></div><div class="evidence-row"><span class="evidence-label">Breaches</span><span class="evidence-value" id="phoneBreaches">--</span></div></div></div>
           </div>
         </div>
       </div>
@@ -595,79 +377,22 @@
 
   <!-- Processing Timeline -->
   <div class="timeline-section" id="timelineSection">
-    <h3 class="timeline-title">
-      <i data-lucide="git-branch"></i>
-      Processing Timeline
-    </h3>
+    <h3 class="timeline-title"><i data-lucide="git-branch"></i> Processing Timeline</h3>
     <div class="timeline" id="timeline">
-      <div class="timeline-item" data-tl="ocr">
-        <div class="tl-dot"></div>
-        <div class="tl-line"></div>
-        <div class="tl-content">
-          <i data-lucide="scan-text"></i>
-          <span>OCR Complete</span>
-        </div>
-      </div>
-      <div class="timeline-item" data-tl="entity">
-        <div class="tl-dot"></div>
-        <div class="tl-line"></div>
-        <div class="tl-content">
-          <i data-lucide="brain"></i>
-          <span>Entity Extraction</span>
-        </div>
-      </div>
-      <div class="timeline-item" data-tl="domain">
-        <div class="tl-dot"></div>
-        <div class="tl-line"></div>
-        <div class="tl-content">
-          <i data-lucide="globe"></i>
-          <span>Domain Investigation</span>
-        </div>
-      </div>
-      <div class="timeline-item" data-tl="dns">
-        <div class="tl-dot"></div>
-        <div class="tl-line"></div>
-        <div class="tl-content">
-          <i data-lucide="network"></i>
-          <span>DNS Verification</span>
-        </div>
-      </div>
-      <div class="timeline-item" data-tl="ssl">
-        <div class="tl-dot"></div>
-        <div class="tl-line"></div>
-        <div class="tl-content">
-          <i data-lucide="lock"></i>
-          <span>SSL Verification</span>
-        </div>
-      </div>
-      <div class="timeline-item" data-tl="email">
-        <div class="tl-dot"></div>
-        <div class="tl-line"></div>
-        <div class="tl-content">
-          <i data-lucide="mail-check"></i>
-          <span>Email Analysis</span>
-        </div>
-      </div>
-      <div class="timeline-item" data-tl="reasoning">
-        <div class="tl-dot"></div>
-        <div class="tl-line"></div>
-        <div class="tl-content">
-          <i data-lucide="brain-circuit"></i>
-          <span>Gemma AI Reasoning</span>
-        </div>
-      </div>
-      <div class="timeline-item" data-tl="report">
-        <div class="tl-dot"></div>
-        <div class="tl-content">
-          <i data-lucide="file-check"></i>
-          <span>Final Report Generated</span>
-        </div>
-      </div>
+      <div class="timeline-item" data-tl="ocr"><div class="tl-dot"></div><div class="tl-line"></div><div class="tl-content"><i data-lucide="scan-text"></i><span>OCR Complete</span></div></div>
+      <div class="timeline-item" data-tl="entity"><div class="tl-dot"></div><div class="tl-line"></div><div class="tl-content"><i data-lucide="brain"></i><span>Entity Extraction</span></div></div>
+      <div class="timeline-item" data-tl="domain"><div class="tl-dot"></div><div class="tl-line"></div><div class="tl-content"><i data-lucide="globe"></i><span>Domain Investigation</span></div></div>
+      <div class="timeline-item" data-tl="dns"><div class="tl-dot"></div><div class="tl-line"></div><div class="tl-content"><i data-lucide="network"></i><span>DNS Verification</span></div></div>
+      <div class="timeline-item" data-tl="ssl"><div class="tl-dot"></div><div class="tl-line"></div><div class="tl-content"><i data-lucide="lock"></i><span>SSL Verification</span></div></div>
+      <div class="timeline-item" data-tl="email"><div class="tl-dot"></div><div class="tl-line"></div><div class="tl-content"><i data-lucide="mail-check"></i><span>Email Analysis</span></div></div>
+      <div class="timeline-item" data-tl="reasoning"><div class="tl-dot"></div><div class="tl-line"></div><div class="tl-content"><i data-lucide="brain-circuit"></i><span>Gemma AI Reasoning</span></div></div>
+      <div class="timeline-item" data-tl="report"><div class="tl-dot"></div><div class="tl-content"><i data-lucide="file-check"></i><span>Final Report Generated</span></div></div>
     </div>
   </div>
 
 </section>
 
+<script src="script.js"></script>
 <script src="/dashboard/dashboard.js"></script>
 </body>
 </html>
