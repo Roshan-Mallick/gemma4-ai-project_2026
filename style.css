@@ -29,6 +29,14 @@ body {
     align-items: center;
     padding-left: 0px;
     padding-right: 15px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+}
+
+.navbar.scrolled {
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+    border-bottom: 1px solid rgba(34, 91, 227, 0.08);
+    backdrop-filter: blur(12px);
 }
 
 .nav-left {
@@ -85,6 +93,10 @@ body {
     color: var(--primary);
     font-weight: 550;
     transition: color 0.3s ease;
+}
+
+.nav-links a.active {
+    color: #225be3;
 }
 
 .nav-links a:hover {
