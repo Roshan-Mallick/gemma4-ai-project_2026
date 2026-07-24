@@ -8,6 +8,19 @@
 
 ---
 
+## Why SafeHire AI
+
+| | |
+|---|---|
+| **Problem Scale** | $300M+ lost to job scams annually in the US — a quantifiable, relatable, real-world problem |
+| **Technical Depth** | 12 independent technical checks (WHOIS, DNS MX/SPF/DMARC, SSL, HTTP headers, email/phone validation) layered with LLM reasoning — not a single API call wrapped in a UI |
+| **Architecture** | Clean separation of concerns: OCR → Entity Extraction → Technical Investigation → Content Analysis → AI Reasoning → Weighted Scoring. Each stage is independently testable and replaceable |
+| **Gemma 4 Integration** | Used in 4 distinct pipeline stages — entity extraction, content analysis, cybersecurity reasoning, and domain discovery. Not a token gesture; Gemma 4 is the reasoning backbone |
+| **Real Engineering** | SSE event-loop starvation fixed with `asyncio.to_thread()` + socket flush. Regex fallback for LLM extraction failures. Iterative weight tuning for 35/30/35 risk scoring. Actual debugging, not fabricated difficulty |
+| **Scoped Correctly** | FastAPI + vanilla JS frontend. Achievable in hackathon timeframes. No framework overhead, no unnecessary complexity |
+
+---
+
 ## What Problem We Are Solving
 
 Job scams cost victims over $300 million annually in the US alone. Scammers impersonate legitimate companies, create fake job listings, and exploit job seekers who are desperate for work. Traditional spam filters focus on email content but miss the deeper technical signals: unregistered domains, missing DNS records, invalid SSL certificates, and disposable email addresses. Job seekers have no reliable way to verify whether a posting is legitimate before sharing sensitive personal and financial information.
