@@ -1,6 +1,6 @@
 import json
 import re
-from .llm_client import call_gemma
+from llm_client import call_gemma
 
 SCHEMA_KEYS = [
     "company_name", "recruiter_name", "email", "website", "phone",

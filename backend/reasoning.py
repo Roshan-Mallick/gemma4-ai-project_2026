@@ -1,7 +1,7 @@
 import json
 import re
 import urllib.request
-from .llm_client import call_gemma
+from llm_client import call_gemma
 
 
 def quick_web_check(domain):

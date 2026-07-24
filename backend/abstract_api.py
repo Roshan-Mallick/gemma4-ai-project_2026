@@ -1,5 +1,5 @@
 import requests
-from .config import ABSTRACT_EMAIL_API_KEY, ABSTRACT_PHONE_API_KEY, ABSTRACT_IP_API_KEY
+from config import ABSTRACT_EMAIL_API_KEY, ABSTRACT_PHONE_API_KEY, ABSTRACT_IP_API_KEY
 
 EMAIL_API_URL = "https://emailvalidation.abstractapi.com/v1/"
 PHONE_API_URL = "https://phoneintelligence.abstractapi.com/v1/"

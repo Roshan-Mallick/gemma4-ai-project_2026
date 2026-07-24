@@ -11,14 +11,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 
-from .config import CORS_ORIGINS
-from .ocr import extract_text_from_image
-from .entities import extract_entities
-from .investigation import run_investigation, extract_domain
-from .analysis import analyze_content
-from .reasoning import generate_reasoning_report, parse_reasoning
-from .llm_client import get_llm_status
-from . import supabase_client
+from config import CORS_ORIGINS
+from ocr import extract_text_from_image
+from entities import extract_entities
+from investigation import run_investigation, extract_domain
+from analysis import analyze_content
+from reasoning import generate_reasoning_report, parse_reasoning
+from llm_client import get_llm_status
+import supabase_client
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

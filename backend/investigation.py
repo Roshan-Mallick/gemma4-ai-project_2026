@@ -10,9 +10,9 @@ import whois
 import dns.resolver
 import tldextract
 
-from .config import FREE_EMAIL_PROVIDERS, DISPOSABLE_EMAIL_PROVIDERS
-from .llm_client import call_gemma
-from .abstract_api import validate_email, validate_phone, lookup_ip
+from config import FREE_EMAIL_PROVIDERS, DISPOSABLE_EMAIL_PROVIDERS
+from llm_client import call_gemma
+from abstract_api import validate_email, validate_phone, lookup_ip
 
 
 def extract_domain(url_or_email):
