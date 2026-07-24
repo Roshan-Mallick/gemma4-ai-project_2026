@@ -10,7 +10,8 @@
   --line:       #E7EAF2;
   --surface:    #FFFFFF;
   --surface-2:  #F7F8FC;
-
+  --primary: #225be3;
+  --norm: #374151;
   --blue:       #225BE3;
   --blue-2:     #1A46B8;
   --blue-light: #4D7CEB;
@@ -37,7 +38,17 @@
     min-height: 100vh;
     padding: 100px 24px 60px;
 }
+.nav-links a.active {
+    color: var(--primary);
+}
 
+.nav-links a.inactive {
+    color: var(--norm);
+}
+
+.nav-links a.inactive:hover {
+    color: var(--primary);
+}
 *{ box-sizing: border-box; }
 html{ scroll-behavior: smooth; }
 body{

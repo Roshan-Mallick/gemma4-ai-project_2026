@@ -1,7 +1,13 @@
+:root{
+  --primary: #225be3;
+  --norm: #374151;
+}
+
 .resources-section {
   padding: 120px 7% 90px;
   background: linear-gradient(180deg, #f8faff 0%, #f3f7ff 100%);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  
 }
 
 .resources-heading {
@@ -9,7 +15,17 @@
   margin: 0 auto 45px;
   text-align: center;
 }
+.nav-links a.active {
+    color: var(--primary);
+}
 
+.nav-links a.inactive {
+    color: var(--norm);
+}
+
+.nav-links a.inactive:hover {
+    color: var(--primary);
+}
 .section-tag {
   display: inline-block;
   margin-bottom: 12px;

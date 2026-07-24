@@ -11,30 +11,29 @@
 <link rel="stylesheet" href="solutions.css" />
 </head>
 <body>
-<main class="hiw-page">
 <nav class="navbar">
-  <div class="nav-left">
-    <a href="../index.html"></a><img src="../assets/logo.png" alt="SafeHire AI Logo" class="nav-logo"></a>
-    <a href="../index.html"><h1 class="nav-title">SafeHire AI</h1></a>
-  </div>
-  <div class="nav-links" id="navLinks">
-    <a href="features.html">Features</a>
-    <a href="hiw.html">How It Works</a>
-    <a href="solutions.html" class="active">Solutions</a>
-    <a href="resources.html">Resources</a>
-    <a href="about.html">About</a>
-  </div>
-  <div class="nav-right">
-    <button class="nav-signup-button" onclick="window.location.href='../dashboard/dashboard.html'">Dashboard</button>
-    <button class="nav-hamburger" id="navHamburger" aria-label="Toggle navigation">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-  </div>
-</nav>
+        <div class="nav-left">
+            <a href="../index.html"><img src="../assets/logo.png" alt="SafeHire AI Logo" class="nav-logo"></a>
+            <a id="lander" href="../index.html"><h1 class="nav-title">SafeHire AI</h1></a>
+        </div>
+        <div class="nav-links" id="navLinks">
+             <a href="features.html" class="inactive">Features</a>
+             <a href="hiw.html" class="inactive">How It Works</a>
+             <a href="solutions.html" class="active">Solutions</a>
+             <a href="resources.html" class="inactive">Resources</a>
+             <a href="about.html" class="inactive">About</a>
+        </div>
+        <div class="nav-right">
+            <button class="nav-signup-button" onclick="window.location.href='../dashboard/dashboard.html'">Dashboard</button>
+            <button class="nav-hamburger" id="navHamburger" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
 
-<main>
+<main class="hiw-page">
 
   <!-- ============ HERO ============ -->
   <section class="sol-hero">
@@ -88,9 +87,11 @@
             <li><strong>Recruiter lookup.</strong> Cross-checks the person's LinkedIn history against the company they claim to represent.</li>
             <li><strong>Plain-English report.</strong> A risk score plus the exact evidence behind it — no security jargon.</li>
           </ul>
-          <a class="link-arrow" href="#">Start a free investigation →</a>
+          <a class="link-arrow" href="../dashboard/dashboard.html">Start a free investigation →</a>
         </div>
-        <div class="panel__visual" data-visual="seekers"></div>
+        <div class="panel__visual" data-visual="seekers">
+          <img id="sol1" class="solution-image" src="../assets/sol1.jpeg" alt="Job seekers solution preview">
+        </div>
       </article>
 
       <!-- Panel 2: Universities -->
@@ -108,9 +109,10 @@
             <li><strong>Campus alerts.</strong> When the same fake recruiter targets multiple students, everyone gets notified — not just the one who reported it.</li>
             <li><strong>Onboarding-ready reports.</strong> Exportable evidence packets for student conduct or local law-enforcement referrals.</li>
           </ul>
-          <a class="link-arrow" href="#">Talk to campus solutions →</a>
         </div>
-        <div class="panel__visual" data-visual="campus"></div>
+        <div class="panel__visual" data-visual="campus">
+          <img id="sol2" class="solution-image" src="../assets/sol2.jpeg" alt="University and career services solution preview">
+        </div>
       </article>
 
       <!-- Panel 3: HR Teams -->
@@ -128,9 +130,10 @@
             <li><strong>Verified recruiter badge.</strong> A shareable link candidates can check to confirm a recruiter is genuinely on your team.</li>
             <li><strong>Applicant trust page.</strong> A public "report a fake posting" form that routes straight to your security team.</li>
           </ul>
-          <a class="link-arrow" href="#">See HR protection plans →</a>
         </div>
-        <div class="panel__visual" data-visual="hr"></div>
+        <div class="panel__visual" data-visual="hr">
+          <img id="sol3" class="solution-image" src="../assets/sol3.jpeg" alt="Recruiters and HR teams solution preview">
+        </div>
       </article>
 
       <!-- Panel 4: Enterprise -->
@@ -148,9 +151,11 @@
             <li><strong>Bulk domain intelligence.</strong> WHOIS, SSL, and DNS checks run at platform scale, not one listing at a time.</li>
             <li><strong>Dashboard for trust &amp; safety.</strong> Analytics on scam volume, source patterns, and takedown turnaround.</li>
           </ul>
-          <a class="link-arrow" href="#">Read the API docs →</a>
+          <a class="link-arrow" href="https://github.com/Roshan-Mallick/gemma4-ai-project_2026">Read the API docs →</a>
         </div>
-        <div class="panel__visual" data-visual="enterprise"></div>
+        <div class="panel__visual" data-visual="enterprise">
+          <img id="sol4" class="solution-image" src="../assets/sol4.jpeg" alt="Enterprise and platform solution preview">
+        </div>
       </article>
 
     </div>
@@ -175,10 +180,9 @@
   <!-- ============ CLOSING CTA ============ -->
   <section class="cta-band">
     <div class="cta-band__inner">
-      <h2>Not sure which fits? We'll ask two questions and route you.</h2>
+      <h2>Not sure which fits? We'll ask you one question and re-route you.</h2>
       <div class="cta-band__actions">
         <a href="../dashboard/dashboard.html" class="btn btn--primary btn--lg" href="#">Start Investigation</a>
-        <a class="btn btn--ghost btn--lg" href="#">Compare all plans</a>
       </div>
     </div>
   </section>
@@ -191,7 +195,6 @@
     <span class="footer__badge">Powered by Gemma 4</span>
   </div>
 </footer>
-</main>
 <script src="../script.js" defer></script>
 <script src="solutions.js"></script>
 </body>
