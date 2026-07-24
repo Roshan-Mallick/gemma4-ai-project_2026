@@ -1,16 +1,17 @@
 import time
 import logging
 from openai import OpenAI
-from .config import OPENROUTER_API_KEY, OPENROUTER_MODEL
+from .config import (
+    OPENROUTER_API_KEY, OPENROUTER_MODEL, OPENROUTER_BASE_URL,
+    LM_STUDIO_URL, LM_STUDIO_MODEL,
+)
 
 logger = logging.getLogger(__name__)
-
-LM_STUDIO_URL = "http://localhost:1234/v1"
 
 _cloud_client = None
 if OPENROUTER_API_KEY:
     _cloud_client = OpenAI(
-        base_url="https://openrouter.ai/api/v1",
+        base_url=OPENROUTER_BASE_URL,
         api_key=OPENROUTER_API_KEY,
     )
 
@@ -67,10 +68,10 @@ def call_gemma(prompt: str, max_tokens: int = 768, temperature: float = 0.0) -> 
                     logger.warning("OpenRouter all %d attempts failed, trying LM Studio: %s", MAX_RETRIES, e)
 
     if _check_lm_studio():
-        print(f"  [LLM] Calling LM Studio (localhost:1234)...")
+        print(f"  [LLM] Calling LM Studio ({LM_STUDIO_URL})...")
         try:
             resp = _local_client.chat.completions.create(
-                model="gemma",
+                model=LM_STUDIO_MODEL,
                 messages=[{"role": "user", "content": prompt}],
                 max_tokens=max_tokens,
                 temperature=temperature,

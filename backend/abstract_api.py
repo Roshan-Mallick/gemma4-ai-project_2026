@@ -1,9 +1,9 @@
 import requests
-from .config import ABSTRACT_EMAIL_API_KEY, ABSTRACT_PHONE_API_KEY, ABSTRACT_IP_API_KEY
-
-EMAIL_API_URL = "https://emailvalidation.abstractapi.com/v1/"
-PHONE_API_URL = "https://phoneintelligence.abstractapi.com/v1/"
-IP_API_URL = "https://ipgeolocation.abstractapi.com/v1/"
+from .config import (
+    ABSTRACT_EMAIL_API_KEY, ABSTRACT_EMAIL_API_URL,
+    ABSTRACT_PHONE_API_KEY, ABSTRACT_PHONE_API_URL,
+    ABSTRACT_IP_API_KEY, ABSTRACT_IP_API_URL,
+)
 
 TIMEOUT = 10
 
@@ -14,7 +14,7 @@ def validate_email(email):
         return None
     print(f"  [ABSTRACT EMAIL] validating: {email}")
     try:
-        resp = requests.get(EMAIL_API_URL, params={
+        resp = requests.get(ABSTRACT_EMAIL_API_URL, params={
             "api_key": ABSTRACT_EMAIL_API_KEY,
             "email": email,
         }, timeout=TIMEOUT)
@@ -52,7 +52,7 @@ def validate_phone(phone_number):
         cleaned = "+" + cleaned
     print(f"  [ABSTRACT PHONE] validating: {cleaned}")
     try:
-        resp = requests.get(PHONE_API_URL, params={
+        resp = requests.get(ABSTRACT_PHONE_API_URL, params={
             "api_key": ABSTRACT_PHONE_API_KEY,
             "phone_number": cleaned,
         }, timeout=TIMEOUT)
@@ -94,7 +94,7 @@ def lookup_ip(ip_address):
         return None
     print(f"  [ABSTRACT IP] looking up: {ip_address}")
     try:
-        resp = requests.get(IP_API_URL, params={
+        resp = requests.get(ABSTRACT_IP_API_URL, params={
             "api_key": ABSTRACT_IP_API_KEY,
             "ip_address": ip_address,
         }, timeout=TIMEOUT)

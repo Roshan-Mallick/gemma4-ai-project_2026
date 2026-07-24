@@ -10,7 +10,10 @@ import whois
 import dns.resolver
 import tldextract
 
-from .config import FREE_EMAIL_PROVIDERS, DISPOSABLE_EMAIL_PROVIDERS
+from .config import (
+    FREE_EMAIL_PROVIDERS, DISPOSABLE_EMAIL_PROVIDERS,
+    DNS_OVER_HTTPS_PRIMARY, DNS_OVER_HTTPS_FALLBACK,
+)
 from .llm_client import call_gemma
 from .abstract_api import validate_email, validate_phone
 
@@ -293,11 +296,9 @@ def query_dns(domain, record):
 
 
 def query_mx_dns_over_https(domain):
-    GOOGLE_DNS = "https://dns.google/resolve"
-    CLOUDFLARE_DNS = "https://cloudflare-dns.com/dns-query"
     providers = [
-        {"name": "Google DNS", "url": GOOGLE_DNS, "headers": {}},
-        {"name": "Cloudflare DNS", "url": CLOUDFLARE_DNS,
+        {"name": "Google DNS", "url": DNS_OVER_HTTPS_PRIMARY, "headers": {}},
+        {"name": "Cloudflare DNS", "url": DNS_OVER_HTTPS_FALLBACK,
          "headers": {"Accept": "application/dns-json"}},
     ]
     print(f"  [MX-DoH] ===== MX LOOKUP =====")
