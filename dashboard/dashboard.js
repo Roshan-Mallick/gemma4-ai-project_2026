@@ -305,7 +305,7 @@
     badge.textContent = verdict;
     badge.className = 'verdict-badge';
     if (verdict.includes('SCAM') || verdict.includes('HIGH')) badge.classList.add('scam');
-    else if (verdict.includes('CAUTION') || verdict.includes('MEDIUM')) badge.classList.add('caution');
+    else if (verdict.includes('SUSPICIOUS') || verdict.includes('MEDIUM')) badge.classList.add('caution');
     else badge.classList.add('safe');
 
     $('#scoreNumber').textContent = data.risk_score ?? '--';
