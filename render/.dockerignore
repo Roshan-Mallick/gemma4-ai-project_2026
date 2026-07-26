@@ -1,8 +1,4 @@
-assets/
-auth/
-dashboard/
 navbar/
-index.html
 *.md
 .git
 .env

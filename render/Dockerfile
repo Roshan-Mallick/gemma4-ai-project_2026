@@ -4,4 +4,8 @@ WORKDIR /app
 COPY backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY backend/ ./backend/
+COPY assets/ ./assets/
+COPY dashboard/ ./dashboard/
+COPY auth/ ./auth/
+COPY index.html ./index.html
 CMD uvicorn backend.main:app --host 0.0.0.0 --port ${PORT:-8000}
