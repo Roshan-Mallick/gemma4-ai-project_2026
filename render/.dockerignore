@@ -1,0 +1,10 @@
+assets/
+auth/
+dashboard/
+navbar/
+index.html
+*.md
+.git
+.env
+__pycache__/
+*.pyc
