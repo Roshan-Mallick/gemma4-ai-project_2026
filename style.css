@@ -367,13 +367,13 @@ body {
     }
     .image{
         width: 100%;
-        max-width: 450px;
+        max-width: 700px;
         font-size: 13px;
         
         margin-top: -50px;
-        margin-bottom: -100px;
+        margin-bottom: -150px;
         margin-right: -70px;
-        margin-left: -20px;
+        margin-left: -100px;
 
 
     }
@@ -439,10 +439,11 @@ body {
     }
     .video-section {
         width: 100%;
-        max-width: 650px;
+        height: auto;
+        max-width: 1500px;
         position: relative;
         padding-bottom: 56.25%;
-        height: 0;
+        height: 580px;
         overflow: hidden;
         border-radius: 16px;
         box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
