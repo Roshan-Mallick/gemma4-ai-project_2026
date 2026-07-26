@@ -4,6 +4,8 @@
 __pycache__/
 *.pyc
 *.pyo
+venv/
+.venv/
 extra/
 node_modules/
 *.egg-info/
@@ -11,3 +13,4 @@ dist/
 build/
 .DS_Store
 output.txt
+.claude/

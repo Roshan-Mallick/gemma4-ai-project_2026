@@ -8,6 +8,17 @@
 
 ---
 
+## Live Deployment
+
+| Layer | Platform | URL |
+|-------|----------|-----|
+| **Backend** (API) | Render (Docker) | [gemma4-ai-project-2026-azb0.onrender.com](https://gemma4-ai-project-2026-azb0.onrender.com) |
+| **Frontend** (UI) | Vercel | [safehire-ai.vercel.app](https://safehire-ai.vercel.app) |
+
+The backend is containerized via `render/Dockerfile` and deploys automatically on each push to `main`. The frontend is a static site served by Vercel.
+
+---
+
 ## Why SafeHire AI
 
 | | |
@@ -48,23 +59,24 @@ All progress streams live to the browser via Server-Sent Events.
 ## Project Architecture
 
 ```
-┌─────────────┐    ┌──────────────────────────────────────┐
-│ Frontend    │───▶│           FastAPI Backend            │
-│ (Vanilla JS)│    │                                      │
-│ SSE Stream  │◀───│  OCR → Entities → Investigation →    │
-└─────────────┘    │ Content Analysis → Gemma 4 Reasoning │
-                   └──────────────────────────────────────┘
-                                        │
-                                        ▼
-                                  ┌──────────┐
-                                  │OpenRouter│
-                                  │ (Gemma 4)│
-                                  └──────────┘
+┌─────────────────┐    ┌──────────────────────────────────────┐
+│ Frontend        │───▶│           FastAPI Backend            │
+│ (Vercel)        │    │         (Render Docker)              │
+│ Vanilla JS      │    │                                      │
+│ SSE Stream      │◀───│  OCR → Entities → Investigation →    │
+└─────────────────┘    │ Content Analysis → Gemma 4 Reasoning │
+                       └──────────────────────────────────────┘
+                                            │
+                                            ▼
+                                      ┌──────────┐
+                                      │OpenRouter│
+                                      │ (Gemma 4)│
+                                      └──────────┘
 ```
 
-- **Backend:** Python 3.10+, FastAPI, Uvicorn
-- **Frontend:** Vanilla HTML, CSS, JavaScript (zero frameworks)
-- **LLM:** Gemma 4 31B via OpenRouter, with LM Studio local fallback
+- **Backend:** Python 3.12, FastAPI, Uvicorn (containerized via Docker on Render)
+- **Frontend:** Vanilla HTML, CSS, JavaScript (static site on Vercel)
+- **LLM:** Gemma 4 31B via OpenRouter
 - **External APIs:** Abstract API for email/phone validation
 - **OCR:** Tesseract via pytesseract
 
@@ -157,58 +169,37 @@ Upload (text paste or image)
 
 ---
 
-## Quick Start
-
-```bash
-# 1. Clone
-git clone https://github.com/Roshan-Mallick/gemma4-ai-project_2026.git
-cd gemma4-ai-project_2026
-
-# 2. Install Tesseract
-sudo apt-get install tesseract-ocr    # Linux
-# brew install tesseract              # macOS
-
-# 3. Setup
-python3 -m venv venv && source venv/bin/activate
-pip install -r backend/requirements.txt
-cp .env.example .env   # fill in your keys
-
-# 4. Run
-python run.py
-# Open http://localhost:8000/dashboard
-```
-
----
-
 ## Project Structure
 
 ```
 gemma4-ai-project_2026/
 ├── backend/
 │   ├── main.py              # FastAPI app, SSE streaming endpoint
-│   ├── config.py             # Environment variable loader
-│   ├── llm_client.py         # OpenRouter / LM Studio LLM client
-│   ├── ocr.py                # Tesseract OCR wrapper
-│   ├── entities.py           # Entity extraction (Gemma 4 + regex)
-│   ├── investigation.py      # Technical checks (WHOIS, DNS, SSL, etc.)
-│   ├── analysis.py           # Content analysis via Gemma 4
-│   ├── reasoning.py          # AI reasoning prompt + parser
-│   ├── abstract_api.py       # Abstract API client (email/phone/IP)
-│   ├── models.py             # Pydantic data models
-│   └── requirements.txt      # Python dependencies
+│   ├── config.py            # Environment variable loader
+│   ├── llm_client.py        # OpenRouter LLM client
+│   ├── ocr.py               # Tesseract OCR wrapper
+│   ├── entities.py          # Entity extraction (Gemma 4 + regex)
+│   ├── investigation.py     # Technical checks (WHOIS, DNS, SSL, etc.)
+│   ├── analysis.py          # Content analysis via Gemma 4
+│   ├── reasoning.py         # AI reasoning prompt + parser
+│   ├── abstract_api.py      # Abstract API client (email/phone/IP)
+│   ├── models.py            # Pydantic data models
+│   └── requirements.txt     # Python dependencies
 ├── dashboard/
-│   ├── dashboard.html        # Dashboard UI
-│   ├── dashboard.js          # SSE streaming, result rendering
-│   └── dashboard.css         # Styling
-├── assets/                   # Landing page assets
-├── index.html                # Landing page
-├── run.py                    # Entry point
-├── .env.example              # Environment variable template
-├── README.md
-└── extra/
-    ├── kaagle wroteup.txt    # Kaggle writeup
-    ├── setup_guide.txt       # Setup instructions
-    └── resources.txt         # All libraries/APIs used
+│   ├── dashboard.html       # Dashboard UI
+│   ├── dashboard.js         # SSE streaming, result rendering
+│   └── dashboard.css        # Styling
+├── auth/                    # Login/signup pages
+├── navbar/                  # Navigation pages (features, how-it-works, etc.)
+├── assets/                  # Landing page images
+├── render/
+│   ├── Dockerfile           # Docker build for Render deployment
+│   └── .dockerignore        # Docker build exclusions
+├── index.html               # Landing page
+├── .env.example             # Environment variable template
+├── .gitignore
+├── LICENSE
+└── README.md
 ```
 
 ---
@@ -231,6 +222,7 @@ gemma4-ai-project_2026/
 |----------|----------|-------------|
 | `OPENROUTER_API_KEY` | Yes | OpenRouter API key |
 | `OPENROUTER_MODEL` | No | Default: `google/gemma-4-31b-it` |
+| `OPENROUTER_BASE_URL` | No | Default: `https://openrouter.ai/api/v1` |
 | `ABSTRACT_EMAIL_API_KEY` | No | Email validation API key |
 | `ABSTRACT_PHONE_API_KEY` | No | Phone intelligence API key |
 | `ABSTRACT_IP_API_KEY` | No | IP geolocation API key |
