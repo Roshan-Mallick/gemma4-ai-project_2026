@@ -227,6 +227,10 @@
 <script src="../script.js" defer></script>
 <script>
 (function() {
+  const API_BASE = window.location.port === '5500'
+    ? 'http://127.0.0.1:8000'
+    : 'https://gemma4-ai-project-2026-azb0.onrender.com';
+
   const form = document.getElementById('feedbackFormElement');
   const stars = document.querySelectorAll('.fb-star');
   const ratingInput = document.getElementById('fbRating');
@@ -306,7 +310,7 @@
     submitBtn.disabled = true;
 
     try {
-      const resp = await fetch('/api/feedback', {
+      const resp = await fetch(`${API_BASE}/api/feedback`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
