@@ -291,7 +291,9 @@ ul{ margin:0; padding:0; list-style:none; }
 
 /* Stars */
 .fb-stars{
-  display: flex; align-items: center; gap: 4px;
+  display: flex; align-items: center; gap: 6px 2px;
+  flex-wrap: wrap;                       /* MODIFIED: allow stars + label to wrap on narrow screens */
+  row-gap: 4px;
 }
 .fb-star{
   background: none; border: none; cursor: pointer;
@@ -306,6 +308,7 @@ ul{ margin:0; padding:0; list-style:none; }
   margin-left: 10px;
   font-size: 13px;
   color: var(--ink-faint);
+  white-space: nowrap;                  /* MODIFIED: prevent label from splitting mid-word */
 }
 
 /* Submit button */
@@ -369,6 +372,26 @@ ul{ margin:0; padding:0; list-style:none; }
 }
 
 @media (max-width: 520px){
-  .fb-form{ padding: 24px 18px; }
+  /* MODIFIED: reduce section padding to prevent content width from shrinking to ~245px */
+  .fb-form-section{ padding: 32px 16px 48px; }
+  .fb-form{ padding: 20px 14px; }
   .fb-hero h1{ font-size: 26px; }
+  .fb-hero{ padding: 32px 16px 28px; }
+  .fb-team{ padding: 28px 16px 48px; }
+  .fb-judges{ padding: 36px 16px 48px; }
+
+  /* MODIFIED: stars label moves below stars row on narrow screens */
+  .fb-stars__label{
+    margin-left: 0;
+    width: 100%;
+  }
+
+  /* MODIFIED: ensure form inputs never overflow their container */
+  .fb-form__field input,
+  .fb-form__field select,
+  .fb-form__field textarea{
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
 }
