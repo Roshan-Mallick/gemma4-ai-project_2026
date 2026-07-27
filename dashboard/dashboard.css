@@ -1073,6 +1073,7 @@ body.light .timeline-item.active .tl-dot {
 }
 
 @media (max-width: 768px) {
+  .nav-signup-button { display: none; }
   .hero { padding: 32px 16px; }
   .hero-title { font-size: 32px; }
   .hero-subtitle { font-size: 14px; }
