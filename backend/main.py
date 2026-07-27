@@ -1,4 +1,5 @@
 import json
+import socket
 import logging
 import asyncio
 import traceback
@@ -634,6 +635,42 @@ async def submit_feedback(feedback: FeedbackRequest):
     except Exception as e:
         logger.error(f"Feedback submission error: {e}")
         raise HTTPException(status_code=500, detail="Failed to process feedback")
+
+
+@app.get("/debug/smtp")
+async def debug_smtp():
+    """Temporary debug endpoint — REMOVE after debugging."""
+    host = "smtp.gmail.com"
+    result = {"host": host, "dns": {}, "tcp": {}}
+
+    # 1. DNS resolution — all addresses
+    for fam in (socket.AF_INET, socket.AF_INET6):
+        fam_name = "IPv4" if fam == socket.AF_INET else "IPv6"
+        try:
+            addrs = socket.getaddrinfo(host, None, fam, socket.SOCK_STREAM)
+            result["dns"][fam_name] = [a[4][0] for a in addrs]
+        except socket.gaierror as e:
+            result["dns"][fam_name] = f"resolution failed: {e}"
+
+    # 2. TCP connect test — port 587 and 465
+    for port in (587, 465):
+        try:
+            conn = socket.create_connection((host, port), timeout=10)
+            peer = conn.getpeername()
+            conn.close()
+            result["tcp"][str(port)] = {
+                "status": "connected",
+                "peer_ip": peer[0],
+                "peer_port": peer[1],
+            }
+        except Exception as e:
+            result["tcp"][str(port)] = {
+                "status": "failed",
+                "error": str(e),
+                "errno": getattr(e, "errno", None),
+            }
+
+    return result
 
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
