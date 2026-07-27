@@ -1,5 +1,7 @@
+import socket
 import smtplib
 import logging
+import traceback
 from datetime import datetime, timezone
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -8,6 +10,22 @@ from pydantic import BaseModel, Field
 from .config import FEEDBACK_EMAIL, FEEDBACK_EMAIL_PASSWORD, FEEDBACK_RECIPIENTS
 
 logger = logging.getLogger(__name__)
+
+SMTP_HOST = "smtp.gmail.com"
+SMTP_PORT = 587
+SMTP_TIMEOUT = 20
+
+
+def _resolve_ipv4(host: str) -> str:
+    """Resolve hostname to an IPv4 address to avoid IPv6 on IPv4-only networks."""
+    try:
+        addr_info = socket.getaddrinfo(host, SMTP_PORT, socket.AF_INET, socket.SOCK_STREAM)
+        ipv4 = addr_info[0][4][0]
+        logger.info(f"SMTP: resolved {host} -> {ipv4} (IPv4)")
+        return ipv4
+    except socket.gaierror as e:
+        logger.warning(f"SMTP: IPv4 resolution failed for {host}: {e} — falling back to hostname")
+        return host
 
 
 class FeedbackRequest(BaseModel):
@@ -68,6 +86,9 @@ def _build_email_html(data: FeedbackRequest, timestamp: str) -> str:
 
 
 def send_feedback_email(data: FeedbackRequest) -> bool:
+    logger.info(f"SMTP: host={SMTP_HOST} port={SMTP_PORT} encryption=STARTTLS timeout={SMTP_TIMEOUT}s")
+    logger.info(f"SMTP: EMAIL configured={'yes' if FEEDBACK_EMAIL else 'no'}, EMAIL_PASSWORD configured={'yes' if FEEDBACK_EMAIL_PASSWORD else 'no'}")
+
     if not FEEDBACK_EMAIL or not FEEDBACK_EMAIL_PASSWORD:
         logger.warning("Feedback email not configured — set EMAIL and EMAIL_PASSWORD in Render environment")
         return False
@@ -86,28 +107,36 @@ def send_feedback_email(data: FeedbackRequest) -> bool:
         f"{data.message}"
     )
 
+    smtp_addr = _resolve_ipv4(SMTP_HOST)
     sent_count = 0
     try:
-        with smtplib.SMTP("smtp.gmail.com", 587) as server:
-            server.ehlo()
-            server.starttls()
-            server.ehlo()
-            server.login(FEEDBACK_EMAIL, FEEDBACK_EMAIL_PASSWORD)
+        logger.info(f"SMTP: connecting to {smtp_addr}:{SMTP_PORT} (timeout={SMTP_TIMEOUT}s) ...")
+        server = smtplib.SMTP(smtp_addr, SMTP_PORT, timeout=SMTP_TIMEOUT)
+        server.ehlo()
+        logger.info(f"SMTP: EHLO done, upgrading to STARTTLS ...")
+        server.starttls()
+        server.ehlo()
+        logger.info(f"SMTP: STARTTLS done, authenticating as {FEEDBACK_EMAIL} ...")
+        server.login(FEEDBACK_EMAIL, FEEDBACK_EMAIL_PASSWORD)
+        logger.info(f"SMTP: authentication successful")
 
-            for recipient in FEEDBACK_RECIPIENTS:
-                try:
-                    msg = MIMEMultipart("alternative")
-                    msg["Subject"] = f"[SafeHire Feedback] {data.category} — {data.name}"
-                    msg["From"] = f"SafeHire AI Feedback <{FEEDBACK_EMAIL}>"
-                    msg["To"] = recipient
-                    msg["Reply-To"] = data.email
-                    msg.attach(MIMEText(plain_text, "plain"))
-                    msg.attach(MIMEText(html_content, "html"))
-                    server.sendmail(FEEDBACK_EMAIL, recipient, msg.as_string())
-                    sent_count += 1
-                    logger.info(f"Feedback email delivered to {recipient}")
-                except Exception as e:
-                    logger.error(f"Failed to send to {recipient}: {e}")
+        for recipient in FEEDBACK_RECIPIENTS:
+            try:
+                msg = MIMEMultipart("alternative")
+                msg["Subject"] = f"[SafeHire Feedback] {data.category} — {data.name}"
+                msg["From"] = f"SafeHire AI Feedback <{FEEDBACK_EMAIL}>"
+                msg["To"] = recipient
+                msg["Reply-To"] = data.email
+                msg.attach(MIMEText(plain_text, "plain"))
+                msg.attach(MIMEText(html_content, "html"))
+                server.sendmail(FEEDBACK_EMAIL, recipient, msg.as_string())
+                sent_count += 1
+                logger.info(f"Feedback email delivered to {recipient}")
+            except Exception as e:
+                logger.error(f"Failed to send to {recipient}: {e}\n{traceback.format_exc()}")
+
+        server.quit()
+        logger.info(f"SMTP: connection closed")
 
         if sent_count > 0:
             logger.info(f"Feedback from {data.email} delivered to {sent_count}/{len(FEEDBACK_RECIPIENTS)} recipient(s)")
@@ -116,12 +145,21 @@ def send_feedback_email(data: FeedbackRequest) -> bool:
             logger.error("Failed to deliver feedback to any recipient")
             return False
 
-    except smtplib.SMTPAuthenticationError:
-        logger.error("Gmail SMTP authentication failed — check EMAIL and EMAIL_PASSWORD (use a Gmail App Password)")
+    except smtplib.SMTPAuthenticationError as e:
+        logger.error(f"SMTP authentication failed: {e}\n{traceback.format_exc()}")
         return False
-    except smtplib.SMTPConnectError:
-        logger.error("Could not connect to Gmail SMTP server")
+    except smtplib.SMTPConnectError as e:
+        logger.error(f"Could not connect to SMTP server: {e}\n{traceback.format_exc()}")
+        return False
+    except socket.timeout as e:
+        logger.error(f"SMTP connection timed out after {SMTP_TIMEOUT}s: {e}\n{traceback.format_exc()}")
+        return False
+    except socket.gaierror as e:
+        logger.error(f"SMTP DNS resolution failed: {e}\n{traceback.format_exc()}")
+        return False
+    except OSError as e:
+        logger.error(f"SMTP network error (errno={e.errno}): {e}\n{traceback.format_exc()}")
         return False
     except Exception as e:
-        logger.error(f"Feedback email delivery failed: {e}")
+        logger.error(f"Feedback email delivery failed: {e}\n{traceback.format_exc()}")
         return False
