@@ -82,6 +82,8 @@ body {
 .nav-title {
     font-size: 1.4rem;
     color: #225be3;
+    line-height: 1;
+    margin: 0;
 }
 
 .nav-signup-button {
@@ -136,10 +138,6 @@ body {
 
 .nav-links a:hover {
     color: #225be3;
-}
-
-#lander {
-    text-decoration: none;
 }
 
 /* Hamburger */

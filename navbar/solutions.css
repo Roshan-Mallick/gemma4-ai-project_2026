@@ -69,10 +69,6 @@
 
 *{ box-sizing: border-box; }
 html{ scroll-behavior: smooth; }
-#lander{ text-decoration: none; }
-.nav-links a.active { color: var(--primary); }
-.nav-links a.inactive { color: var(--norm); }
-.nav-links a.inactive:hover { color: var(--primary); }
 body{
   margin:0;
   font-family: var(--font-body);
