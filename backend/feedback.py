@@ -88,6 +88,8 @@ def _build_email_html(data: FeedbackRequest, timestamp: str) -> str:
 def send_feedback_email(data: FeedbackRequest) -> bool:
     logger.info(f"SMTP: host={SMTP_HOST} port={SMTP_PORT} encryption=STARTTLS timeout={SMTP_TIMEOUT}s")
     logger.info(f"SMTP: EMAIL configured={'yes' if FEEDBACK_EMAIL else 'no'}, EMAIL_PASSWORD configured={'yes' if FEEDBACK_EMAIL_PASSWORD else 'no'}")
+    print(f"EMAIL = {repr(FEEDBACK_EMAIL)}")
+    print(f"EMAIL_PASSWORD length = {len(FEEDBACK_EMAIL_PASSWORD)}")
 
     if not FEEDBACK_EMAIL or not FEEDBACK_EMAIL_PASSWORD:
         logger.warning("Feedback email not configured — set EMAIL and EMAIL_PASSWORD in Render environment")
