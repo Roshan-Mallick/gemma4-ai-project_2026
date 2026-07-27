@@ -610,6 +610,11 @@ async def delete_report(report_id: str):
     raise HTTPException(status_code=404, detail="Report storage not configured")
 
 
+@app.get("/health")
+async def health_check():
+    return {"status": "ok", "service": "SafeHire AI"}
+
+
 @app.get("/api/health")
 async def health():
     llm = get_llm_status()
