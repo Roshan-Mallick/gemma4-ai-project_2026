@@ -153,3 +153,57 @@
 
 @media (max-width:980px){ .hiw-hero{ grid-template-columns:1fr } .process-wrap{ flex-direction:column; align-items:center } .why-grid{ grid-template-columns:repeat(2,1fr) } }
 @media (max-width:640px){ .why-grid{ grid-template-columns:1fr } .step-card{ width:100% } }
+
+/* =============================================
+   HOW IT WORKS — Responsive Polish
+   ============================================= */
+
+@media (max-width: 980px) {
+    .hiw-hero h1 {
+        font-size: 2.5rem;
+    }
+    .hero-actions {
+        flex-wrap: wrap;
+    }
+    .process-wrap {
+        flex-wrap: wrap;
+    }
+    .arrow {
+        display: none;
+    }
+}
+
+@media (max-width: 640px) {
+    .hiw-page {
+        padding: 80px 16px 40px;
+    }
+    .hiw-hero {
+        margin-bottom: 32px;
+    }
+    .hiw-hero h1 {
+        font-size: 2rem;
+    }
+    .hero-actions {
+        flex-direction: column;
+    }
+    .hero-actions .btn {
+        width: 100%;
+        text-align: center;
+    }
+    .process-section {
+        margin: 5px 0;
+    }
+    .step-card {
+        padding: 16px;
+    }
+    .why-works {
+        margin: 32px auto;
+    }
+    .cta-panel {
+        padding: 24px 16px;
+    }
+    .btn-cta {
+        width: 100%;
+        padding: 16px 24px;
+    }
+}
