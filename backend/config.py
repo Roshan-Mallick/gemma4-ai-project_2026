@@ -45,10 +45,4 @@ DISPOSABLE_EMAIL_PROVIDERS = {
     "guerrillamail.com", "yopmail.com", "sharklasers.com",
 }
 
-FEEDBACK_EMAIL = os.getenv("EMAIL", "")
-FEEDBACK_EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD", "")
-FEEDBACK_RECIPIENTS = [
-    "roshanmallick2025@gmail.com",
-    "aditya2006mishra123@gmail.com",
-    "omsrivastava6126@gmail.com",
-]
+DISCORD_WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL", "")

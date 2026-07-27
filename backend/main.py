@@ -1,5 +1,4 @@
 import json
-import socket
 import logging
 import asyncio
 import traceback
@@ -19,12 +18,18 @@ from .investigation import run_investigation, extract_domain
 from .analysis import analyze_content
 from .reasoning import generate_reasoning_report, parse_reasoning
 from .llm_client import get_llm_status
-from .feedback import FeedbackRequest, send_feedback_email
+from .feedback import FeedbackRequest, send_feedback_notification
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = FastAPI(title="SafeHire AI", version="1.0.0")
+
+
+@app.on_event("startup")
+async def startup_log():
+    from .config import DISCORD_WEBHOOK_URL
+    logger.info(f"Discord webhook configured: {'yes' if DISCORD_WEBHOOK_URL else 'no'}")
 
 
 @app.exception_handler(Exception)
@@ -625,7 +630,7 @@ async def health():
 @app.post("/api/feedback")
 async def submit_feedback(feedback: FeedbackRequest):
     try:
-        sent = send_feedback_email(feedback)
+        sent = send_feedback_notification(feedback)
         if sent:
             return {"status": "success", "message": "Feedback submitted successfully. Thank you!"}
         return JSONResponse(
@@ -635,42 +640,6 @@ async def submit_feedback(feedback: FeedbackRequest):
     except Exception as e:
         logger.error(f"Feedback submission error: {e}")
         raise HTTPException(status_code=500, detail="Failed to process feedback")
-
-
-@app.get("/debug/smtp")
-async def debug_smtp():
-    """Temporary debug endpoint — REMOVE after debugging."""
-    host = "smtp.gmail.com"
-    result = {"host": host, "dns": {}, "tcp": {}}
-
-    # 1. DNS resolution — all addresses
-    for fam in (socket.AF_INET, socket.AF_INET6):
-        fam_name = "IPv4" if fam == socket.AF_INET else "IPv6"
-        try:
-            addrs = socket.getaddrinfo(host, None, fam, socket.SOCK_STREAM)
-            result["dns"][fam_name] = [a[4][0] for a in addrs]
-        except socket.gaierror as e:
-            result["dns"][fam_name] = f"resolution failed: {e}"
-
-    # 2. TCP connect test — port 587 and 465
-    for port in (587, 465):
-        try:
-            conn = socket.create_connection((host, port), timeout=10)
-            peer = conn.getpeername()
-            conn.close()
-            result["tcp"][str(port)] = {
-                "status": "connected",
-                "peer_ip": peer[0],
-                "peer_port": peer[1],
-            }
-        except Exception as e:
-            result["tcp"][str(port)] = {
-                "status": "failed",
-                "error": str(e),
-                "errno": getattr(e, "errno", None),
-            }
-
-    return result
 
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
