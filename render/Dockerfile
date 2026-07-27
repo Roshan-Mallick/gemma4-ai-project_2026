@@ -7,5 +7,6 @@ COPY backend/ ./backend/
 COPY assets/ ./assets/
 COPY dashboard/ ./dashboard/
 COPY auth/ ./auth/
+COPY navbar/ ./navbar/
 COPY index.html ./index.html
 CMD uvicorn backend.main:app --host 0.0.0.0 --port ${PORT:-8000}

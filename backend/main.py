@@ -18,6 +18,7 @@ from .investigation import run_investigation, extract_domain
 from .analysis import analyze_content
 from .reasoning import generate_reasoning_report, parse_reasoning
 from .llm_client import get_llm_status
+from .feedback import FeedbackRequest, send_feedback_email
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -615,6 +616,21 @@ async def health():
     return {"status": "ok", "llm": llm}
 
 
+@app.post("/api/feedback")
+async def submit_feedback(feedback: FeedbackRequest):
+    try:
+        sent = send_feedback_email(feedback)
+        if sent:
+            return {"status": "success", "message": "Feedback submitted successfully. Thank you!"}
+        return JSONResponse(
+            status_code=503,
+            content={"status": "error", "message": "Feedback received but email delivery is not configured. Please contact us directly."}
+        )
+    except Exception as e:
+        logger.error(f"Feedback submission error: {e}")
+        raise HTTPException(status_code=500, detail="Failed to process feedback")
+
+
 ROOT_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -637,3 +653,4 @@ async def serve_index():
 app.mount("/assets", StaticFiles(directory=str(ROOT_DIR / "assets")), name="assets")
 app.mount("/dashboard", StaticFiles(directory=str(ROOT_DIR / "dashboard")), name="dashboard-static")
 app.mount("/auth", StaticFiles(directory=str(ROOT_DIR / "auth")), name="auth")
+app.mount("/navbar", StaticFiles(directory=str(ROOT_DIR / "navbar")), name="navbar-static")
