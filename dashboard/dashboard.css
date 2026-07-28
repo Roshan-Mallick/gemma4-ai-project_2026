@@ -1090,6 +1090,38 @@ body.light .timeline-item.active .tl-dot {
   .risk-chip { padding: 5px 9px; font-size: 11px; }
 }
 
+/* Render free-tier static notice */
+.render-notice {
+  background: #eab308;
+  color: #000;
+  text-align: center;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.render-notice i {
+  margin-right: 8px;
+}
+
+@media (max-width: 768px) {
+  .render-notice {
+    padding: 10px 16px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .render-notice {
+    padding: 8px 12px;
+    font-size: 11px;
+    line-height: 1.4;
+  }
+  .render-notice i {
+    margin-right: 4px;
+  }
+}
+
 /* Wake-up banner */
 .wakeup-banner {
   position: fixed;
