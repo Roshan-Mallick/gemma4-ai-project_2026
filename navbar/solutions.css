@@ -34,18 +34,6 @@
   --shadow-btn: 0 8px 20px -8px rgba(79,70,229,.55);
 }
 
-.nav-links a.active {
-    color: var(--primary);
-}
-
-.nav-links a.inactive {
-    color: var(--norm);
-}
-
-.nav-links a.inactive:hover {
-    color: var(--primary);
-}
-
 .panel__visual{
   display:flex;
   align-items:center;
@@ -67,8 +55,6 @@
     padding: 100px 24px 60px;
 }
 
-*{ box-sizing: border-box; }
-html{ scroll-behavior: smooth; }
 body{
   margin:0;
   font-family: var(--font-body);
@@ -289,7 +275,6 @@ ul{ margin:0; padding:0; list-style:none; }
    Responsive
    ========================================================= */
 @media (max-width: 860px){
-  .nav__links{ display:none; }
   .panel{ grid-template-columns: 1fr; }
   .panel__visual{ order:-1; min-height: 260px; }
   .sol-hero{ padding-top: 56px; }

@@ -54,13 +54,18 @@
     localStorage.setItem('jv-theme', document.body.classList.contains('light') ? 'light' : 'dark');
   }
 
-  dom.themeToggle.addEventListener('click', toggleTheme);
+  if (dom.themeToggle) dom.themeToggle.addEventListener('click', toggleTheme);
   initTheme();
 
   // ---------------------------------------------------------------------------
   // 2. FILE UPLOAD HANDLING
   // ---------------------------------------------------------------------------
   let selectedFile = null;
+
+  if (!dom.dropzone || !dom.fileInput || !dom.pasteTextBtn || !dom.pasteCancelBtn || !dom.pasteAnalyzeBtn || !dom.previewRemoveBtn || !dom.analyzeBtn || !dom.newAnalysisBtn) {
+    console.warn('Dashboard: required DOM elements not found');
+    return;
+  }
 
   // Drag & Drop
   dom.dropzone.addEventListener('dragover', (e) => {
@@ -503,7 +508,8 @@
   }
 
   function formatChipLabel(key) {
-    return key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+    if (!key) return '';
+    return key.replace(/_/g, ' ').replace(/\b\w/g, function (c) { return c.toUpperCase(); });
   }
 
   function renderEvidence(ev) {
@@ -601,13 +607,14 @@
   // UTILITIES
   // ---------------------------------------------------------------------------
   function delay(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise(function (resolve) { setTimeout(resolve, ms); });
   }
 
+  var escEl = document.createElement('div');
   function escHtml(str) {
-    const div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
+    if (str == null) return '';
+    escEl.textContent = str;
+    return escEl.innerHTML;
   }
 
   // ---------------------------------------------------------------------------

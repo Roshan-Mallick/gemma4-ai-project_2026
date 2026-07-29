@@ -38,18 +38,6 @@
     min-height: 100vh;
     padding: 100px 24px 60px;
 }
-.nav-links a.active {
-    color: var(--primary);
-}
-
-.nav-links a.inactive {
-    color: var(--norm);
-}
-
-.nav-links a.inactive:hover {
-    color: var(--primary);
-}
-*{ box-sizing: border-box; }
 html{ scroll-behavior: smooth; }
 body{
   margin:0;
@@ -302,7 +290,6 @@ ul{ margin:0; padding:0; list-style:none; }
    Responsive
    ========================================================= */
 @media (max-width: 900px){
-  .nav__links{ display:none; }
   .story__inner{ grid-template-columns: 1fr; }
   .story__visual{ position: static; }
   .values__grid{ grid-template-columns: repeat(2, 1fr); }

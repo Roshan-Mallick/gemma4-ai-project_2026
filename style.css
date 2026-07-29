@@ -17,12 +17,31 @@ body {
     color: var(--dark);
     padding-top: 76px;
     background-color: #ffffff;
+    overflow-x: hidden;
 }
 
-.hiw-page {
+.hiw-page,
+.home-page {
     background: var(--bg);
     min-height: 100vh;
     padding: 40px 24px 40px;
+}
+
+:focus-visible {
+    outline: 2px solid #225be3;
+    outline-offset: 3px;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 /* Navbar */
@@ -250,10 +269,6 @@ body {
     .video-section iframe{ height:240px; }
 }
 
-/* Caption under video */
-.video-caption{ margin:0; font-size:1.1rem; font-weight:700; text-align:center; }
-.video-caption span{ display:inline-block; }
-
     .footer{
         background-color: white;
         width: 100%;
@@ -303,26 +318,6 @@ body {
         color: #225be3;
     }
 
-    #arr1{
-        font-size: 0.8rem;
-    }
-
-     #arr2{
-        font-size: 0.8rem;
-    }
-
-     #arr3{
-        font-size: 0.8rem;
-    }
-
-     #arr4{
-        font-size: 0.8rem;
-    }
-
-     #arr5{
-        font-size: 0.8rem;
-    }
-
     .box{
         background-color: white;
         border: 2px solid rgba(128, 128, 128, 0.318);
@@ -349,15 +344,6 @@ body {
         font-size: 0.85rem;
         color: #6b7280;
         line-height: 1.4;
-    }
-
-    .box .learn-more {
-        color: #225be3;
-        cursor: pointer;
-    }
-
-    .box .learn-more:hover {
-        text-decoration: underline;
     }
 
     @media (max-width: 900px) {
@@ -664,10 +650,7 @@ body {
    RESPONSIVE — Tablet & Mobile
    ============================================= */
 
-/* Prevent horizontal scroll */
-html, body {
-    overflow-x: hidden;
-}
+
 
 /* ---------- Tablet (768px–1023px) ---------- */
 @media (max-width: 1023px) {
@@ -698,7 +681,6 @@ html, body {
 @media (max-width: 767px) {
     body {
         padding-top: 60px;
-        overflow-x: hidden;
     }
 
     .hiw-page {

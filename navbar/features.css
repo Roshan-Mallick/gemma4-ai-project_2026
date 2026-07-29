@@ -11,18 +11,6 @@
     --norm: #374151;
 }
 
-.nav-links a.active {
-    color: var(--primary);
-}
-
-.nav-links a.inactive {
-    color: var(--norm);
-}
-
-.nav-links a.inactive:hover {
-    color: var(--primary);
-}
-
 .features-page {
     background: var(--bg);
     min-height: 100vh;
@@ -144,6 +132,12 @@
 .visual-header span {
     color: var(--primary);
     font-weight: 700;
+}
+
+.visual-note {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
 }
 
 .visual-grid {
@@ -290,7 +284,7 @@
 }
 
 @media (max-width: 760px) {
-    .features-page {
+.features-page {
         padding: 90px 18px 40px;
     }
 

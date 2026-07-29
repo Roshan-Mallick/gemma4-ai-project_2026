@@ -3,31 +3,43 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SafeHire AI — Dashboard</title>
+<title>SafeHire AI Dashboard - AI Job Scam Analysis</title>
+<meta name="description" content="SafeHire AI Dashboard - Upload or paste a job posting for AI-powered scam detection. Powered by Gemma 4." />
+<meta name="robots" content="noindex, nofollow" />
+<link rel="canonical" href="https://gemma4-ai-project-2026-azb0.onrender.com/dashboard/dashboard.html" />
+<meta property="og:title" content="SafeHire AI Dashboard" />
+<meta property="og:description" content="Upload or paste a job posting for AI-powered scam detection using Gemma 4." />
+<meta property="og:url" content="https://gemma4-ai-project-2026-azb0.onrender.com/dashboard/dashboard.html" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://gemma4-ai-project-2026-azb0.onrender.com/assets/logo.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="SafeHire AI Dashboard" />
+<meta name="twitter:description" content="Upload or paste a job posting for AI-powered scam detection using Gemma 4." />
+<meta name="twitter:image" content="https://gemma4-ai-project-2026-azb0.onrender.com/assets/logo.png" />
 <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
 <link rel="stylesheet" href="../style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css" integrity="sha512-ApSLB1Pd3/bZN8fWB/RG9YhN/7bd9Hkf3AGaE2mPfebjrxagjuBtx2GcgdqIlJkUzwylBo61r9Xa9NmgBI0swA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-<link rel="stylesheet" href="/dashboard/dashboard.css">
+<link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
 
 <!-- ============================== NAVBAR (same as landing page) ============================== -->
 <nav class="navbar">
     <div class="nav-left">
-       <a href="../index.html"><img src="/assets/logo.png" alt="SafeHire AI Logo" class="nav-logo"></a>
-       <a href="../index.html"><h1 class="nav-title">SafeHire AI</h1></a>
+       <a href="../index.html"><img src="../assets/logo.png" alt="" class="nav-logo"></a>
+       <a href="../index.html"><span class="nav-title">SafeHire AI</span></a>
     </div>
     <div class="nav-links" id="navLinks">
-         <a href="/navbar/features.html" class="inactive">Features</a>
-         <a href="/navbar/hiw.html" class="inactive">How It Works</a>
-         <a href="/navbar/solutions.html" class="inactive">Solutions</a>
-         <a href="/navbar/resources.html" class="inactive">Resources</a>
-         <a href="/navbar/about.html" class="inactive">About</a>
-         <a href="/navbar/feedback.html" class="inactive">Feedback</a>
+         <a href="../navbar/features.html" class="inactive">Features</a>
+         <a href="../navbar/hiw.html" class="inactive">How It Works</a>
+         <a href="../navbar/solutions.html" class="inactive">Solutions</a>
+         <a href="../navbar/resources.html" class="inactive">Resources</a>
+         <a href="../navbar/about.html" class="inactive">About</a>
+         <a href="../navbar/feedback.html" class="inactive">Feedback</a>
     </div>
     <div class="nav-right">
-        <button class="nav-signup-button" onclick="window.location.href='/dashboard/dashboard.html'">Dashboard</button>
+        <button class="nav-signup-button" onclick="window.location.href='dashboard.html'">Dashboard</button>
         <button class="nav-theme-toggle" id="themeToggle" aria-label="Toggle theme">
             <i class="fa-solid fa-moon theme-icon-light"></i>
             <i class="fa-solid fa-sun theme-icon-dark"></i>
@@ -47,6 +59,7 @@
   <strong>First load may take 1&ndash;2 minutes</strong> while it wakes up.
 </div>
 
+<main>
 <!-- ============================== HERO SECTION ============================== -->
 <section class="hero" id="heroSection">
   <div class="hero-bg-glow"></div>
@@ -84,6 +97,7 @@
 
       <!-- Paste text area -->
       <div class="paste-area" id="pasteArea" style="display:none;">
+        <label for="pasteInput" class="sr-only">Paste job posting text</label>
         <textarea id="pasteInput" placeholder="Paste the job posting text here..." rows="6"></textarea>
         <div class="paste-actions">
           <button class="btn-ghost" id="pasteCancelBtn">Cancel</button>
@@ -401,7 +415,8 @@
 
 </section>
 
-<script src="../script.js"></script>
-<script src="/dashboard/dashboard.js"></script>
+</main>
+<script src="../script.js" defer></script>
+<script src="dashboard.js" defer></script>
 </body>
 </html>

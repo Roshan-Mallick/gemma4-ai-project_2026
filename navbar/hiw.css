@@ -8,18 +8,6 @@
     --primary-soft: rgba(34, 91, 227, 0.12);
 }
 
-.nav-links a.active {
-    color: var(--primary);
-}
-
-.nav-links a.inactive {
-    color: var(--norm);
-}
-
-.nav-links a.inactive:hover {
-    color: var(--primary);
-}
-
 .hiw-page {
     background: var(--bg);
     min-height: 100vh;
@@ -174,7 +162,7 @@
 }
 
 @media (max-width: 640px) {
-    .hiw-page {
+.hiw-page {
         padding: 80px 16px 40px;
     }
     .hiw-hero {

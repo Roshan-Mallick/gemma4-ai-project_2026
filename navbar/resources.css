@@ -15,17 +15,6 @@
   margin: 0 auto 45px;
   text-align: center;
 }
-.nav-links a.active {
-    color: var(--primary);
-}
-
-.nav-links a.inactive {
-    color: var(--norm);
-}
-
-.nav-links a.inactive:hover {
-    color: var(--primary);
-}
 .section-tag {
   display: inline-block;
   margin-bottom: 12px;
@@ -38,14 +27,14 @@
   letter-spacing: 0.9px;
 }
 
-.resources-heading h2 {
+.resources-heading h1 {
   margin: 0 0 14px;
   color: #101a33;
   font-size: clamp(30px, 4vw, 42px);
   line-height: 1.2;
 }
 
-.resources-heading h2 span {
+.resources-heading h1 span {
   color: #2d5df5;
 }
 
@@ -91,6 +80,7 @@
   font-weight: 800;
 }
 
+.resource-card h2,
 .resource-card h3 {
   margin: 0 0 8px;
   color: #101a33;

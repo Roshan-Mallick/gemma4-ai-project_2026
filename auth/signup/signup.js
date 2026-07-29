@@ -1,15 +1,17 @@
-// Password visibility toggle
 function setupPasswordToggle(toggleId, inputId) {
-    const toggle = document.getElementById(toggleId);
-    const input = document.getElementById(inputId);
-    const iconEye = toggle.querySelector('.icon-eye');
-    const iconEyeOff = toggle.querySelector('.icon-eye-off');
+    var toggle = document.getElementById(toggleId);
+    var input = document.getElementById(inputId);
+    if (!toggle || !input) return;
 
-    toggle.addEventListener('click', () => {
-        const isPassword = input.type === 'password';
+    var iconEye = toggle.querySelector('.icon-eye');
+    var iconEyeOff = toggle.querySelector('.icon-eye-off');
+
+    toggle.addEventListener('click', function () {
+        var isPassword = input.type === 'password';
         input.type = isPassword ? 'text' : 'password';
-        iconEye.style.display = isPassword ? 'none' : 'block';
-        iconEyeOff.style.display = isPassword ? 'block' : 'none';
+        if (iconEye) iconEye.style.display = isPassword ? 'none' : 'block';
+        if (iconEyeOff) iconEyeOff.style.display = isPassword ? 'block' : 'none';
+        toggle.setAttribute('aria-label', isPassword ? 'Hide password' : 'Show password');
         input.focus();
     });
 }
@@ -17,74 +19,65 @@ function setupPasswordToggle(toggleId, inputId) {
 setupPasswordToggle('passwordToggle', 'password');
 setupPasswordToggle('confirmPasswordToggle', 'confirmPassword');
 
-// Password match validation
-const passwordInput = document.getElementById('password');
-const confirmPasswordInput = document.getElementById('confirmPassword');
-const passwordError = document.getElementById('passwordError');
+var passwordInput = document.getElementById('password');
+var confirmPasswordInput = document.getElementById('confirmPassword');
+var passwordError = document.getElementById('passwordError');
 
-function checkPasswordMatch() {
-    const password = passwordInput.value;
-    const confirm = confirmPasswordInput.value;
+if (passwordInput && confirmPasswordInput && passwordError) {
+    function checkPasswordMatch() {
+        var password = passwordInput.value;
+        var confirm = confirmPasswordInput.value;
 
-    if (confirm.length === 0) {
-        passwordError.textContent = '';
-        confirmPasswordInput.classList.remove('input-error');
-        return;
+        if (confirm.length === 0) {
+            passwordError.textContent = '';
+            confirmPasswordInput.classList.remove('input-error');
+            return;
+        }
+
+        if (password !== confirm) {
+            passwordError.textContent = 'Passwords do not match';
+            confirmPasswordInput.classList.add('input-error');
+        } else {
+            passwordError.textContent = '';
+            confirmPasswordInput.classList.remove('input-error');
+        }
     }
 
-    if (password !== confirm) {
-        passwordError.textContent = 'Passwords do not match';
-        confirmPasswordInput.classList.add('input-error');
-    } else {
-        passwordError.textContent = '';
-        confirmPasswordInput.classList.remove('input-error');
-    }
+    passwordInput.addEventListener('input', checkPasswordMatch);
+    confirmPasswordInput.addEventListener('input', checkPasswordMatch);
 }
 
-passwordInput.addEventListener('input', checkPasswordMatch);
-confirmPasswordInput.addEventListener('input', checkPasswordMatch);
+var signupForm = document.getElementById('signupForm');
 
-// Form submit handler
-const signupForm = document.getElementById('signupForm');
+if (signupForm) {
+    signupForm.addEventListener('submit', function (e) {
+        e.preventDefault();
 
-signupForm.addEventListener('submit', (e) => {
-    e.preventDefault();
+        var username = document.getElementById('username');
+        var email = document.getElementById('email');
+        var terms = document.getElementById('terms');
+        var usernameVal = username ? username.value.trim() : '';
+        var emailVal = email ? email.value.trim() : '';
+        var passwordVal = passwordInput ? passwordInput.value.trim() : '';
+        var confirmVal = confirmPasswordInput ? confirmPasswordInput.value.trim() : '';
+        var termsChecked = terms ? terms.checked : false;
 
-    const username = document.getElementById('username').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const password = passwordInput.value.trim();
-    const confirm = confirmPasswordInput.value.trim();
-    const terms = document.getElementById('terms').checked;
+        if (!usernameVal) { if (username) username.focus(); return; }
+        if (!emailVal) { if (email) email.focus(); return; }
+        if (!passwordVal) { if (passwordInput) passwordInput.focus(); return; }
+        if (passwordVal !== confirmVal) { if (confirmPasswordInput) confirmPasswordInput.focus(); return; }
+        if (!termsChecked) { if (terms) terms.focus(); return; }
 
-    if (!username) {
-        document.getElementById('username').focus();
-        return;
-    }
-    if (!email) {
-        document.getElementById('email').focus();
-        return;
-    }
-    if (!password) {
-        passwordInput.focus();
-        return;
-    }
-    if (password !== confirm) {
-        confirmPasswordInput.focus();
-        return;
-    }
-    if (!terms) {
-        document.getElementById('terms').focus();
-        return;
-    }
+        var btn = signupForm.querySelector('.login-btn');
+        if (!btn) return;
+        btn.textContent = 'Creating account...';
+        btn.style.opacity = '0.8';
+        btn.disabled = true;
 
-    const btn = signupForm.querySelector('.login-btn');
-    btn.textContent = 'Creating account...';
-    btn.style.opacity = '0.8';
-    btn.disabled = true;
-
-    setTimeout(() => {
-        btn.textContent = 'Create Account';
-        btn.style.opacity = '1';
-        btn.disabled = false;
-    }, 2000);
-});
+        setTimeout(function () {
+            btn.textContent = 'Create Account';
+            btn.style.opacity = '1';
+            btn.disabled = false;
+        }, 2000);
+    });
+}

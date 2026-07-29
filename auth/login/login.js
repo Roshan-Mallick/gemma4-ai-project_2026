@@ -1,43 +1,47 @@
-// Password visibility toggle
-const passwordToggle = document.getElementById('passwordToggle');
-const passwordInput = document.getElementById('password');
-const iconEye = passwordToggle.querySelector('.icon-eye');
-const iconEyeOff = passwordToggle.querySelector('.icon-eye-off');
+var passwordToggle = document.getElementById('passwordToggle');
+var passwordInput = document.getElementById('password');
+var loginForm = document.getElementById('loginForm');
 
-passwordToggle.addEventListener('click', () => {
-    const isPassword = passwordInput.type === 'password';
-    passwordInput.type = isPassword ? 'text' : 'password';
-    iconEye.style.display = isPassword ? 'none' : 'block';
-    iconEyeOff.style.display = isPassword ? 'block' : 'none';
-    passwordInput.focus();
-});
+if (passwordToggle && passwordInput) {
+    var iconEye = passwordToggle.querySelector('.icon-eye');
+    var iconEyeOff = passwordToggle.querySelector('.icon-eye-off');
 
-// Form submit handler (demo)
-const loginForm = document.getElementById('loginForm');
-
-loginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const email = document.getElementById('email').value.trim();
-    const password = passwordInput.value.trim();
-
-    if (!email) {
-        document.getElementById('email').focus();
-        return;
-    }
-    if (!password) {
+    passwordToggle.addEventListener('click', function () {
+        var isPassword = passwordInput.type === 'password';
+        passwordInput.type = isPassword ? 'text' : 'password';
+        if (iconEye) iconEye.style.display = isPassword ? 'none' : 'block';
+        if (iconEyeOff) iconEyeOff.style.display = isPassword ? 'block' : 'none';
+        passwordToggle.setAttribute('aria-label', isPassword ? 'Hide password' : 'Show password');
         passwordInput.focus();
-        return;
-    }
+    });
+}
 
-    // Demo: show success state
-    const btn = loginForm.querySelector('.login-btn');
-    btn.textContent = 'Logging in...';
-    btn.style.opacity = '0.8';
-    btn.disabled = true;
+if (loginForm) {
+    loginForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var email = document.getElementById('email');
+        var emailVal = email ? email.value.trim() : '';
+        var passwordVal = passwordInput ? passwordInput.value.trim() : '';
 
-    setTimeout(() => {
-        btn.textContent = 'Log In';
-        btn.style.opacity = '1';
-        btn.disabled = false;
-    }, 2000);
-});
+        if (!emailVal) {
+            if (email) email.focus();
+            return;
+        }
+        if (!passwordVal) {
+            if (passwordInput) passwordInput.focus();
+            return;
+        }
+
+        var btn = loginForm.querySelector('.login-btn');
+        if (!btn) return;
+        btn.textContent = 'Logging in...';
+        btn.style.opacity = '0.8';
+        btn.disabled = true;
+
+        setTimeout(function () {
+            btn.textContent = 'Log In';
+            btn.style.opacity = '1';
+            btn.disabled = false;
+        }, 2000);
+    });
+}

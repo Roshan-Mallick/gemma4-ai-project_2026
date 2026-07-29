@@ -31,7 +31,6 @@
   --shadow-btn: 0 8px 20px -8px rgba(34,91,227,.5);
 }
 
-*{ box-sizing: border-box; }
 html{ scroll-behavior: smooth; }
 body{
   margin:0;
