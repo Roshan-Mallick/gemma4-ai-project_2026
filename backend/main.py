@@ -661,6 +661,14 @@ async def serve_index():
     raise HTTPException(status_code=404, detail="Index not found")
 
 
+@app.get("/googlee4eea20601d9903d.html")
+async def serve_google_verification():
+    verification_file = ROOT_DIR / "googlee4eea20601d9903d.html"
+    if verification_file.exists():
+        return FileResponse(str(verification_file), media_type="text/html")
+    raise HTTPException(status_code=404, detail="Verification file not found")
+
+
 app.mount("/assets", StaticFiles(directory=str(ROOT_DIR / "assets")), name="assets")
 app.mount("/dashboard", StaticFiles(directory=str(ROOT_DIR / "dashboard")), name="dashboard-static")
 app.mount("/auth", StaticFiles(directory=str(ROOT_DIR / "auth")), name="auth")
