@@ -16,7 +16,6 @@
 
   **Backend (API)**              Render (Docker)             https://gemma4-ai-project-2026-azb0.onrender.com
 
-  **Pipeline Visualization**     Netlify                     https://safehire-ai-pipeline.netlify.app/
   -------------------------------------------------------------------------------------------------------------
 
 ### Pipeline Visualization
