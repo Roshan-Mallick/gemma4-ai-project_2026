@@ -669,6 +669,22 @@ async def serve_google_verification():
     raise HTTPException(status_code=404, detail="Verification file not found")
 
 
+@app.get("/robots.txt")
+async def serve_robots():
+    robots_file = ROOT_DIR / "robots.txt"
+    if robots_file.exists():
+        return FileResponse(str(robots_file), media_type="text/plain")
+    raise HTTPException(status_code=404, detail="robots.txt not found")
+
+
+@app.get("/sitemap.xml")
+async def serve_sitemap():
+    sitemap_file = ROOT_DIR / "sitemap.xml"
+    if sitemap_file.exists():
+        return FileResponse(str(sitemap_file), media_type="application/xml")
+    raise HTTPException(status_code=404, detail="sitemap.xml not found")
+
+
 app.mount("/assets", StaticFiles(directory=str(ROOT_DIR / "assets")), name="assets")
 app.mount("/dashboard", StaticFiles(directory=str(ROOT_DIR / "dashboard")), name="dashboard-static")
 app.mount("/auth", StaticFiles(directory=str(ROOT_DIR / "auth")), name="auth")
