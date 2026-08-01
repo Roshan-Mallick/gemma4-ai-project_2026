@@ -1,0 +1,19 @@
+name: Keep Render Backend Alive
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+jobs:
+  keep-alive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Render health endpoint
+        run: |
+          status=$(curl --max-time 30 -s -o /dev/null -w "%{http_code}" https://gemma4-ai-project-2026-azb0.onrender.com/health)
+          echo "HTTP status: $status"
+          if [ "$status" != "200" ]; then
+            echo "Health check failed: expected 200, got $status"
+            exit 1
+          fi
